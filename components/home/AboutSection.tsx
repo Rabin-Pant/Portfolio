@@ -43,7 +43,7 @@ export const AboutSection = () => {
     {
       year: '2023',
       title: 'Diving Deeper',
-      description: 'Discovered JavaScript. Started building Static Website and exploring system design concepts.',
+      description: 'Discovered JavaScript and backend development. Started building full-stack applications and exploring system design concepts.',
       icon: BookOpen,
       color: 'text-purple-400',
       bg: 'bg-purple-500/10',
@@ -140,21 +140,21 @@ export const AboutSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm mb-4"
+            className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm mb-4"
           >
-            <Heart size={14} />
+            <Heart size={12} className="md:w-[14px] md:h-[14px]" />
             <span>My Story</span>
           </motion.div>
           
           <motion.h2 
-            className="text-3xl md:text-4xl font-mono font-bold"
+            className="text-2xl md:text-4xl font-mono font-bold"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -164,7 +164,7 @@ export const AboutSection = () => {
           </motion.h2>
           
           <motion.p 
-            className="mt-4 text-slate-400 max-w-2xl mx-auto text-sm md:text-base"
+            className="mt-3 md:mt-4 text-slate-400 max-w-2xl mx-auto text-sm md:text-base"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -180,7 +180,7 @@ export const AboutSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-12"
         >
           {stats.map((stat, index) => {
             const Icon = stat.icon;
@@ -192,22 +192,22 @@ export const AboutSection = () => {
                 transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
-                className="bg-slate-900/30 backdrop-blur-sm rounded-2xl p-4 text-center border border-slate-800 hover:border-primary/30 transition-all duration-300 group"
+                className="bg-slate-900/30 backdrop-blur-sm rounded-xl md:rounded-2xl p-3 md:p-4 text-center border border-slate-800 hover:border-primary/30 transition-all duration-300 group"
               >
-                <div className="flex justify-center mb-2">
-                  <div className="p-2.5 rounded-xl bg-primary/10 group-hover:scale-110 transition-transform duration-300">
-                    <Icon size={22} className="text-primary" />
+                <div className="flex justify-center mb-1 md:mb-2">
+                  <div className="p-1.5 md:p-2.5 rounded-lg md:rounded-xl bg-primary/10 group-hover:scale-110 transition-transform duration-300">
+                    <Icon size={18} className="text-primary md:w-[22px] md:h-[22px]" />
                   </div>
                 </div>
-                <div className="text-2xl md:text-3xl font-mono font-bold text-primary">{stat.value}</div>
-                <div className="text-xs md:text-sm text-slate-400">{stat.label}</div>
+                <div className="text-xl md:text-3xl font-mono font-bold text-primary">{stat.value}</div>
+                <div className="text-[10px] md:text-sm text-slate-400">{stat.label}</div>
               </motion.div>
             );
           })}
         </motion.div>
 
         {/* Main Grid */}
-        <div className="grid lg:grid-cols-5 gap-8">
+        <div className="grid lg:grid-cols-5 gap-6 md:gap-8">
           {/* Left: Profile Card */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -216,8 +216,8 @@ export const AboutSection = () => {
             viewport={{ once: true }}
             className="lg:col-span-2"
           >
-            <div className="sticky top-24">
-              <div className="bg-slate-900/30 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl group">
+            <div className="lg:sticky lg:top-24">
+              <div className="bg-slate-900/30 backdrop-blur-sm rounded-xl md:rounded-2xl overflow-hidden border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl group">
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <Image
                     src="/images/rabin2.jpeg"
@@ -227,53 +227,52 @@ export const AboutSection = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
                   
-                  {/* Floating badge on image */}
                   <motion.div
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm rounded-full px-3 py-1.5 border border-white/10"
+                    className="absolute top-3 left-3 md:top-4 md:left-4 bg-black/60 backdrop-blur-sm rounded-full px-2 py-1 md:px-3 md:py-1.5 border border-white/10"
                   >
-                    <span className="text-xs text-slate-300 flex items-center gap-1.5">
-                      <Sparkles size={12} className="text-primary" />
+                    <span className="text-[10px] md:text-xs text-slate-300 flex items-center gap-1 md:gap-1.5">
+                      <Sparkles size={10} className="text-primary md:w-[12px] md:h-[12px]" />
                       Available
                     </span>
                   </motion.div>
                 </div>
                 
-                <div className="p-6">
-                  <h3 className="text-xl font-mono font-bold text-white">Rabin Pant</h3>
-                  <p className="text-sm text-primary">Full-Stack Developer</p>
+                <div className="p-4 md:p-6">
+                  <h3 className="text-lg md:text-xl font-mono font-bold text-white">Rabin Pant</h3>
+                  <p className="text-xs md:text-sm text-primary">Full-Stack Developer</p>
                   
-                  <div className="mt-4 space-y-2.5 text-sm">
-                    <div className="flex items-center gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
-                      <div className="p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
-                        <MapPin size={14} className="text-slate-500 group-hover/item:text-primary transition-colors" />
+                  <div className="mt-3 md:mt-4 space-y-2 md:space-y-2.5 text-sm">
+                    <div className="flex items-center gap-2 md:gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
+                      <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
+                        <MapPin size={12} className="text-slate-500 group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
-                      <span>Kathmandu, Nepal</span>
+                      <span className="text-xs md:text-sm">Kathmandu, Nepal</span>
                     </div>
-                    <div className="flex items-center gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
-                      <div className="p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
-                        <GraduationCap size={14} className="text-slate-500 group-hover/item:text-primary transition-colors" />
+                    <div className="flex items-center gap-2 md:gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
+                      <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
+                        <GraduationCap size={12} className="text-slate-500 group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
-                      <span>BSc (Hons) Computing</span>
+                      <span className="text-xs md:text-sm">BSc (Hons) Computing</span>
                     </div>
-                    <div className="flex items-center gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
-                      <div className="p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
-                        <Briefcase size={14} className="text-slate-500 group-hover/item:text-primary transition-colors" />
+                    <div className="flex items-center gap-2 md:gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
+                      <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
+                        <Briefcase size={12} className="text-slate-500 group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
-                      <span>4+ Production Apps</span>
+                      <span className="text-xs md:text-sm">4+ Production Apps</span>
                     </div>
-                    <div className="flex items-center gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
-                      <div className="p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
-                        <Award size={14} className="text-slate-500 group-hover/item:text-primary transition-colors" />
+                    <div className="flex items-center gap-2 md:gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
+                      <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
+                        <Award size={12} className="text-slate-500 group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
-                      <span>5 AWS Certifications</span>
+                      <span className="text-xs md:text-sm">5 AWS Certifications</span>
                     </div>
                   </div>
 
-                  <div className="mt-4 pt-4 border-t border-slate-800">
-                    <p className="text-sm text-slate-400 leading-relaxed italic">
+                  <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-slate-800">
+                    <p className="text-xs md:text-sm text-slate-400 leading-relaxed italic">
                       "I believe great software starts with a solid foundation — 
                       that's why I focus on system design and clean architecture 
                       before writing a single line of code."
@@ -292,8 +291,8 @@ export const AboutSection = () => {
             viewport={{ once: true }}
             className="lg:col-span-3"
           >
-            {/* Tabs */}
-            <div className="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+            {/* Tabs - Optimized for mobile */}
+            <div className="flex gap-1.5 sm:gap-2 mb-6 sm:mb-8 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -301,7 +300,7 @@ export const AboutSection = () => {
                   <motion.button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all duration-300 whitespace-nowrap text-sm font-medium ${
+                    className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-all duration-300 whitespace-nowrap text-xs sm:text-sm font-medium flex-shrink-0 ${
                       isActive
                         ? 'bg-primary text-white shadow-lg shadow-primary/25'
                         : 'bg-slate-800/30 text-slate-400 hover:text-white hover:bg-slate-700/50'
@@ -309,7 +308,7 @@ export const AboutSection = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <Icon size={16} />
+                    <Icon size={14} className="sm:w-4 sm:h-4" />
                     {tab.label}
                   </motion.button>
                 );
@@ -324,29 +323,30 @@ export const AboutSection = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.3 }}
-                className="bg-slate-900/30 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-800 min-h-[380px]"
+                className="bg-slate-900/30 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-8 border border-slate-800 min-h-[300px] md:min-h-[380px]"
               >
                 {activeTab === 'journey' && (
-                  <div className="space-y-6">
+                  <div className="space-y-4 md:space-y-6">
                     <div className="flex items-center gap-3">
-                      <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
-                        <Calendar size={20} className="text-primary" />
+                      <div className="p-2 md:p-2.5 rounded-xl bg-primary/10 border border-primary/20 flex-shrink-0">
+                        <Calendar size={18} className="text-primary md:w-[20px] md:h-[20px]" />
                       </div>
-                      <h3 className="text-xl font-mono font-bold text-white">My Journey</h3>
+                      <h3 className="text-lg md:text-xl font-mono font-bold text-white">My Journey</h3>
                     </div>
-                    <p className="text-slate-400 leading-relaxed">
+                    <p className="text-slate-400 leading-relaxed text-sm md:text-base">
                       I started my web development journey in 2022 with a simple curiosity: 
                       <span className="text-white"> "How do websites actually work?" </span>
                       That curiosity led me down a path of building, breaking, and learning.
                     </p>
-                    <p className="text-slate-400 leading-relaxed">
+                    <p className="text-slate-400 leading-relaxed text-sm md:text-base">
                       I chose Computer Science because I wanted to understand the 
                       <span className="text-white"> "why" </span>
                       behind the code — not just how to build things, but how to build them 
                       <span className="text-white"> the right way.</span>
                     </p>
                     
-                    <div className="relative pl-6 border-l-2 border-primary/30 space-y-5 mt-6">
+                    {/* Mobile-optimized timeline */}
+                    <div className="relative pl-4 sm:pl-6 border-l-2 border-primary/30 space-y-4 sm:space-y-5 mt-4 md:mt-6">
                       {journeySteps.map((step, index) => {
                         const Icon = step.icon;
                         return (
@@ -355,16 +355,16 @@ export const AboutSection = () => {
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.4, delay: index * 0.1 }}
-                            className={`relative p-4 rounded-xl ${step.bg} border ${step.border}`}
+                            className={`relative p-3 sm:p-4 rounded-xl ${step.bg} border ${step.border}`}
                           >
-                            <div className="absolute -left-[29px] p-1.5 rounded-full bg-primary/20 border border-primary/30">
-                              <Icon size={12} className="text-primary" />
+                            <div className="absolute -left-[21px] sm:-left-[29px] p-1 sm:p-1.5 rounded-full bg-primary/20 border border-primary/30">
+                              <Icon size={10} className="text-primary sm:w-3 sm:h-3" />
                             </div>
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
                               <span className="text-xs font-mono text-primary whitespace-nowrap">{step.year}</span>
-                              <h4 className="font-semibold text-white">{step.title}</h4>
+                              <h4 className="font-semibold text-white text-sm sm:text-base">{step.title}</h4>
                             </div>
-                            <p className="text-sm text-slate-400 mt-1">{step.description}</p>
+                            <p className="text-xs sm:text-sm text-slate-400 mt-1 leading-relaxed">{step.description}</p>
                           </motion.div>
                         );
                       })}
@@ -373,19 +373,19 @@ export const AboutSection = () => {
                 )}
 
                 {activeTab === 'future' && (
-                  <div className="space-y-6">
+                  <div className="space-y-4 md:space-y-6">
                     <div className="flex items-center gap-3">
-                      <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
-                        <Rocket size={20} className="text-primary" />
+                      <div className="p-2 md:p-2.5 rounded-xl bg-primary/10 border border-primary/20 flex-shrink-0">
+                        <Rocket size={18} className="text-primary md:w-[20px] md:h-[20px]" />
                       </div>
-                      <h3 className="text-xl font-mono font-bold text-white">What's Next</h3>
+                      <h3 className="text-lg md:text-xl font-mono font-bold text-white">What's Next</h3>
                     </div>
-                    <p className="text-slate-400 leading-relaxed">
+                    <p className="text-slate-400 leading-relaxed text-sm md:text-base">
                       I'm excited about the future and the impact I can make in the tech industry.
                       Here's what I'm working toward:
                     </p>
 
-                    <div className="grid sm:grid-cols-2 gap-4 mt-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4">
                       {futureGoals.map((goal, index) => {
                         const Icon = goal.icon;
                         return (
@@ -395,22 +395,22 @@ export const AboutSection = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: index * 0.08 }}
                             whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
-                            className={`p-4 rounded-xl ${goal.bg} border ${goal.border} hover:border-primary/50 transition-all duration-300 group cursor-default`}
+                            className={`p-3 sm:p-4 rounded-xl ${goal.bg} border ${goal.border} hover:border-primary/50 transition-all duration-300 group cursor-default`}
                           >
-                            <div className="flex items-center gap-3 mb-2">
-                              <div className={`p-2 rounded-lg ${goal.bg} group-hover:scale-110 transition-transform duration-300`}>
-                                <Icon size={18} className={goal.color} />
+                            <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
+                              <div className={`p-1.5 sm:p-2 rounded-lg ${goal.bg} group-hover:scale-110 transition-transform duration-300`}>
+                                <Icon size={16} className={goal.color} />
                               </div>
-                              <h4 className="font-semibold text-white text-sm">{goal.title}</h4>
+                              <h4 className="font-semibold text-white text-xs sm:text-sm">{goal.title}</h4>
                             </div>
-                            <p className="text-xs text-slate-400 leading-relaxed pl-1">{goal.description}</p>
+                            <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed pl-1">{goal.description}</p>
                           </motion.div>
                         );
                       })}
                     </div>
 
-                    <div className="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/20">
-                      <p className="text-sm text-slate-300">
+                    <div className="mt-4 p-3 sm:p-4 rounded-xl bg-primary/5 border border-primary/20">
+                      <p className="text-xs sm:text-sm text-slate-300">
                         <span className="text-primary font-medium">Long-term vision:</span>{" "}
                         Build products that solve real-world problems in Nepal and help grow the local tech ecosystem.
                       </p>
@@ -419,18 +419,18 @@ export const AboutSection = () => {
                 )}
 
                 {activeTab === 'philosophy' && (
-                  <div className="space-y-6">
+                  <div className="space-y-4 md:space-y-6">
                     <div className="flex items-center gap-3">
-                      <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
-                        <Lightbulb size={20} className="text-primary" />
+                      <div className="p-2 md:p-2.5 rounded-xl bg-primary/10 border border-primary/20 flex-shrink-0">
+                        <Lightbulb size={18} className="text-primary md:w-[20px] md:h-[20px]" />
                       </div>
-                      <h3 className="text-xl font-mono font-bold text-white">My Philosophy</h3>
+                      <h3 className="text-lg md:text-xl font-mono font-bold text-white">My Philosophy</h3>
                     </div>
-                    <p className="text-slate-400 leading-relaxed">
+                    <p className="text-slate-400 leading-relaxed text-sm md:text-base">
                       These are the principles that guide how I build software and work with others:
                     </p>
 
-                    <div className="space-y-3 mt-4">
+                    <div className="space-y-2 sm:space-y-3 mt-4">
                       {philosophyItems.map((item, index) => {
                         const Icon = item.icon;
                         return (
@@ -440,28 +440,28 @@ export const AboutSection = () => {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.3, delay: index * 0.08 }}
                             whileHover={{ x: 4, transition: { type: "spring", stiffness: 300 } }}
-                            className="flex items-start gap-3 p-3 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/30 transition-all duration-300 group cursor-default"
+                            className="flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/30 transition-all duration-300 group cursor-default"
                           >
-                            <div className="p-1.5 rounded-lg bg-primary/10 group-hover:scale-110 transition-transform duration-300">
-                              <Icon size={14} className="text-primary flex-shrink-0" />
+                            <div className="p-1 sm:p-1.5 rounded-lg bg-primary/10 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                              <Icon size={12} className="text-primary" />
                             </div>
-                            <span className="text-sm text-slate-300">{item.text}</span>
+                            <span className="text-xs sm:text-sm text-slate-300 leading-relaxed">{item.text}</span>
                           </motion.div>
                         );
                       })}
                     </div>
 
-                    <div className="mt-4 p-4 rounded-xl bg-slate-800/30 border border-slate-700 text-center group hover:border-primary/30 transition-all duration-300">
+                    <div className="mt-4 p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700 text-center group hover:border-primary/30 transition-all duration-300">
                       <motion.div
                         animate={{ y: [0, -3, 0] }}
                         transition={{ duration: 3, repeat: Infinity }}
                       >
-                        <Sparkles size={20} className="text-primary mx-auto mb-2" />
+                        <Sparkles size={16} className="text-primary mx-auto mb-1 sm:mb-2" />
                       </motion.div>
-                      <p className="text-sm text-slate-400">
+                      <p className="text-xs sm:text-sm text-slate-400">
                         "Good software starts with a good plan."
                       </p>
-                      <p className="text-xs text-slate-500 mt-1">— My development mantra</p>
+                      <p className="text-[10px] sm:text-xs text-slate-500 mt-1">— My development mantra</p>
                     </div>
                   </div>
                 )}
@@ -473,18 +473,18 @@ export const AboutSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="mt-6 flex flex-wrap gap-3"
+              className="mt-4 md:mt-6 flex flex-wrap gap-2 md:gap-3"
             >
               <Link
                 href="/#projects"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary-dark transition-all duration-200 text-sm font-medium shadow-lg shadow-primary/20 hover:shadow-primary/40"
+                className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-xl bg-primary hover:bg-primary-dark transition-all duration-200 text-xs md:text-sm font-medium shadow-lg shadow-primary/20 hover:shadow-primary/40"
               >
                 View My Work
                 <ArrowRight size={14} />
               </Link>
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-700 hover:border-primary hover:bg-primary/10 transition-all duration-200 text-sm font-medium"
+                className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-xl border border-slate-700 hover:border-primary hover:bg-primary/10 transition-all duration-200 text-xs md:text-sm font-medium"
               >
                 Let's Connect
                 <ChevronRight size={14} />
