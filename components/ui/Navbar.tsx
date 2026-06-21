@@ -1,7 +1,7 @@
-// components/ui/Navbar.tsx - Update the useEffect
+// components/ui/Navbar.tsx
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -27,7 +27,6 @@ export const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      // Only detect sections on homepage
       if (isHomePage) {
         const sections = ['about', 'skills', 'projects', 'contact'];
         let current = '';
@@ -46,7 +45,7 @@ export const Navbar = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomePage]); // ← Fixed: only depends on isHomePage
+  }, [isHomePage]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -82,9 +81,9 @@ export const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        isScrolled
-          ? 'bg-[#0A0A0A]/80 backdrop-blur-xl border-b border-slate-800/50 shadow-lg'
-          : 'bg-transparent'
+        isScrolled || isOpen
+          ? 'bg-[#0A0A0A]/95 backdrop-blur-xl border-b border-slate-800/50 shadow-lg'
+          : 'bg-[#0A0A0A]/80 backdrop-blur-sm'
       }`}
     >
       <div className="container-custom">
@@ -92,7 +91,7 @@ export const Navbar = () => {
           {/* Logo */}
           <Link 
             href="/" 
-            className="group flex items-center space-x-2 relative"
+            className="group flex items-center space-x-2 relative z-50"
             onClick={handleLogoClick}
           >
             <motion.div
@@ -100,7 +99,7 @@ export const Navbar = () => {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               className="flex items-center space-x-2 cursor-pointer"
             >
-              <span className="text-xl font-mono font-bold">
+              <span className="text-xl font-mono font-bold text-white">
                 <span className="text-primary">R</span>abin
               </span>
               <motion.span 
@@ -108,7 +107,7 @@ export const Navbar = () => {
                 animate={{ scale: [1, 1.5, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-              <span className="text-sm text-slate-400 font-mono">Pant</span>
+              <span className="text-sm text-slate-300 font-mono">Pant</span>
             </motion.div>
             <motion.span
               className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary"
@@ -191,7 +190,7 @@ export const Navbar = () => {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-white hover:text-primary transition-colors p-2 rounded-lg hover:bg-slate-800/50"
+            className="md:hidden text-white hover:text-primary transition-colors p-2 rounded-lg hover:bg-white/10 z-50"
             aria-label="Toggle menu"
             initial={{ opacity: 0, rotate: -90 }}
             animate={{ opacity: 1, rotate: 0 }}
@@ -213,7 +212,7 @@ export const Navbar = () => {
           </motion.button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Improved visibility */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -223,59 +222,69 @@ export const Navbar = () => {
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="md:hidden overflow-hidden"
             >
-              <motion.div className="py-4 space-y-3 border-t border-slate-800/50">
+              <motion.div className="py-6 space-y-4 border-t border-slate-700/50 bg-[#0A0A0A]/95 backdrop-blur-xl rounded-b-2xl">
                 {navLinks.map((link, index) => (
                   <motion.a
                     key={link.href}
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`block text-sm font-medium transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-slate-800/50 ${
-                      isActive(link.href) ? 'text-primary bg-slate-800/30' : 'text-slate-300 hover:text-white'
+                    className={`block text-base font-medium transition-colors duration-200 px-4 py-3 rounded-xl ${
+                      isActive(link.href) 
+                        ? 'text-primary bg-primary/10 border border-primary/20' 
+                        : 'text-slate-200 hover:text-white hover:bg-white/5'
                     }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                     whileHover={{ x: 4 }}
                   >
-                    {link.label}
-                    {isActive(link.href) && (
-                      <motion.span
-                        className="inline-block w-1.5 h-1.5 bg-primary rounded-full ml-2"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      />
-                    )}
+                    <div className="flex items-center justify-between">
+                      <span>{link.label}</span>
+                      {isActive(link.href) && (
+                        <motion.span
+                          className="inline-block w-1.5 h-1.5 bg-primary rounded-full"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ type: "spring", stiffness: 300 }}
+                        />
+                      )}
+                    </div>
                   </motion.a>
                 ))}
 
-                <motion.a
-                  href="https://github.com/Rabin-Pant"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-sm text-slate-300 hover:text-white transition-colors duration-200 px-3 py-2 rounded-lg hover:bg-slate-800/50"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.15 }}
-                  whileHover={{ x: 4 }}
-                >
-                  GitHub
-                </motion.a>
+                <div className="border-t border-slate-700/50 pt-4">
+                  <motion.a
+                    href="https://github.com/Rabin-Pant"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-base text-slate-200 hover:text-white transition-colors duration-200 px-4 py-3 rounded-xl hover:bg-white/5"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.15 }}
+                    whileHover={{ x: 4 }}
+                  >
+                    <GithubIcon size={20} />
+                    GitHub
+                  </motion.a>
 
-                <motion.a
-                  href="/resume.pdf"
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-4 py-2 rounded-lg bg-primary hover:bg-primary-dark transition-colors duration-200 text-sm font-medium text-center"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Resume
-                </motion.a>
+                  <motion.a
+                    href="/resume.pdf"
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block mt-2 px-4 py-3 rounded-xl bg-primary hover:bg-primary-dark transition-colors duration-200 text-sm font-medium text-center text-white"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="flex items-center justify-center gap-2">
+                      <Sparkles size={16} />
+                      Resume
+                    </div>
+                  </motion.a>
+                </div>
               </motion.div>
             </motion.div>
           )}
