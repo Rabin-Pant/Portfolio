@@ -43,7 +43,7 @@ export const AboutSection = () => {
     {
       year: '2023',
       title: 'Diving Deeper',
-      description: 'Discovered JavaScript and backend development. Started building full-stack applications and exploring system design concepts.',
+      description: 'Discovered JavaScript. Started building Static applications and exploring system design concepts.',
       icon: BookOpen,
       color: 'text-purple-400',
       bg: 'bg-purple-500/10',
@@ -52,7 +52,7 @@ export const AboutSection = () => {
     {
       year: '2024',
       title: 'Finding My Path',
-      description: 'Enrolled in BSc (Hons) Computing, diving deep into software architecture, algorithms, and cloud computing. Built my first production applications.',
+      description: 'Enrolled in BSc (Hons) Computing, diving deep into software architecture, algorithms, cloud computing and advance programming.',
       icon: GraduationCap,
       color: 'text-green-400',
       bg: 'bg-green-500/10',
@@ -61,7 +61,7 @@ export const AboutSection = () => {
     {
       year: '2025',
       title: 'Building & Growing',
-      description: 'Developed 4+ production applications, earned 5 AWS certifications, and started contributing to open-source projects.',
+      description: 'Developed 3+ production applications, earned 5 AWS certifications, and deepened my knowledge in cloud computing and full-stack development.',
       icon: Award,
       color: 'text-yellow-400',
       bg: 'bg-yellow-500/10',

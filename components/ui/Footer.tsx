@@ -3,7 +3,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GithubIcon } from '@/components/ui/GithubIcon';
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon';
@@ -20,7 +19,6 @@ import {
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [isVisible, setIsVisible] = useState(false);
-  const pathname = usePathname();
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -60,6 +58,13 @@ export const Footer = () => {
       value: 'Kathmandu, Nepal', 
       href: '#',
       color: 'hover:text-green-400'
+    },
+    { 
+      icon: Phone, 
+      label: 'Phone', 
+      value: '+977-986-123-4567', 
+      href: 'tel:+9779861234567',
+      color: 'hover:text-blue-400'
     },
   ];
 
@@ -179,7 +184,7 @@ export const Footer = () => {
               </div>
             </motion.div>
 
-            {/* Quick Links - No Home */}
+            {/* Quick Links */}
             <motion.div variants={itemVariants}>
               <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
                 <Sparkles size={14} className="text-primary" />
@@ -293,7 +298,7 @@ export const Footer = () => {
           </div>
         </motion.div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Bar - Simplified */}
         <motion.div 
           className="border-t border-slate-800/50 py-4"
           initial={{ opacity: 0 }}
@@ -302,7 +307,7 @@ export const Footer = () => {
           viewport={{ once: true }}
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            {/* Copyright */}
+            {/* Copyright - Only this remains */}
             <motion.p 
               className="text-xs text-slate-500 flex items-center gap-1.5"
               whileHover={{ x: 2 }}
@@ -316,37 +321,6 @@ export const Footer = () => {
               </motion.span>
               © {currentYear}
             </motion.p>
-
-            {/* Bottom Links */}
-            <div className="flex items-center gap-6 text-xs">
-              {['Projects', 'About', 'Contact', 'Resume'].map((item, index) => (
-                <motion.div
-                  key={item}
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + index * 0.05 }}
-                >
-                  {item === 'Resume' ? (
-                    <a
-                      href="/resume.pdf"
-                      download
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-slate-500 hover:text-primary transition-colors duration-200"
-                    >
-                      {item}
-                    </a>
-                  ) : (
-                    <Link
-                      href={item === 'Projects' ? '/projects' : `/#${item.toLowerCase()}`}
-                      className="text-slate-500 hover:text-primary transition-colors duration-200"
-                    >
-                      {item}
-                    </Link>
-                  )}
-                </motion.div>
-              ))}
-            </div>
 
             {/* Back to Top */}
             <AnimatePresence>
