@@ -22,7 +22,6 @@ export const Navbar = () => {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
-  // Detect scroll for glass effect and active section
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -190,7 +189,7 @@ export const Navbar = () => {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-white hover:text-primary transition-colors p-2 rounded-lg hover:bg-white/10 z-50"
+            className="md:hidden text-white hover:text-primary transition-colors p-3 rounded-lg hover:bg-white/10 z-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Toggle menu"
             initial={{ opacity: 0, rotate: -90 }}
             animate={{ opacity: 1, rotate: 0 }}
@@ -206,13 +205,13 @@ export const Navbar = () => {
                 exit={{ opacity: 0, rotate: 90 }}
                 transition={{ duration: 0.2 }}
               >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
+                {isOpen ? <X size={26} /> : <Menu size={26} />}
               </motion.div>
             </AnimatePresence>
           </motion.button>
         </div>
 
-        {/* Mobile Navigation - Improved visibility */}
+        {/* Mobile Navigation - FIXED TOUCH ISSUES */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -222,13 +221,27 @@ export const Navbar = () => {
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="md:hidden overflow-hidden"
             >
-              <motion.div className="py-6 space-y-4 border-t border-slate-700/50 bg-[#0A0A0A]/95 backdrop-blur-xl rounded-b-2xl">
+              <motion.div 
+                className="py-6 space-y-3 border-t border-slate-700/50 bg-[#0A0A0A]/95 backdrop-blur-xl rounded-b-2xl"
+                onClick={() => setIsOpen(false)} // Close menu when tapping outside links
+              >
                 {navLinks.map((link, index) => (
                   <motion.a
                     key={link.href}
                     href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className={`block text-base font-medium transition-colors duration-200 px-4 py-3 rounded-xl ${
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsOpen(false);
+                      if (isHomePage) {
+                        const element = document.querySelector(link.href.replace('/', ''));
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      } else {
+                        window.location.href = link.href;
+                      }
+                    }}
+                    className={`block text-base font-medium transition-colors duration-200 px-4 py-4 rounded-xl min-h-[52px] flex items-center ${
                       isActive(link.href) 
                         ? 'text-primary bg-primary/10 border border-primary/20' 
                         : 'text-slate-200 hover:text-white hover:bg-white/5'
@@ -237,12 +250,14 @@ export const Navbar = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                     whileHover={{ x: 4 }}
+                    // Prevent event bubbling
+                    onClickCapture={(e) => e.stopPropagation()}
                   >
-                    <div className="flex items-center justify-between">
-                      <span>{link.label}</span>
+                    <div className="flex items-center justify-between w-full">
+                      <span className="text-base">{link.label}</span>
                       {isActive(link.href) && (
                         <motion.span
-                          className="inline-block w-1.5 h-1.5 bg-primary rounded-full"
+                          className="inline-block w-2 h-2 bg-primary rounded-full"
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
                           transition={{ type: "spring", stiffness: 300 }}
@@ -252,18 +267,19 @@ export const Navbar = () => {
                   </motion.a>
                 ))}
 
-                <div className="border-t border-slate-700/50 pt-4">
+                <div className="border-t border-slate-700/50 pt-3">
                   <motion.a
                     href="https://github.com/Rabin-Pant"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-base text-slate-200 hover:text-white transition-colors duration-200 px-4 py-3 rounded-xl hover:bg-white/5"
+                    className="flex items-center gap-3 text-base text-slate-200 hover:text-white transition-colors duration-200 px-4 py-4 rounded-xl min-h-[52px] hover:bg-white/5"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.15 }}
                     whileHover={{ x: 4 }}
+                    onClick={() => setIsOpen(false)}
                   >
-                    <GithubIcon size={20} />
+                    <GithubIcon size={22} />
                     GitHub
                   </motion.a>
 
@@ -272,12 +288,13 @@ export const Navbar = () => {
                     download
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block mt-2 px-4 py-3 rounded-xl bg-primary hover:bg-primary-dark transition-colors duration-200 text-sm font-medium text-center text-white"
+                    className="block mt-2 px-4 py-4 rounded-xl bg-primary hover:bg-primary-dark transition-colors duration-200 text-sm font-medium text-center text-white min-h-[52px] flex items-center justify-center"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={() => setIsOpen(false)}
                   >
                     <div className="flex items-center justify-center gap-2">
                       <Sparkles size={16} />

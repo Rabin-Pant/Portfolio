@@ -111,3 +111,24 @@
 .animate-spin-slow-reverse {
   animation: spin-slow-reverse 8s linear infinite;
 }
+
+@media (max-width: 768px) {
+ 
+  a, button, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+ 
+  .mobile-menu-overlay {
+    touch-action: auto;
+    pointer-events: auto;
+  }
+  
+  
+  .mobile-menu-link {
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+}

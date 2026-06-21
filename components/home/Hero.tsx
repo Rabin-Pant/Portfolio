@@ -334,6 +334,7 @@ export const Hero = () => {
                       src="/images/rabin.jpeg"
                       alt="Rabin Pant"
                       fill
+                      sizes="(max-width: 768px) 40vw, (max-width: 1200px) 30vw, 20vw"
                       className="object-cover"
                       priority
                     />
