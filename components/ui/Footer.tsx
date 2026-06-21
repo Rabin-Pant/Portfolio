@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GithubIcon } from '@/components/ui/GithubIcon';
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon';
@@ -13,16 +14,14 @@ import {
   ArrowUp, 
   Sparkles,
   Heart,
-  Code,
-  Rocket,
-  Coffee
+  Code
 } from 'lucide-react';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [isVisible, setIsVisible] = useState(false);
+  const pathname = usePathname();
 
-  // Show back to top button after scrolling
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.scrollY > 300) {
@@ -41,11 +40,10 @@ export const Footer = () => {
   };
 
   const quickLinks = [
-    { label: 'Home', href: '/', icon: '🏠' },
-    { label: 'About', href: '/#about', icon: '👤' },
-    { label: 'Skills', href: '/#skills', icon: '💻' },
-    { label: 'Projects', href: '/#projects', icon: '📂' },
-    { label: 'Contact', href: '/#contact', icon: '📧' },
+    { label: 'About', href: '/#about' },
+    { label: 'Skills', href: '/#skills' },
+    { label: 'Projects', href: '/#projects' },
+    { label: 'Contact', href: '/#contact' },
   ];
 
   const contactInfo = [
@@ -62,13 +60,6 @@ export const Footer = () => {
       value: 'Kathmandu, Nepal', 
       href: '#',
       color: 'hover:text-green-400'
-    },
-    { 
-      icon: Phone, 
-      label: 'Phone', 
-      value: '+977-986-123-4567', 
-      href: 'tel:+9779861234567',
-      color: 'hover:text-blue-400'
     },
   ];
 
@@ -188,7 +179,7 @@ export const Footer = () => {
               </div>
             </motion.div>
 
-            {/* Quick Links */}
+            {/* Quick Links - No Home */}
             <motion.div variants={itemVariants}>
               <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
                 <Sparkles size={14} className="text-primary" />
@@ -203,9 +194,8 @@ export const Footer = () => {
                   >
                     <Link
                       href={link.href}
-                      className="text-sm text-slate-400 hover:text-primary transition-colors duration-200 flex items-center gap-2 group"
+                      className="text-sm text-slate-400 hover:text-primary transition-colors duration-200"
                     >
-                      <span className="text-base group-hover:scale-110 transition-transform">{link.icon}</span>
                       {link.label}
                     </Link>
                   </motion.li>
@@ -216,7 +206,7 @@ export const Footer = () => {
             {/* Contact Info */}
             <motion.div variants={itemVariants}>
               <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
-                <Heart size={14} className="text-primary" />
+                <Mail size={14} className="text-primary" />
                 Contact
               </h4>
               <ul className="space-y-3">
