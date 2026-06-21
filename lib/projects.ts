@@ -19,7 +19,6 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  // Featured Projects (first 3)
   {
     slug: 'talentbridge',
     title: 'TalentBridge',
@@ -37,7 +36,7 @@ export const projects: Project[] = [
       'Social feed with posts, likes, and comments',
     ],
     techStack: ['React', 'Node.js', 'PostgreSQL', 'Prisma', 'Socket.io', 'Tailwind CSS'],
-    image: '/images/projects/talentbridge.jpg',
+    image: '/images/projects/TalentBridge.png',
     links: {
       github: 'https://github.com/Rabin-Pant/TALENTBRIDGE',
     },
@@ -61,7 +60,7 @@ export const projects: Project[] = [
       'Admin dashboard with revenue analytics',
     ],
     techStack: ['Java', 'JSP', 'Servlets', 'MySQL', 'JDBC', 'HTML/CSS', 'JavaScript'],
-    image: '/images/projects/cinebook.jpg',
+    image: '/images/projects/cinebook.png',
     links: {
       github: 'https://github.com/Rabin-Pant/CineBook-Online-Movie-Ticket-Booking-System',
     },
@@ -85,7 +84,7 @@ export const projects: Project[] = [
       'Read receipts + typing indicators',
     ],
     techStack: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Socket.io', 'Tailwind CSS'],
-    image: '/images/projects/chat-app.jpg',
+    image: '/images/projects/chat-app.png',
     links: {
       github: 'https://github.com/Rabin-Pant/Chat-App',
       live: 'https://chat-app-psi-ecru-73.vercel.app',
@@ -93,37 +92,9 @@ export const projects: Project[] = [
     featured: true,
     year: '2025',
   },
-  // Non-featured projects (shown in "All Projects" page)
-  {
-    slug: 'inventory-pro',
-    title: 'InventoryPro',
-    tagline: 'Full Stack Inventory Management System',
-    description:
-      'A complete inventory management system with role-based access control, real-time stock tracking, and automated invoice generation built with Flask and React.',
-    problem:
-      'Small to medium businesses struggle with manual inventory tracking, leading to stockouts, overstocking, and inefficient order processing. Existing solutions are either too expensive or too complex.',
-    solution:
-      'Built a production-ready inventory system with separate admin and customer portals, JWT authentication, real-time stock alerts, and automatic PDF invoice generation.',
-    results: [
-      'Role-based access control for Admin and Customer',
-      'Real-time stock tracking with automated alerts',
-      'PDF invoice generation and download',
-      'Dashboard analytics for business insights',
-      'Full CRUD operations for products and categories',
-      'Shopping cart and order management',
-    ],
-    techStack: ['Python', 'Flask', 'React', 'SQLite', 'JWT', 'HTML/CSS', 'JavaScript'],
-    image: '/images/projects/inventory-pro.jpg',
-    links: {
-      github: 'https://github.com/Rabin-Pant/Inventory-Pro',
-    },
-    featured: false,
-    year: '2025',
-  },
 ];
 
 export const getFeaturedProjects = (): Project[] => {
-  // Return only projects where featured is true (first 3)
   return projects.filter((project) => project.featured);
 };
 

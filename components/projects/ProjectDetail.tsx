@@ -1,6 +1,7 @@
 // components/projects/ProjectDetail.tsx
 'use client';
 
+import Image from 'next/image'; // ✅ Added import
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, CheckCircle } from 'lucide-react';
@@ -89,25 +90,21 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
         </div>
       </motion.div>
 
-      {/* Image Placeholder */}
+      {/* Project Image - ✅ Now shows actual images */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
         className="relative aspect-video bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl overflow-hidden border border-slate-800 mb-12"
       >
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-slate-500">
-            <div className="text-6xl mb-4">
-              {project.title === 'TalentBridge' && '💼'}
-              {project.title === 'CineBook' && '🎬'}
-              {project.title === 'Chat App' && '💬'}
-            </div>
-            <p className="text-sm">Project Screenshot Placeholder</p>
-            <p className="text-xs text-slate-600 mt-1">Add your own image here</p>
-          </div>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-900 to-transparent" />
+        <Image
+          src={project.image}
+          alt={`${project.title} screenshot`}
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent" />
       </motion.div>
 
       {/* Project Links */}

@@ -11,12 +11,7 @@ import {
   GitBranch,
   Award,
   Sparkles,
-  Star,
-  Shield,
-  Zap,
-  Layers,
   Terminal,
-  Cpu,
   Boxes
 } from 'lucide-react';
 
@@ -79,22 +74,23 @@ export const SkillsSection = () => {
   ];
 
   const certifications = [
-    { name: 'AWS Cloud Foundations', icon: Shield, color: 'text-yellow-400' },
-    { name: 'AWS Machine Learning Foundations', icon: Cpu, color: 'text-purple-400' },
+    { name: 'AWS Cloud Foundations', icon: Award, color: 'text-yellow-400' },
+    { name: 'AWS Machine Learning Foundations', icon: Sparkles, color: 'text-purple-400' },
     { name: 'AWS ML for Natural Language Processing', icon: Sparkles, color: 'text-blue-400' },
     { name: 'AWS Data Engineering Foundations', icon: Database, color: 'text-green-400' },
-    { name: 'AWS Generative AI Foundations', icon: Zap, color: 'text-orange-400' },
+    { name: 'AWS Generative AI Foundations', icon: Sparkles, color: 'text-orange-400' },
     { name: 'Java OOP - LinkedIn Learning', icon: Code2, color: 'text-red-400' },
     { name: 'UI/UX with Figma', icon: Layout, color: 'text-pink-400' },
   ];
 
+  // Languages - Only names, no stars
   const languages = [
-    { name: 'Java', level: 'Advanced', stars: 5, color: 'text-red-400' },
-    { name: 'SQL', level: 'Advanced', stars: 5, color: 'text-blue-400' },
-    { name: 'JavaScript', level: 'Intermediate', stars: 3, color: 'text-yellow-400' },
-    { name: 'Python', level: 'Intermediate', stars: 3, color: 'text-green-400' },
-    { name: 'Bash', level: 'Intermediate', stars: 3, color: 'text-green-400' },
-    { name: 'TypeScript', level: 'Beginner', stars: 2, color: 'text-blue-400' },
+    { name: 'Java', level: 'Advanced' },
+    { name: 'SQL', level: 'Advanced' },
+    { name: 'JavaScript', level: 'Intermediate' },
+    { name: 'Python', level: 'Intermediate' },
+    { name: 'Bash', level: 'Intermediate' },
+    { name: 'TypeScript', level: 'Beginner' },
   ];
 
   const getLevelColor = (level: string) => {
@@ -110,24 +106,24 @@ export const SkillsSection = () => {
     }
   };
 
-  // Background particles
+  // Fixed particles
   const particles = [
-  { id: 0, x: 10, y: 15, size: 1.5, duration: 10, delay: 0 },
-  { id: 1, x: 85, y: 25, size: 2, duration: 12, delay: 0.5 },
-  { id: 2, x: 20, y: 75, size: 1.5, duration: 9, delay: 1 },
-  { id: 3, x: 70, y: 80, size: 2, duration: 11, delay: 1.5 },
-  { id: 4, x: 45, y: 10, size: 1, duration: 8, delay: 0.3 },
-  { id: 5, x: 5, y: 50, size: 2, duration: 13, delay: 0.8 },
-  { id: 6, x: 92, y: 55, size: 1.5, duration: 10, delay: 1.2 },
-  { id: 7, x: 50, y: 92, size: 1, duration: 9, delay: 0.6 },
-  { id: 8, x: 65, y: 35, size: 2, duration: 12, delay: 1.8 },
-  { id: 9, x: 30, y: 65, size: 1.5, duration: 10, delay: 0.4 },
-  { id: 10, x: 75, y: 70, size: 1, duration: 11, delay: 0.9 },
-  { id: 11, x: 40, y: 45, size: 2, duration: 9, delay: 1.1 },
-  { id: 12, x: 55, y: 5, size: 1.5, duration: 12, delay: 0.2 },
-  { id: 13, x: 15, y: 90, size: 1, duration: 10, delay: 1.4 },
-  { id: 14, x: 80, y: 40, size: 2, duration: 11, delay: 0.7 },
-];
+    { id: 0, x: 10, y: 15, size: 1.5, duration: 10, delay: 0 },
+    { id: 1, x: 85, y: 25, size: 2, duration: 12, delay: 0.5 },
+    { id: 2, x: 20, y: 75, size: 1.5, duration: 9, delay: 1 },
+    { id: 3, x: 70, y: 80, size: 2, duration: 11, delay: 1.5 },
+    { id: 4, x: 45, y: 10, size: 1, duration: 8, delay: 0.3 },
+    { id: 5, x: 5, y: 50, size: 2, duration: 13, delay: 0.8 },
+    { id: 6, x: 92, y: 55, size: 1.5, duration: 10, delay: 1.2 },
+    { id: 7, x: 50, y: 92, size: 1, duration: 9, delay: 0.6 },
+    { id: 8, x: 65, y: 35, size: 2, duration: 12, delay: 1.8 },
+    { id: 9, x: 30, y: 65, size: 1.5, duration: 10, delay: 0.4 },
+    { id: 10, x: 75, y: 70, size: 1, duration: 11, delay: 0.9 },
+    { id: 11, x: 40, y: 45, size: 2, duration: 9, delay: 1.1 },
+    { id: 12, x: 55, y: 5, size: 1.5, duration: 12, delay: 0.2 },
+    { id: 13, x: 15, y: 90, size: 1, duration: 10, delay: 1.4 },
+    { id: 14, x: 80, y: 40, size: 2, duration: 11, delay: 0.7 },
+  ];
 
   return (
     <section className="py-20 md:py-28 bg-slate-900/10 relative overflow-hidden">
@@ -249,7 +245,7 @@ export const SkillsSection = () => {
 
         {/* Languages & Certifications */}
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Programming Languages */}
+          {/* Programming Languages - Clean version without stars */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -264,7 +260,7 @@ export const SkillsSection = () => {
               <h3 className="text-lg font-semibold text-white">Programming Languages</h3>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {languages.map((lang, index) => (
                 <motion.div
                   key={lang.name}
@@ -279,21 +275,6 @@ export const SkillsSection = () => {
                     <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium border ${getLevelColor(lang.level)}`}>
                       {lang.level}
                     </span>
-                  </div>
-                  <div className="flex items-center gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.2 + i * 0.05 + index * 0.05 }}
-                      >
-                        <Star
-                          size={14}
-                          className={i < lang.stars ? 'text-yellow-400 fill-yellow-400' : 'text-slate-600'}
-                        />
-                      </motion.div>
-                    ))}
                   </div>
                 </motion.div>
               ))}
@@ -350,10 +331,10 @@ export const SkillsSection = () => {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8"
         >
           {[
-            { icon: Layers, label: 'Languages', value: '6+', color: 'text-blue-400' },
-            { icon: Boxes, label: 'Frameworks', value: '8+', color: 'text-purple-400' },
-            { icon: Database, label: 'Databases', value: '3+', color: 'text-green-400' },
-            { icon: Cloud, label: 'Cloud Platforms', value: '5+', color: 'text-orange-400' },
+            { icon: Code2, label: 'Languages', value: '6+' },
+            { icon: Boxes, label: 'Frameworks', value: '8+' },
+            { icon: Database, label: 'Databases', value: '3+' },
+            { icon: Cloud, label: 'Cloud Platforms', value: '5+' },
           ].map((stat, index) => {
             const Icon = stat.icon;
             return (
