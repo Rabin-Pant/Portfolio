@@ -113,7 +113,7 @@ export const AboutSection = () => {
   ];
 
   const stats = [
-    { value: '4+', label: 'Production Apps', icon: Briefcase },
+    { value: '3+', label: 'Production Apps', icon: Briefcase },
     { value: '5', label: 'AWS Certs', icon: Award },
     { value: '7+', label: 'Tech Stacks', icon: Code2 },
     { value: '3+', label: 'Years Learning', icon: Clock },
@@ -261,7 +261,7 @@ export const AboutSection = () => {
                       <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
                         <Briefcase size={12} className="text-slate-500 group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
-                      <span className="text-xs md:text-sm">4+ Production Apps</span>
+                      <span className="text-xs md:text-sm">3+ Production Apps</span>
                     </div>
                     <div className="flex items-center gap-2 md:gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
                       <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">

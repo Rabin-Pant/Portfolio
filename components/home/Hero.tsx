@@ -123,7 +123,6 @@ export const Hero = () => {
           lineColor="rgba(45, 121, 240, 0.06)"
           maxSpeed={0.4}
         />
-        {/* Gradient glow overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/0 via-[#0A0A0A]/30 to-[#0A0A0A]/80" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/0 via-primary/5 to-[#0A0A0A]/0" />
       </div>
@@ -191,6 +190,18 @@ export const Hero = () => {
       <div className="lg:hidden absolute inset-0 -z-5 pointer-events-none">
         {mobileIcons.map((item, index) => {
           const IconComponent = item.Icon;
+          const positions = [
+            { left: 5, top: 10 },
+            { left: 85, top: 15 },
+            { left: 10, top: 75 },
+            { left: 80, top: 80 },
+            { left: 45, top: 8 },
+            { left: 20, top: 45 },
+            { left: 70, top: 50 },
+            { left: 50, top: 85 },
+            { left: 5, top: 50 },
+          ];
+          const pos = positions[index % positions.length];
           return (
             <motion.div
               key={index}
@@ -219,8 +230,8 @@ export const Hero = () => {
                 scale: { duration: 0.5, delay: index * 0.1 },
               }}
               style={{
-                left: `${item.left}%`,
-                top: `${item.top}%`,
+                left: `${pos.left}%`,
+                top: `${pos.top}%`,
               }}
             >
               <div 
@@ -297,21 +308,22 @@ export const Hero = () => {
               </a>
             </motion.div>
 
-            {/* Tech Stack Pills */}
+            {/* Personal Quote / Values - Replaces Tech Pills */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-6 md:mt-8 flex flex-wrap gap-1.5 md:gap-2"
+              className="mt-6 md:mt-8 space-y-3"
             >
-              {['React', 'Next.js', 'Node.js', 'TypeScript', 'PostgreSQL', 'AWS', 'Java'].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-slate-900/50 border border-slate-800 text-xs md:text-sm text-slate-300"
-                >
-                  {tech}
-                </span>
-              ))}
+              <div className="flex items-center gap-3 text-xs md:text-sm text-slate-400">
+                <span className="w-6 md:w-8 h-px bg-primary/30" />
+                <span className="font-medium text-slate-300">What I believe in</span>
+                <span className="w-6 md:w-8 h-px bg-primary/30" />
+              </div>
+              <p className="text-sm md:text-base text-slate-400 leading-relaxed max-w-lg italic">
+                "Good software starts with a good plan — 
+                and a good plan starts with understanding people."
+              </p>
             </motion.div>
           </div>
 
@@ -334,7 +346,7 @@ export const Hero = () => {
                       src="/images/rabin.jpeg"
                       alt="Rabin Pant"
                       fill
-                      sizes="(max-width: 768px) 40vw, (max-width: 1200px) 30vw, 20vw"
+                      sizes="(max-width: 640px) 40vw, (max-width: 768px) 30vw, (max-width: 1024px) 25vw, 20vw"
                       className="object-cover"
                       priority
                     />
