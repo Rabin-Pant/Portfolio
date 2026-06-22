@@ -165,14 +165,6 @@ export const ContactSection = () => {
       color: 'text-[#0077B5]',
       bg: 'hover:bg-[#0077B5]/10',
     },
-    {
-      icon: Mail,
-      label: 'Email',
-      href: 'mailto:rabinpant194@gmail.com',
-      username: 'rabinpant194@gmail.com',
-      color: 'text-red-400',
-      bg: 'hover:bg-red-400/10',
-    },
   ];
 
   // Background particles

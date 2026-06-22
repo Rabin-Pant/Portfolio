@@ -44,30 +44,6 @@ export const Footer = () => {
     { label: 'Contact', href: '/#contact' },
   ];
 
-  const contactInfo = [
-    { 
-      icon: Mail, 
-      label: 'Email', 
-      value: 'rabinpant194@gmail.com', 
-      href: 'mailto:rabinpant194@gmail.com',
-      color: 'hover:text-red-400'
-    },
-    { 
-      icon: MapPin, 
-      label: 'Location', 
-      value: 'Kathmandu, Nepal', 
-      href: '#',
-      color: 'hover:text-green-400'
-    },
-    { 
-      icon: Phone, 
-      label: 'Phone', 
-      value: '+977-986-123-4567', 
-      href: 'tel:+9779861234567',
-      color: 'hover:text-blue-400'
-    },
-  ];
-
   const socialLinks = [
     { 
       icon: GithubIcon, 
@@ -126,7 +102,7 @@ export const Footer = () => {
           viewport={{ once: true, margin: "-50px" }}
           variants={footerVariants}
         >
-          <div className="grid md:grid-cols-4 gap-8 lg:gap-12">
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             {/* Brand Column */}
             <motion.div variants={itemVariants} className="md:col-span-1">
               <Link href="/" className="group flex items-center space-x-2 mb-4">
@@ -208,49 +184,6 @@ export const Footer = () => {
               </ul>
             </motion.div>
 
-            {/* Contact Info */}
-            <motion.div variants={itemVariants}>
-              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
-                <Mail size={14} className="text-primary" />
-                Contact
-              </h4>
-              <ul className="space-y-3">
-                {contactInfo.map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <motion.li 
-                      key={item.label}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                    >
-                      {item.href && item.href !== '#' ? (
-                        <a
-                          href={item.href}
-                          className={`flex items-center gap-3 text-sm text-slate-400 ${item.color} transition-all duration-200 group`}
-                        >
-                          <motion.div 
-                            className="p-1.5 rounded-lg bg-slate-800/30 group-hover:bg-primary/10 transition-colors"
-                            whileHover={{ scale: 1.1, rotate: -5 }}
-                          >
-                            <Icon size={14} className="text-slate-500 group-hover:text-primary transition-colors" />
-                          </motion.div>
-                          <span className="group-hover:text-white transition-colors">{item.value}</span>
-                        </a>
-                      ) : (
-                        <span className="flex items-center gap-3 text-sm text-slate-400">
-                          <div className="p-1.5 rounded-lg bg-slate-800/30">
-                            <Icon size={14} className="text-slate-500" />
-                          </div>
-                          <span>{item.value}</span>
-                        </span>
-                      )}
-                    </motion.li>
-                  );
-                })}
-              </ul>
-            </motion.div>
-
             {/* Tech Stack & Availability */}
             <motion.div variants={itemVariants}>
               <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
@@ -298,7 +231,7 @@ export const Footer = () => {
           </div>
         </motion.div>
 
-        {/* Bottom Bar - Simplified */}
+        {/* Bottom Bar */}
         <motion.div 
           className="border-t border-slate-800/50 py-4"
           initial={{ opacity: 0 }}
@@ -307,7 +240,6 @@ export const Footer = () => {
           viewport={{ once: true }}
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            {/* Copyright - Only this remains */}
             <motion.p 
               className="text-xs text-slate-500 flex items-center gap-1.5"
               whileHover={{ x: 2 }}
