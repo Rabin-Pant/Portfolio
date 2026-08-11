@@ -12,40 +12,15 @@ interface ProjectCardProps {
   index: number;
 }
 
-const projectStyles: Record<string, { gradient: string; icon: string; emoji: string; glow: string }> = {
-  'inventory-pro': {
-    gradient: 'from-emerald-500/20 to-teal-600/20',
-    icon: '🏬',
-    emoji: '📦',
-    glow: 'shadow-emerald-500/10',
-  },
-  'talentbridge': {
-    gradient: 'from-blue-500/20 to-indigo-600/20',
-    icon: '💼',
-    emoji: '🤝',
-    glow: 'shadow-blue-500/10',
-  },
-  'cinebook': {
-    gradient: 'from-rose-500/20 to-orange-600/20',
-    icon: '🎬',
-    emoji: '🎟️',
-    glow: 'shadow-rose-500/10',
-  },
-  'chat-app': {
-    gradient: 'from-purple-500/20 to-pink-600/20',
-    icon: '💬',
-    emoji: '💬',
-    glow: 'shadow-purple-500/10',
-  },
+const projectStyles: Record<string, { emoji: string }> = {
+  'inventory-pro': { emoji: '📦' },
+  'talentbridge': { emoji: '🤝' },
+  'cinebook': { emoji: '🎟️' },
+  'chat-app': { emoji: '💬' },
 };
 
 export const ProjectCard = ({ project, index }: ProjectCardProps) => {
-  const style = projectStyles[project.slug] || {
-    gradient: 'from-slate-500/20 to-slate-600/20',
-    icon: '🚀',
-    emoji: '💻',
-    glow: 'shadow-slate-500/10',
-  };
+  const style = projectStyles[project.slug] || { emoji: '💻' };
 
   // Fixed particle positions (no Math.random)
   const particles = [
@@ -71,12 +46,12 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
       className="group relative"
     >
       {/* Glow Effect on Hover */}
-      <div className={`absolute -inset-0.5 bg-gradient-to-r from-primary to-blue-500 rounded-xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 ${style.glow}`} />
-      
+      <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-primary-dark rounded-xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 shadow-primary/10" />
+
       <div className="relative bg-slate-900/80 backdrop-blur-sm rounded-xl overflow-hidden border border-slate-800 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-2xl">
-        {/* Gradient Header with Icon */}
+        {/* Header with Icon */}
         <Link href={`/projects/${project.slug}`}>
-          <div className={`relative h-32 bg-gradient-to-br ${style.gradient} overflow-hidden cursor-pointer`}>
+          <div className="relative h-32 bg-gradient-to-br from-slate-800/60 to-slate-900/60 overflow-hidden cursor-pointer">
             {/* Fixed Particles (no Math.random) */}
             <div className="absolute inset-0 pointer-events-none">
               {particles.map((p, i) => (

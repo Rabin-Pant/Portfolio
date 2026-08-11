@@ -19,55 +19,31 @@ export const Interests = () => {
       icon: Code2,
       label: 'Open Source',
       description: 'Contributing to and building open-source projects',
-      color: 'text-blue-400',
-      bg: 'bg-blue-500/10',
-      border: 'border-blue-500/20',
-      hoverBg: 'hover:bg-blue-500/20',
     },
     {
       icon: BookOpen,
       label: 'Reading',
       description: 'Tech blogs, architecture books, and sci-fi novels',
-      color: 'text-purple-400',
-      bg: 'bg-purple-500/10',
-      border: 'border-purple-500/20',
-      hoverBg: 'hover:bg-purple-500/20',
     },
     {
       icon: Music,
       label: 'Music',
       description: 'Playing guitar and discovering new artists',
-      color: 'text-pink-400',
-      bg: 'bg-pink-500/10',
-      border: 'border-pink-500/20',
-      hoverBg: 'hover:bg-pink-500/20',
     },
     {
       icon: Gamepad2,
       label: 'Gaming',
       description: 'Strategy games and exploring game design',
-      color: 'text-green-400',
-      bg: 'bg-green-500/10',
-      border: 'border-green-500/20',
-      hoverBg: 'hover:bg-green-500/20',
     },
     {
       icon: Bike,
       label: 'Outdoor',
       description: 'Hiking, biking, and exploring new places',
-      color: 'text-orange-400',
-      bg: 'bg-orange-500/10',
-      border: 'border-orange-500/20',
-      hoverBg: 'hover:bg-orange-500/20',
     },
     {
       icon: Globe,
       label: 'Travel',
       description: 'Exploring new cultures and meeting people',
-      color: 'text-teal-400',
-      bg: 'bg-teal-500/10',
-      border: 'border-teal-500/20',
-      hoverBg: 'hover:bg-teal-500/20',
     },
   ];
 
@@ -188,15 +164,15 @@ export const Interests = () => {
                   scale: 1.02,
                   transition: { type: "spring", stiffness: 400, damping: 15 }
                 }}
-                className={`group relative p-6 md:p-8 rounded-2xl border ${item.border} ${item.bg} ${item.hoverBg} transition-all duration-300 cursor-default shadow-lg hover:shadow-xl`}
+                className="group relative p-6 md:p-8 rounded-2xl border border-slate-800 bg-slate-900/30 hover:bg-slate-900/50 transition-all duration-300 cursor-default shadow-lg hover:shadow-xl"
               >
                 {/* Glow effect on hover */}
-                <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${item.bg} blur-xl -z-10`} />
-                
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-primary/5 blur-xl -z-10" />
+
                 <div className="flex flex-col items-center text-center">
                   {/* Icon with floating animation */}
-                  <motion.div 
-                    className={`p-3 rounded-xl ${item.bg} border ${item.border} group-hover:scale-110 transition-transform duration-300`}
+                  <motion.div
+                    className="p-3 rounded-xl bg-primary/10 border border-primary/20 group-hover:scale-110 transition-transform duration-300"
                     animate={{
                       y: [0, -5, 0],
                     }}
@@ -207,7 +183,7 @@ export const Interests = () => {
                       ease: "easeInOut",
                     }}
                   >
-                    <Icon size={28} className={item.color} />
+                    <Icon size={28} className="text-primary" />
                   </motion.div>
                   
                   {/* Label */}

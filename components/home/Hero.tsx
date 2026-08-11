@@ -141,10 +141,10 @@ export const Hero = () => {
                 scale: 0.5,
                 rotate: 0
               }}
-              animate={{ 
+              animate={{
                 y: [0, -12, 0, 12, 0],
                 x: [0, 8, 0, -8, 0],
-                opacity: 1,
+                opacity: 0.35,
                 scale: 1,
                 rotate: [0, 5, 0, -5, 0]
               }}
@@ -207,10 +207,10 @@ export const Hero = () => {
               key={index}
               className="absolute"
               initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ 
+              animate={{
                 y: [0, -8, 0, 8, 0],
                 x: [0, 5, 0, -5, 0],
-                opacity: 0.6,
+                opacity: 0.35,
                 scale: 1,
               }}
               transition={{
@@ -339,8 +339,8 @@ export const Hero = () => {
               <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl -z-10 scale-110 animate-pulse" />
               
               {/* Animated Border Ring */}
-              <div className="relative p-1 rounded-full bg-gradient-to-r from-primary via-blue-500 to-primary animate-spin-slow">
-                <div className="p-1 rounded-full bg-gradient-to-r from-primary via-purple-500 to-primary animate-spin-slow-reverse">
+              <div className="relative p-1 rounded-full bg-gradient-to-r from-primary via-blue-400 to-primary animate-spin-slow">
+                <div className="p-1 rounded-full bg-gradient-to-r from-primary-dark via-primary to-primary-dark animate-spin-slow-reverse">
                   <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full overflow-hidden border-4 border-slate-900 bg-slate-800">
                     <Image
                       src="/images/rabin.jpeg"

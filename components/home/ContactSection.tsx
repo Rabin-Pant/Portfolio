@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import { Mail, MapPin, Send, Sparkles, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react';
 import { GithubIcon } from '@/components/ui/GithubIcon';
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon';
-import useWeb3Forms from '@web3forms/react';
 
 export const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -25,31 +24,6 @@ export const ContactSection = () => {
   
   // Ref for the hidden honeypot field
   const botCheckRef = useRef<HTMLInputElement>(null);
-
-  // Web3Forms Access Key
-  const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || 'YOUR_ACCESS_KEY_HERE';
-
-  const { submit } = useWeb3Forms({
-    access_key: accessKey,
-    settings: {
-      from_name: 'Portfolio Contact Form',
-      subject: 'New Contact Message from RabinPant.dev',
-    },
-    onSuccess: (message, data) => {
-      console.log('Success:', message);
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '', botcheck: '' });
-      setErrors({});
-      setTimeout(() => setIsSubmitted(false), 5000);
-    },
-    onError: (message, data) => {
-      console.error('Error:', message);
-      setIsSubmitting(false);
-      setSubmitError(message || 'Something went wrong. Please try again.');
-      setTimeout(() => setSubmitError(null), 5000);
-    },
-  });
 
   // Enhanced email validation
   const validateEmail = (email: string): boolean => {
@@ -133,17 +107,26 @@ export const ContactSection = () => {
     setSubmitError(null);
 
     try {
-      await submit({
-        name: formData.name,
-        email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-        // Don't include botcheck - Web3Forms handles it automatically
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || 'Something went wrong. Please try again.');
+      }
+
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '', botcheck: '' });
+      setErrors({});
+      setTimeout(() => setIsSubmitted(false), 5000);
     } catch (err) {
       console.error('Submission error:', err);
       setIsSubmitting(false);
-      setSubmitError('Something went wrong. Please try again.');
+      setSubmitError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
       setTimeout(() => setSubmitError(null), 5000);
     }
   };
@@ -617,23 +600,6 @@ export const ContactSection = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
-
-            {/* Availability Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.02 }}
-              className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20"
-            >
-              <motion.span
-                className="w-2 h-2 bg-emerald-500 rounded-full"
-                animate={{ scale: [1, 1.5, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <span className="text-sm text-emerald-400 font-medium">Available for freelance work</span>
             </motion.div>
           </motion.div>
         </div>

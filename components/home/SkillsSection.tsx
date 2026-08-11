@@ -21,90 +21,52 @@ export const SkillsSection = () => {
       icon: Code2,
       title: 'Frontend',
       description: 'Building responsive, interactive user interfaces',
-      color: 'text-blue-400',
-      bg: 'bg-blue-500/10',
-      border: 'border-blue-500/20',
       skills: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS'],
     },
     {
       icon: Server,
       title: 'Backend',
       description: 'Scalable APIs and robust server-side logic',
-      color: 'text-green-400',
-      bg: 'bg-green-500/10',
-      border: 'border-green-500/20',
       skills: ['Node.js', 'Java', 'Python', 'JSP/Servlets', 'REST APIs', 'WebSocket/Socket.io'],
     },
     {
       icon: Database,
       title: 'Database',
       description: 'Efficient data storage and management',
-      color: 'text-yellow-400',
-      bg: 'bg-yellow-500/10',
-      border: 'border-yellow-500/20',
       skills: ['PostgreSQL', 'MySQL', 'Prisma', 'JDBC', 'SQL', 'TypeORM'],
     },
     {
       icon: Cloud,
       title: 'Cloud & DevOps',
       description: 'Cloud-native deployment and infrastructure',
-      color: 'text-purple-400',
-      bg: 'bg-purple-500/10',
-      border: 'border-purple-500/20',
       skills: ['AWS', 'Vercel', 'Render', 'Neon', 'Git', 'CI/CD', 'Linux', 'Bash'],
     },
     {
       icon: Layout,
       title: 'Design & Tools',
       description: 'User-centered design and development workflows',
-      color: 'text-pink-400',
-      bg: 'bg-pink-500/10',
-      border: 'border-pink-500/20',
       skills: ['Figma', 'UI/UX Design', 'System Design', 'Architecture Diagrams'],
     },
     {
       icon: GitBranch,
       title: 'Version Control',
       description: 'Collaborative development with best practices',
-      color: 'text-orange-400',
-      bg: 'bg-orange-500/10',
-      border: 'border-orange-500/20',
       skills: ['Git', 'GitHub', 'Git Flow', 'Pull Requests', 'Code Review'],
     },
   ];
 
   const certifications = [
-    { name: 'AWS Cloud Foundations', icon: Award, color: 'text-yellow-400' },
-    { name: 'AWS Machine Learning Foundations', icon: Sparkles, color: 'text-purple-400' },
-    { name: 'AWS ML for Natural Language Processing', icon: Sparkles, color: 'text-blue-400' },
-    { name: 'AWS Data Engineering Foundations', icon: Database, color: 'text-green-400' },
-    { name: 'AWS Generative AI Foundations', icon: Sparkles, color: 'text-orange-400' },
-    { name: 'Java OOP - LinkedIn Learning', icon: Code2, color: 'text-red-400' },
-    { name: 'UI/UX with Figma', icon: Layout, color: 'text-pink-400' },
+    { name: 'AWS Cloud Foundations', icon: Award },
+    { name: 'AWS Machine Learning Foundations', icon: Sparkles },
+    { name: 'AWS ML for Natural Language Processing', icon: Sparkles },
+    { name: 'AWS Data Engineering Foundations', icon: Database },
+    { name: 'AWS Generative AI Foundations', icon: Sparkles },
+    { name: 'Java OOP - LinkedIn Learning', icon: Code2 },
+    { name: 'UI/UX with Figma', icon: Layout },
   ];
 
-  // Languages - Only names, no stars
-  const languages = [
-    { name: 'Java', level: 'Advanced' },
-    { name: 'SQL', level: 'Advanced' },
-    { name: 'JavaScript', level: 'Intermediate' },
-    { name: 'Python', level: 'Intermediate' },
-    { name: 'Bash', level: 'Intermediate' },
-    { name: 'TypeScript', level: 'Beginner' },
-  ];
-
-  const getLevelColor = (level: string) => {
-    switch (level) {
-      case 'Advanced':
-        return 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30';
-      case 'Intermediate':
-        return 'text-yellow-400 bg-yellow-500/20 border-yellow-500/30';
-      case 'Beginner':
-        return 'text-blue-400 bg-blue-500/20 border-blue-500/30';
-      default:
-        return 'text-slate-400 bg-slate-500/20 border-slate-500/30';
-    }
-  };
+  // Languages - Only names
+  const languages = ['Java', 'SQL', 'JavaScript', 'Python', 'Bash', 'TypeScript'];
 
   // Fixed particles
   const particles = [
@@ -207,15 +169,15 @@ export const SkillsSection = () => {
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 viewport={{ once: true, margin: "-30px" }}
                 whileHover={{ y: -6, transition: { type: "spring", stiffness: 300 } }}
-                className={`group p-6 rounded-2xl border ${category.border} ${category.bg} hover:shadow-lg hover:shadow-primary/5 transition-all duration-300`}
+                className="group p-6 rounded-2xl border border-slate-800 bg-slate-900/30 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
-                  <motion.div 
-                    className={`p-3 rounded-xl ${category.bg} border ${category.border} group-hover:scale-110 transition-transform duration-300`}
+                  <motion.div
+                    className="p-3 rounded-xl bg-primary/10 border border-primary/20 group-hover:scale-110 transition-transform duration-300"
                     whileHover={{ rotate: [0, -5, 5, 0] }}
                     transition={{ duration: 0.4 }}
                   >
-                    <Icon size={24} className={category.color} />
+                    <Icon size={24} className="text-primary" />
                   </motion.div>
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold text-white group-hover:text-primary transition-colors duration-300">
@@ -263,19 +225,14 @@ export const SkillsSection = () => {
             <div className="space-y-3">
               {languages.map((lang, index) => (
                 <motion.div
-                  key={lang.name}
+                  key={lang}
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                   viewport={{ once: true }}
                   className="flex items-center justify-between p-3 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/30 transition-all duration-200 group"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-white">{lang.name}</span>
-                    <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium border ${getLevelColor(lang.level)}`}>
-                      {lang.level}
-                    </span>
-                  </div>
+                  <span className="text-sm font-medium text-white">{lang}</span>
                 </motion.div>
               ))}
             </div>
@@ -310,7 +267,7 @@ export const SkillsSection = () => {
                     className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/30 transition-all duration-200 group"
                   >
                     <div className="p-2 rounded-lg bg-slate-800/50 group-hover:scale-110 transition-transform duration-300">
-                      <Icon size={16} className={cert.color} />
+                      <Icon size={16} className="text-primary" />
                     </div>
                     <span className="text-sm text-slate-300 group-hover:text-white transition-colors duration-200">
                       {cert.name}

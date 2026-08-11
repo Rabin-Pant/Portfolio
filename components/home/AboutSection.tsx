@@ -36,36 +36,24 @@ export const AboutSection = () => {
       title: 'The Beginning',
       description: 'Started my journey in web development with a curiosity about how websites work. Built my first HTML/CSS page and was hooked.',
       icon: Code2,
-      color: 'text-blue-400',
-      bg: 'bg-blue-500/10',
-      border: 'border-blue-500/20',
     },
     {
       year: '2023',
       title: 'Diving Deeper',
       description: 'Discovered JavaScript. Started building Static applications and exploring system design concepts.',
       icon: BookOpen,
-      color: 'text-purple-400',
-      bg: 'bg-purple-500/10',
-      border: 'border-purple-500/20',
     },
     {
       year: '2024',
       title: 'Finding My Path',
       description: 'Enrolled in BSc (Hons) Computing, diving deep into software architecture, algorithms, cloud computing and advance programming.',
       icon: GraduationCap,
-      color: 'text-green-400',
-      bg: 'bg-green-500/10',
-      border: 'border-green-500/20',
     },
     {
       year: '2025',
       title: 'Building & Growing',
       description: 'Developed 3+ production applications, earned 5 AWS certifications, and deepened my knowledge in cloud computing and full-stack development.',
       icon: Award,
-      color: 'text-yellow-400',
-      bg: 'bg-yellow-500/10',
-      border: 'border-yellow-500/20',
     },
   ];
 
@@ -74,33 +62,21 @@ export const AboutSection = () => {
       icon: Rocket,
       title: 'Cloud Architecture',
       description: 'Become an AWS Solutions Architect, designing scalable cloud-native systems for enterprises.',
-      color: 'text-purple-400',
-      bg: 'bg-purple-500/10',
-      border: 'border-purple-500/20',
     },
     {
       icon: Target,
       title: 'Tech Leadership',
       description: 'Lead development teams and mentor junior developers in building robust, maintainable software.',
-      color: 'text-blue-400',
-      bg: 'bg-blue-500/10',
-      border: 'border-blue-500/20',
     },
     {
       icon: Users,
       title: 'Community Impact',
       description: 'Create developer communities in Nepal, organize tech workshops, and contribute to open-source education.',
-      color: 'text-green-400',
-      bg: 'bg-green-500/10',
-      border: 'border-green-500/20',
     },
     {
       icon: Lightbulb,
       title: 'Product Innovation',
       description: 'Build products that solve real-world problems in Nepal, focusing on education, healthcare, and e-commerce.',
-      color: 'text-yellow-400',
-      bg: 'bg-yellow-500/10',
-      border: 'border-yellow-500/20',
     },
   ];
 
@@ -130,7 +106,7 @@ export const AboutSection = () => {
       {/* Background Decoration */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
       </div>
 
       <div className="container-custom relative z-10">
@@ -355,7 +331,7 @@ export const AboutSection = () => {
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.4, delay: index * 0.1 }}
-                            className={`relative p-3 sm:p-4 rounded-xl ${step.bg} border ${step.border}`}
+                            className="relative p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700"
                           >
                             <div className="absolute -left-[21px] sm:-left-[29px] p-1 sm:p-1.5 rounded-full bg-primary/20 border border-primary/30">
                               <Icon size={10} className="text-primary sm:w-3 sm:h-3" />
@@ -395,11 +371,11 @@ export const AboutSection = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: index * 0.08 }}
                             whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
-                            className={`p-3 sm:p-4 rounded-xl ${goal.bg} border ${goal.border} hover:border-primary/50 transition-all duration-300 group cursor-default`}
+                            className="p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/50 transition-all duration-300 group cursor-default"
                           >
                             <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
-                              <div className={`p-1.5 sm:p-2 rounded-lg ${goal.bg} group-hover:scale-110 transition-transform duration-300`}>
-                                <Icon size={16} className={goal.color} />
+                              <div className="p-1.5 sm:p-2 rounded-lg bg-primary/10 group-hover:scale-110 transition-transform duration-300">
+                                <Icon size={16} className="text-primary" />
                               </div>
                               <h4 className="font-semibold text-white text-xs sm:text-sm">{goal.title}</h4>
                             </div>

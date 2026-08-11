@@ -57,11 +57,11 @@ export const Footer = () => {
       href: 'https://www.linkedin.com/in/rabin-pant-6b4559358',
       color: 'hover:text-[#0077B5]'
     },
-    { 
-      icon: Mail, 
-      label: 'Email', 
+    {
+      icon: Mail,
+      label: 'Email',
       href: 'mailto:rabinpant194@gmail.com',
-      color: 'hover:text-red-400'
+      color: 'hover:text-primary'
     },
   ];
 
@@ -90,7 +90,7 @@ export const Footer = () => {
       {/* Animated Background Gradient */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
       <div className="container-custom relative z-10">
