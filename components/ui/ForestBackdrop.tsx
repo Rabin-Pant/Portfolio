@@ -3,7 +3,24 @@
 
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+
+// True only once the client has hydrated. useSyncExternalStore is the
+// React-sanctioned way to read this — unlike `useState(false)` +
+// `useEffect(() => setState(true))`, it doesn't call setState from inside an
+// effect body (which react-hooks/set-state-in-effect flags, since that
+// pattern can cascade an extra render). The "store" here never actually
+// changes; the subscribe function is a no-op because there is nothing to
+// subscribe to — what does the work is React calling getServerSnapshot for
+// the hydration pass and getSnapshot for every render after.
+const emptySubscribe = () => () => {};
+function useMounted() {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
+}
 
 /**
  * Each scene is one backdrop photo plus the section ids it covers. Sections
@@ -70,7 +87,24 @@ type Leaf = {
   sprite: number;
 };
 
+// Leaf/dash speed and spawn offset were tuned against a ~1280-1920px desktop
+// screen. Both are fixed absolute px/s and px values, so on a narrow phone
+// screen (~390px) the same numbers make particles cross the visible width —
+// and get culled off the right edge — in a fraction of the time. A CDP-less
+// but direct check (sampling painted canvas pixels across the gust on an
+// emulated iPhone 13) confirmed this: the effect was fully cleared by
+// ~2.4s into a 2.6s gust, and visually reads as a blink rather than a
+// lingering gust. Scaling both the spawn offset and the speed by the same
+// factor keeps "how far a leaf must travel before it's each visible, versus
+// how long it lives" proportionally the same on any screen width, instead of
+// only slowing particles down (which would spawn many of them so far
+// offscreen they'd expire before ever becoming visible on a narrow phone).
+function speedScaleFor(w: number) {
+  return Math.min(1, Math.max(0.4, w / 1280));
+}
+
 function makeLeaves(w: number, h: number): Leaf[] {
+  const speedScale = speedScaleFor(w);
   const leaves: Leaf[] = [];
   for (let i = 0; i < LEAF_COUNT; i++) {
     // Depth: small+slow leaves read as far away, large+fast as close.
@@ -78,9 +112,9 @@ function makeLeaves(w: number, h: number): Leaf[] {
     const size = 9 + depth * 27;
     leaves.push({
       // Start off the left edge, spread out so they don't arrive as a wall.
-      x0: -80 - Math.random() * 520,
+      x0: -80 - Math.random() * 520 * speedScale,
       y0: Math.random() * h * 1.15 - h * 0.08,
-      vx: 380 + depth * 620 + Math.random() * 180,
+      vx: (380 + depth * 620 + Math.random() * 180) * speedScale,
       vy: -80 + Math.random() * 170,
       size,
       rot0: Math.random() * Math.PI * 2,
@@ -111,13 +145,14 @@ type Dash = {
 };
 
 function makeDashes(w: number, h: number): Dash[] {
+  const speedScale = speedScaleFor(w);
   const dashes: Dash[] = [];
   for (let i = 0; i < DASH_COUNT; i++) {
     const depth = Math.random();
     dashes.push({
-      x0: -140 - Math.random() * 460,
+      x0: -140 - Math.random() * 460 * speedScale,
       y0: Math.random() * h,
-      vx: 900 + depth * 1250,
+      vx: (900 + depth * 1250) * speedScale,
       vy: -30 + Math.random() * 70,
       len: 40 + depth * 150,
       // Bumped because the backing store renders at 0.6 scale — a 0.7px line
@@ -386,12 +421,10 @@ export const ForestBackdrop = () => {
   // on it directly would render different DOM server vs. client and trigger a
   // hydration mismatch. Render as if motion is allowed until mounted, then
   // correct after hydration has already finished.
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const systemReduceMotion = useReducedMotion();
   const reduceMotion = mounted ? !!systemReduceMotion : false;
   const animate = mounted && !reduceMotion;
-
-  useEffect(() => setMounted(true), []);
 
   // Section tracking via IntersectionObserver rather than a scroll listener.
   // The old version called getBoundingClientRect() on every section on every
@@ -418,6 +451,11 @@ export const ForestBackdrop = () => {
           activeRef.current = next;
           setActive(next);
           setGust((g) => g + 1);
+          // Set here rather than in the effect below that watches `gust` —
+          // this is a callback from an external system (the observer)
+          // reacting to a real event, not a synchronous setState in an
+          // effect body.
+          setBusy(true);
         }
       },
       { rootMargin: '-50% 0px -50% 0px', threshold: 0 }
@@ -430,9 +468,12 @@ export const ForestBackdrop = () => {
   // `will-change` is only worth setting while a transition is actually
   // running. Leaving it on permanently keeps three full-viewport composited
   // layers resident the whole time, which is a real cost on integrated GPUs.
+  // `setBusy(true)` happens in the observer callback above, right where
+  // `gust` changes; this effect only owns the async reset back to false —
+  // scheduling a timeout is a legitimate effect (it's synchronizing with an
+  // external timer, not calling setState synchronously in the effect body).
   useEffect(() => {
     if (gust === 0) return;
-    setBusy(true);
     const t = window.setTimeout(() => setBusy(false), 2200);
     return () => window.clearTimeout(t);
   }, [gust]);

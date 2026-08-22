@@ -12,7 +12,14 @@ export const Hero = () => {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left: Text Content */}
-          <div className="order-2 lg:order-1">
+          {/* No order override: on mobile this should read message-first,
+              photo-second — a portrait photo at near-full mobile width was
+              previously ordered ahead of it (order-1) and, at aspect-[4/5],
+              stood ~540px tall on a ~660px-tall viewport, pushing the actual
+              headline almost entirely below the fold. Natural DOM order
+              already puts text in the left column on desktop's 2-col grid,
+              so no override is needed there either. */}
+          <div>
             {/* Main Heading */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -73,9 +80,11 @@ export const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="order-1 lg:order-2 flex justify-center"
+            className="flex justify-center"
           >
-            <div className="relative w-full max-w-sm">
+            {/* Capped smaller on phones: at near-full mobile width, this
+                portrait-ratio card was ~540px tall on a ~660px viewport. */}
+            <div className="relative w-full max-w-55 sm:max-w-sm">
               <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#10160d] shadow-2xl">
                 <div className="relative aspect-[4/5] w-full overflow-hidden">
                   <Image
