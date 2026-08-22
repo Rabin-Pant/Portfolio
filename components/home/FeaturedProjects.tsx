@@ -21,12 +21,11 @@ export const FeaturedProjects = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-mono font-bold">
-            Featured <span className="gradient-text">Projects</span>
+          <h2 className="font-display text-3xl md:text-4xl font-semibold">
+            Featured <span className="gradient-text">projects</span>
           </h2>
-          <p className="mt-4 text-slate-400 max-w-2xl mx-auto">
-            Here are some of the applications I've built from the ground up.
-            Each project showcases my approach to full-stack development.
+          <p className="mt-4 text-slate-200 max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]">
+            A few things I've built end to end, from the database up to the interface.
           </p>
         </motion.div>
 
@@ -49,7 +48,7 @@ export const FeaturedProjects = () => {
             href="/projects"
             className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-200"
           >
-            View All Projects
+            See all projects
             <ArrowRight size={16} />
           </Link>
         </motion.div>

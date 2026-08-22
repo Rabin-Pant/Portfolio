@@ -9,13 +9,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#2D79F0',
-        'primary-dark': '#1a5bb5',
-        'primary-glow': 'rgba(45, 121, 240, 0.15)',
+        primary: '#6FB88D',
+        'primary-dark': '#4d9269',
+        'primary-glow': 'rgba(111, 184, 141, 0.15)',
       },
       fontFamily: {
         mono: ['JetBrains Mono', 'monospace'],
         sans: ['Inter', 'sans-serif'],
+        display: ['Fraunces', 'Georgia', 'serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',

@@ -22,18 +22,18 @@ export const projects: Project[] = [
   {
     slug: 'talentbridge',
     title: 'TalentBridge',
-    tagline: 'Connect Talent with Opportunity',
+    tagline: 'A job portal that actually talks back',
     description:
-      'A full-stack job portal platform connecting job seekers with employers through real-time messaging, job posting, and an admin dashboard.',
+      'A full-stack job portal connecting seekers and employers, with real-time messaging, job posting, and an admin dashboard behind it.',
     problem:
-      'Job seekers struggle to find relevant opportunities, while employers waste time filtering through unqualified applications. Communication between both parties is fragmented.',
+      'Job seekers spend hours applying into a black hole, and employers spend just as long sorting through applications that were never a fit. Nobody talks to anybody until an offer is already on the table.',
     solution:
-      'Built a LinkedIn-inspired platform with real-time messaging, application tracking, social networking, and an admin dashboard for platform moderation.',
+      'I built a LinkedIn-style platform where messaging happens in real time, applications are tracked instead of lost, and admins can moderate the whole thing without digging through a database.',
     results: [
-      '3 user roles: Seeker, Employer, Admin',
+      'Three roles: seeker, employer, admin, each with a different view',
       'Real-time messaging with Socket.io',
-      'Employer verification with document upload',
-      'Social feed with posts, likes, and comments',
+      'Employer verification through document upload',
+      'A social feed with posts, likes, and comments',
     ],
     techStack: ['React', 'Node.js', 'PostgreSQL', 'Prisma', 'Socket.io', 'Tailwind CSS'],
     image: '/images/projects/TalentBridge.png',
@@ -46,17 +46,17 @@ export const projects: Project[] = [
   {
     slug: 'cinebook',
     title: 'CineBook',
-    tagline: 'Online Movie Ticket Booking System',
+    tagline: 'Movie tickets without the queue',
     description:
-      'A full-stack web-based movie ticket booking system built with Java JSP/Servlets, JDBC, and MySQL with Khalti and eSewa payment integration.',
+      'A movie ticket booking system built with Java JSP/Servlets, JDBC, and MySQL, with Khalti and eSewa payment built in.',
     problem:
-      'Movie ticket booking in Nepal often requires visiting the cinema hall in person or using fragmented systems without proper seat selection and payment integration.',
+      'Booking a movie ticket in Nepal usually meant showing up in person, or using a booking system with no real seat selection and payment tacked on as an afterthought.',
     solution:
-      'Built a comprehensive booking platform with interactive seat selection, dual payment gateway support (Khalti + eSewa), and an admin dashboard for managing movies and showtimes.',
+      'I built a booking platform with a proper interactive seat map, both Khalti and eSewa for payment, and an admin dashboard for managing movies and showtimes.',
     results: [
-      'Interactive live seat map selection',
-      'Khalti + eSewa payment gateway integration',
-      'PDF ticket generation with iText',
+      'Interactive seat map that updates live',
+      'Khalti and eSewa payment gateways',
+      'PDF tickets generated with iText',
       'Admin dashboard with revenue analytics',
     ],
     techStack: ['Java', 'JSP', 'Servlets', 'MySQL', 'JDBC', 'HTML/CSS', 'JavaScript'],
@@ -70,18 +70,18 @@ export const projects: Project[] = [
   {
     slug: 'chat-app',
     title: 'Chat App',
-    tagline: 'Real-Time Messaging Platform',
+    tagline: 'A messaging app I could actually self-host',
     description:
-      'A full-stack real-time chat application built with Next.js, TypeScript, Socket.io, and PostgreSQL supporting direct messaging, group chats, and OAuth.',
+      'A real-time chat app built with Next.js, TypeScript, Socket.io, and PostgreSQL. Direct messages, group chats, and OAuth login.',
     problem:
-      'Existing chat applications are either too complex for developers to self-host or lack essential features like group chats, reactions, and OAuth integration.',
+      'Most self-hostable chat apps are either a pain to set up or missing basics like group chats and proper login. I wanted something simple enough to run myself.',
     solution:
-      'Built a feature-rich messaging platform with passwordless OTP login, Google OAuth, group chats, emoji reactions, read receipts, and typing indicators.',
+      'I built a messaging app with passwordless OTP login, Google OAuth, group chats, emoji reactions, read receipts, and typing indicators, without dragging in a framework I\'d have to fight.',
     results: [
-      'Email OTP + Google OAuth authentication',
+      'Email OTP and Google OAuth for login',
       'Real-time messaging with Socket.io',
       'Group chats with member roles',
-      'Read receipts + typing indicators',
+      'Read receipts and typing indicators',
     ],
     techStack: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Socket.io', 'Tailwind CSS'],
     image: '/images/projects/chat-app.png',

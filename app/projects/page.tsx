@@ -24,34 +24,34 @@ export default function ProjectsPage() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm mb-4"
           >
-            📂 Portfolio
+            Portfolio
           </motion.div>
-          <motion.h1 
-            className="text-4xl md:text-5xl font-mono font-bold mb-4"
+          <motion.h1
+            className="font-display text-4xl md:text-5xl font-semibold mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
           >
-            All <span className="gradient-text">Projects</span>
+            All <span className="gradient-text">projects</span>
           </motion.h1>
-          <motion.p 
+          <motion.p
             className="text-slate-400 max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            A collection of applications I've built from the ground up.
+            Everything I've built end to end, in one place.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="inline-block mt-4 text-sm text-slate-400 hover:text-white transition-colors duration-200"
             >
-              ← Back to Home
+              ← Back to home
             </Link>
           </motion.div>
         </motion.div>
@@ -85,12 +85,12 @@ export default function ProjectsPage() {
           className="text-center mt-16"
         >
           <div className="inline-flex flex-col items-center gap-4">
-            <p className="text-sm text-slate-400">Want to see more?</p>
+            <p className="text-sm text-slate-400">Got something in mind?</p>
             <Link
               href="/#contact"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary hover:bg-primary-dark transition-all duration-200 font-medium shadow-lg shadow-primary/20 hover:shadow-primary/40"
             >
-              Let's Work Together
+              Let's talk
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

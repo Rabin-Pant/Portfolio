@@ -39,6 +39,7 @@ export const Footer = () => {
 
   const quickLinks = [
     { label: 'About', href: '/#about' },
+    { label: 'Experience', href: '/#experience' },
     { label: 'Skills', href: '/#skills' },
     { label: 'Projects', href: '/#projects' },
     { label: 'Contact', href: '/#contact' },
@@ -121,13 +122,13 @@ export const Footer = () => {
                 <span className="text-sm text-slate-400 font-mono">Pant</span>
               </Link>
               
-              <motion.p 
+              <motion.p
                 className="text-sm text-slate-400 leading-relaxed mb-4"
                 whileHover={{ x: 2 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                Building production-grade applications with clean architecture,
-                real-time features, and cloud-native deployment.
+                Full-stack apps, built with a clean architecture and a data model
+                that doesn't fall apart six months later.
               </motion.p>
               
               {/* Social Icons */}
@@ -141,11 +142,11 @@ export const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`p-2.5 rounded-xl bg-slate-800/30 text-slate-400 ${link.color} border border-slate-700/50 transition-all duration-300`}
-                      whileHover={{ 
+                      whileHover={{
                         scale: 1.15,
                         y: -2,
-                        backgroundColor: 'rgba(45, 121, 240, 0.1)',
-                        borderColor: 'rgba(45, 121, 240, 0.3)'
+                        backgroundColor: 'rgba(111, 184, 141, 0.1)',
+                        borderColor: 'rgba(111, 184, 141, 0.3)'
                       }}
                       whileTap={{ scale: 0.95 }}
                       initial={{ opacity: 0, y: 10 }}
@@ -197,11 +198,11 @@ export const Footer = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4 + index * 0.05 }}
-                    whileHover={{ 
+                    whileHover={{
                       scale: 1.05,
                       y: -2,
-                      backgroundColor: 'rgba(45, 121, 240, 0.15)',
-                      borderColor: 'rgba(45, 121, 240, 0.3)'
+                      backgroundColor: 'rgba(111, 184, 141, 0.15)',
+                      borderColor: 'rgba(111, 184, 141, 0.3)'
                     }}
                     className="px-2.5 py-1 rounded-full bg-slate-800/30 text-xs text-slate-300 border border-slate-700/50 transition-all duration-200 cursor-default"
                   >
@@ -209,24 +210,6 @@ export const Footer = () => {
                   </motion.span>
                 ))}
               </div>
-              
-              {/* Availability Badge */}
-              <motion.div 
-                className="flex items-center gap-2 text-sm text-slate-400 p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/10"
-                whileHover={{ 
-                  scale: 1.02,
-                  backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                  borderColor: 'rgba(16, 185, 129, 0.2)'
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <motion.span
-                  className="w-2 h-2 bg-emerald-500 rounded-full"
-                  animate={{ scale: [1, 1.5, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                <span className="text-emerald-400 font-medium">Available for freelance work</span>
-              </motion.div>
             </motion.div>
           </div>
         </motion.div>

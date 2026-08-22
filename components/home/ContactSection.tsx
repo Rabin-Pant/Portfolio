@@ -220,28 +220,27 @@ export const ContactSection = () => {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm mb-4"
           >
             <Sparkles size={14} />
-            <span>Let's Connect</span>
+            <span>Let's talk</span>
           </motion.div>
-          
-          <motion.h2 
-            className="text-3xl md:text-4xl font-mono font-bold"
+
+          <motion.h2
+            className="font-display text-3xl md:text-4xl font-semibold"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             viewport={{ once: true }}
           >
-            Get In <span className="gradient-text">Touch</span>
+            Get in <span className="gradient-text">touch</span>
           </motion.h2>
-          
-          <motion.p 
-            className="mt-4 text-slate-400 max-w-2xl mx-auto text-sm md:text-base"
+
+          <motion.p
+            className="mt-4 text-slate-200 max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Have a project in mind or want to collaborate? Reach out through the form below
-            or connect with me on social platforms.
+            Got a project or an idea you want to talk through? The form below reaches me directly.
           </motion.p>
         </motion.div>
 
@@ -265,8 +264,8 @@ export const ContactSection = () => {
                 <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
                   <Mail size={20} className="text-primary" />
                 </div>
-                <h3 className="text-xl font-mono font-bold">
-                  Send a <span className="gradient-text">Message</span>
+                <h3 className="font-display text-xl font-semibold">
+                  Send a <span className="gradient-text">message</span>
                 </h3>
               </motion.div>
 
@@ -364,7 +363,7 @@ export const ContactSection = () => {
                     </motion.p>
                   )}
                   <p className="mt-1 text-[10px] text-slate-500">
-                    We'll never share your email with anyone else.
+                    I won't share this with anyone.
                   </p>
                 </motion.div>
 
@@ -480,17 +479,17 @@ export const ContactSection = () => {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Sending...
+                        Sending
                       </>
                     ) : isSubmitted ? (
                       <>
                         <CheckCircle size={18} />
-                        Message Sent!
+                        Sent, thanks
                       </>
                     ) : (
                       <>
                         <Send size={18} />
-                        Send Message
+                        Send message
                       </>
                     )}
                   </motion.button>
@@ -504,7 +503,7 @@ export const ContactSection = () => {
                   viewport={{ once: true }}
                   className="text-center text-[10px] text-slate-500"
                 >
-                  <p>Your email will never be shared. Protected by Web3Forms.</p>
+                  <p>Sent through Web3Forms. Your email stays private.</p>
                 </motion.div>
               </form>
             </div>
@@ -530,8 +529,8 @@ export const ContactSection = () => {
                 <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
                   <Sparkles size={20} className="text-primary" />
                 </div>
-                <h3 className="text-lg font-mono font-bold">
-                  Connect <span className="gradient-text">Elsewhere</span>
+                <h3 className="font-display text-lg font-semibold">
+                  Find me <span className="gradient-text">elsewhere</span>
                 </h3>
               </motion.div>
 

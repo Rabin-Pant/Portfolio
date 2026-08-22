@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Navbar } from '@/components/ui/Navbar';
+import { ForestBackdrop } from '@/components/ui/ForestBackdrop';
 
 export const metadata: Metadata = {
   title: 'Rabin Pant | Full-Stack Developer',
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <ForestBackdrop />
         <Navbar />
         <main className="pt-16 md:pt-20">{children}</main>
       </body>

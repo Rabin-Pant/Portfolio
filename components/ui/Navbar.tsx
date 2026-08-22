@@ -10,6 +10,7 @@ import { GithubIcon } from '@/components/ui/GithubIcon';
 
 const navLinks = [
   { href: '/#about', label: 'About', delay: 0.1 },
+  { href: '/#experience', label: 'Experience', delay: 0.13 },
   { href: '/#skills', label: 'Skills', delay: 0.15 },
   { href: '/#projects', label: 'Projects', delay: 0.2 },
   { href: '/#contact', label: 'Contact', delay: 0.25 },
@@ -27,7 +28,7 @@ export const Navbar = () => {
       setIsScrolled(window.scrollY > 20);
 
       if (isHomePage) {
-        const sections = ['about', 'skills', 'projects', 'contact'];
+        const sections = ['about', 'experience', 'skills', 'projects', 'contact'];
         let current = '';
         for (const section of sections) {
           const element = document.getElementById(section);
@@ -81,8 +82,8 @@ export const Navbar = () => {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         isScrolled || isOpen
-          ? 'bg-[#0A0A0A]/95 backdrop-blur-xl border-b border-slate-800/50 shadow-lg'
-          : 'bg-[#0A0A0A]/80 backdrop-blur-sm'
+          ? 'bg-[#0B0F0D]/85 backdrop-blur-xl border-b border-slate-800/50 shadow-lg'
+          : 'bg-[#0B0F0D]/55 backdrop-blur-sm'
       }`}
     >
       <div className="container-custom">

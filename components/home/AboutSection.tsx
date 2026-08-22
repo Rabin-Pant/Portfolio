@@ -33,26 +33,26 @@ export const AboutSection = () => {
   const journeySteps = [
     {
       year: '2022',
-      title: 'The Beginning',
-      description: 'Started my journey in web development with a curiosity about how websites work. Built my first HTML/CSS page and was hooked.',
+      title: 'Getting started',
+      description: 'I got curious about how websites actually work and built my first HTML and CSS page. That was enough to hook me.',
       icon: Code2,
     },
     {
       year: '2023',
-      title: 'Diving Deeper',
-      description: 'Discovered JavaScript. Started building Static applications and exploring system design concepts.',
+      title: 'Going deeper',
+      description: 'Picked up JavaScript and started building small static apps, then got interested in how bigger systems are put together.',
       icon: BookOpen,
     },
     {
       year: '2024',
-      title: 'Finding My Path',
-      description: 'Enrolled in BSc (Hons) Computing, diving deep into software architecture, algorithms, cloud computing and advance programming.',
+      title: 'Finding a path',
+      description: 'Started BSc (Hons) Computing. Spent a lot of time on software architecture, algorithms, and cloud computing.',
       icon: GraduationCap,
     },
     {
       year: '2025',
-      title: 'Building & Growing',
-      description: 'Developed 3+ production applications, earned 5 AWS certifications, and deepened my knowledge in cloud computing and full-stack development.',
+      title: 'Building for real',
+      description: 'Shipped three production apps and picked up five AWS certifications along the way. This is where I started treating full-stack work seriously.',
       icon: Award,
     },
   ];
@@ -60,32 +60,32 @@ export const AboutSection = () => {
   const futureGoals = [
     {
       icon: Rocket,
-      title: 'Cloud Architecture',
-      description: 'Become an AWS Solutions Architect, designing scalable cloud-native systems for enterprises.',
+      title: 'Cloud architecture',
+      description: 'I want to become an AWS Solutions Architect and get better at designing systems that scale without falling over.',
     },
     {
       icon: Target,
-      title: 'Tech Leadership',
-      description: 'Lead development teams and mentor junior developers in building robust, maintainable software.',
+      title: 'Leading a team',
+      description: "Eventually I'd like to lead a small team and help other developers get better at building maintainable software.",
     },
     {
       icon: Users,
-      title: 'Community Impact',
-      description: 'Create developer communities in Nepal, organize tech workshops, and contribute to open-source education.',
+      title: 'Giving back locally',
+      description: 'I want to help grow the developer community in Nepal. Workshops, open source, whatever helps people get unstuck.',
     },
     {
       icon: Lightbulb,
-      title: 'Product Innovation',
-      description: 'Build products that solve real-world problems in Nepal, focusing on education, healthcare, and e-commerce.',
+      title: 'Building useful things',
+      description: "I'd rather build something that solves a real problem in Nepal, in education or healthcare, than another generic app.",
     },
   ];
 
   const philosophyItems = [
-    { icon: Brain, text: 'I believe in writing code that is clean, maintainable, and well-documented' },
-    { icon: Target, text: 'I design systems with scalability in mind from day one' },
-    { icon: Lightbulb, text: 'I invest time in understanding the problem before jumping to solutions' },
-    { icon: Sparkles, text: 'I believe in continuous learning and staying curious' },
-    { icon: Users, text: 'I value collaboration and knowledge sharing with the developer community' },
+    { icon: Brain, text: 'I try to keep code clean and documented well enough that I understand it six months later' },
+    { icon: Target, text: 'I think about scale early, but I don\'t over-engineer for problems I don\'t have yet' },
+    { icon: Lightbulb, text: 'I\'d rather spend an extra hour understanding the problem than rebuild the wrong solution twice' },
+    { icon: Sparkles, text: 'I\'m still learning most of the time, and I like it that way' },
+    { icon: Users, text: 'I like working with other developers and sharing what I\'ve figured out' },
   ];
 
   const stats = [
@@ -126,27 +126,27 @@ export const AboutSection = () => {
             className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm mb-4"
           >
             <Heart size={12} className="md:w-[14px] md:h-[14px]" />
-            <span>My Story</span>
+            <span>A bit about me</span>
           </motion.div>
-          
-          <motion.h2 
-            className="text-2xl md:text-4xl font-mono font-bold"
+
+          <motion.h2
+            className="font-display text-2xl md:text-4xl font-semibold"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             viewport={{ once: true }}
           >
-            Who I <span className="gradient-text">Am</span>
+            Who I <span className="gradient-text">am</span>
           </motion.h2>
-          
-          <motion.p 
-            className="mt-3 md:mt-4 text-slate-400 max-w-2xl mx-auto text-sm md:text-base"
+
+          <motion.p
+            className="mt-3 md:mt-4 text-slate-200 max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
           >
-            A full-stack developer passionate about building scalable systems and solving real-world problems.
+            Full-stack developer. I like taking a system apart to see how the pieces fit before I add my own.
           </motion.p>
         </motion.div>
 
@@ -193,13 +193,19 @@ export const AboutSection = () => {
             className="lg:col-span-2"
           >
             <div className="lg:sticky lg:top-24">
-              <div className="bg-slate-900/30 backdrop-blur-sm rounded-xl md:rounded-2xl overflow-hidden border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl group">
+              <div className="bg-[#10160d] rounded-xl md:rounded-2xl overflow-hidden border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl group">
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
+                  {/* No hover-scale here: an animated transform: scale() on a
+                      real photo forces the GPU to resample the whole texture
+                      on every frame of the transition — confirmed expensive
+                      via CDP trace on the backdrop's crossfade (59% of that
+                      transition's cost). The card's border-color hover below
+                      still gives hover feedback without that cost. */}
                   <Image
                     src="/images/rabin2.jpeg"
                     alt="Rabin Pant"
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
                   
@@ -245,14 +251,6 @@ export const AboutSection = () => {
                       </div>
                       <span className="text-xs md:text-sm">5 AWS Certifications</span>
                     </div>
-                  </div>
-
-                  <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-slate-800">
-                    <p className="text-xs md:text-sm text-slate-400 leading-relaxed italic">
-                      "I believe great software starts with a solid foundation — 
-                      that's why I focus on system design and clean architecture 
-                      before writing a single line of code."
-                    </p>
                   </div>
                 </div>
               </div>
@@ -310,15 +308,13 @@ export const AboutSection = () => {
                       <h3 className="text-lg md:text-xl font-mono font-bold text-white">My Journey</h3>
                     </div>
                     <p className="text-slate-400 leading-relaxed text-sm md:text-base">
-                      I started my web development journey in 2022 with a simple curiosity: 
-                      <span className="text-white"> "How do websites actually work?" </span>
-                      That curiosity led me down a path of building, breaking, and learning.
+                      It started in 2022 with a pretty basic question:
+                      <span className="text-white"> "how do websites actually work?" </span>
+                      I've been building, breaking things, and figuring it out since then.
                     </p>
                     <p className="text-slate-400 leading-relaxed text-sm md:text-base">
-                      I chose Computer Science because I wanted to understand the 
-                      <span className="text-white"> "why" </span>
-                      behind the code — not just how to build things, but how to build them 
-                      <span className="text-white"> the right way.</span>
+                      I picked Computer Science because I wanted the
+                      <span className="text-white"> why</span>, not just enough to copy-paste something that works.
                     </p>
                     
                     {/* Mobile-optimized timeline */}
@@ -357,8 +353,7 @@ export const AboutSection = () => {
                       <h3 className="text-lg md:text-xl font-mono font-bold text-white">What's Next</h3>
                     </div>
                     <p className="text-slate-400 leading-relaxed text-sm md:text-base">
-                      I'm excited about the future and the impact I can make in the tech industry.
-                      Here's what I'm working toward:
+                      Here's what I'm working toward next.
                     </p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4">
@@ -387,8 +382,8 @@ export const AboutSection = () => {
 
                     <div className="mt-4 p-3 sm:p-4 rounded-xl bg-primary/5 border border-primary/20">
                       <p className="text-xs sm:text-sm text-slate-300">
-                        <span className="text-primary font-medium">Long-term vision:</span>{" "}
-                        Build products that solve real-world problems in Nepal and help grow the local tech ecosystem.
+                        <span className="text-primary font-medium">Long term,</span>{" "}
+                        I want to build things people in Nepal actually use, and help more people here get into tech.
                       </p>
                     </div>
                   </div>
@@ -403,7 +398,7 @@ export const AboutSection = () => {
                       <h3 className="text-lg md:text-xl font-mono font-bold text-white">My Philosophy</h3>
                     </div>
                     <p className="text-slate-400 leading-relaxed text-sm md:text-base">
-                      These are the principles that guide how I build software and work with others:
+                      A few things I try to stick to, whether or not anyone's checking.
                     </p>
 
                     <div className="space-y-2 sm:space-y-3 mt-4">

@@ -2,48 +2,47 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { 
-  Code2, 
-  BookOpen, 
-  Music, 
-  Gamepad2, 
+import {
+  Code2,
+  BookOpen,
+  Music,
+  Gamepad2,
   Bike,
   Globe,
-  Heart,
-  Sparkles
+  Heart
 } from 'lucide-react';
 
 export const Interests = () => {
   const interests = [
     {
       icon: Code2,
-      label: 'Open Source',
-      description: 'Contributing to and building open-source projects',
+      label: 'Open source',
+      description: 'Poking around other people\'s repos and occasionally sending a PR',
     },
     {
       icon: BookOpen,
       label: 'Reading',
-      description: 'Tech blogs, architecture books, and sci-fi novels',
+      description: 'Tech blogs, architecture write-ups, the odd sci-fi novel',
     },
     {
       icon: Music,
       label: 'Music',
-      description: 'Playing guitar and discovering new artists',
+      description: 'Playing guitar badly, finding new artists worth listening to',
     },
     {
       icon: Gamepad2,
       label: 'Gaming',
-      description: 'Strategy games and exploring game design',
+      description: 'Strategy games mostly, I like seeing how they\'re designed',
     },
     {
       icon: Bike,
-      label: 'Outdoor',
-      description: 'Hiking, biking, and exploring new places',
+      label: 'Outdoors',
+      description: 'Hiking and biking when I need to get away from a screen',
     },
     {
       icon: Globe,
       label: 'Travel',
-      description: 'Exploring new cultures and meeting people',
+      description: 'New places, new people, new ways of doing the same things',
     },
   ];
 
@@ -117,28 +116,27 @@ export const Interests = () => {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm mb-4"
           >
             <Heart size={14} />
-            <span>Beyond the Code</span>
+            <span>Outside of work</span>
           </motion.div>
-          
-          <motion.h2 
-            className="text-3xl md:text-4xl font-mono font-bold"
+
+          <motion.h2
+            className="font-display text-3xl md:text-4xl font-semibold"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             viewport={{ once: true }}
           >
-            What I'm <span className="gradient-text">Passionate About</span>
+            What I'm into <span className="gradient-text">besides code</span>
           </motion.h2>
-          
-          <motion.p 
-            className="mt-4 text-slate-400 max-w-2xl mx-auto text-sm md:text-base"
+
+          <motion.p
+            className="mt-4 text-slate-200 max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
           >
-            When I'm not building applications, you'll find me exploring these interests
-            that keep me inspired and balanced.
+            A few things I spend time on when I'm away from the keyboard.
           </motion.p>
         </motion.div>
 
@@ -223,34 +221,6 @@ export const Interests = () => {
         </div>
 
         {/* Fun Fact / Quote - Enhanced */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <motion.div 
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-slate-800/30 border border-slate-700 hover:border-primary transition-all duration-300 group"
-            whileHover={{ scale: 1.02 }}
-          >
-            <motion.div
-              animate={{ rotate: [0, 10, 0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              <Sparkles size={18} className="text-primary" />
-            </motion.div>
-            <span className="text-sm md:text-base text-slate-300 group-hover:text-white transition-colors duration-300">
-              "Code is poetry, but life is the canvas"
-            </span>
-            <motion.div
-              animate={{ rotate: [0, -10, 0, 10, 0] }}
-              transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-            >
-              <Sparkles size={18} className="text-primary" />
-            </motion.div>
-          </motion.div>
-        </motion.div>
       </div>
     </section>
   );

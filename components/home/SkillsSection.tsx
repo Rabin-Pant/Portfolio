@@ -2,18 +2,18 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { 
-  Code2, 
-  Database, 
-  Cloud, 
-  Layout, 
-  Server, 
+import {
+  Code2,
+  Database,
+  Cloud,
+  Layout,
+  Server,
   GitBranch,
-  Award,
-  Sparkles,
   Terminal,
   Boxes
 } from 'lucide-react';
+import { SiFigma } from 'react-icons/si';
+import { FaAws, FaLinkedin } from 'react-icons/fa6';
 
 export const SkillsSection = () => {
   const skillCategories = [
@@ -56,13 +56,13 @@ export const SkillsSection = () => {
   ];
 
   const certifications = [
-    { name: 'AWS Cloud Foundations', icon: Award },
-    { name: 'AWS Machine Learning Foundations', icon: Sparkles },
-    { name: 'AWS ML for Natural Language Processing', icon: Sparkles },
-    { name: 'AWS Data Engineering Foundations', icon: Database },
-    { name: 'AWS Generative AI Foundations', icon: Sparkles },
-    { name: 'Java OOP - LinkedIn Learning', icon: Code2 },
-    { name: 'UI/UX with Figma', icon: Layout },
+    { name: 'AWS Cloud Foundations', issuer: 'Amazon Web Services', icon: FaAws, color: '#FF9900' },
+    { name: 'AWS Machine Learning Foundations', issuer: 'Amazon Web Services', icon: FaAws, color: '#FF9900' },
+    { name: 'AWS ML for Natural Language Processing', issuer: 'Amazon Web Services', icon: FaAws, color: '#FF9900' },
+    { name: 'AWS Data Engineering Foundations', issuer: 'Amazon Web Services', icon: FaAws, color: '#FF9900' },
+    { name: 'AWS Generative AI Foundations', issuer: 'Amazon Web Services', icon: FaAws, color: '#FF9900' },
+    { name: 'Java OOP', issuer: 'LinkedIn Learning', icon: FaLinkedin, color: '#0A66C2' },
+    { name: 'UI/UX with Figma', issuer: 'Figma', icon: SiFigma, color: '#F24E1E' },
   ];
 
   // Languages - Only names
@@ -133,27 +133,27 @@ export const SkillsSection = () => {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm mb-4"
           >
             <Terminal size={14} />
-            <span>Technical Expertise</span>
+            <span>What I work with</span>
           </motion.div>
-          
-          <motion.h2 
-            className="text-3xl md:text-4xl font-mono font-bold"
+
+          <motion.h2
+            className="font-display text-3xl md:text-4xl font-semibold"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             viewport={{ once: true }}
           >
-            My <span className="gradient-text">Skills</span>
+            My <span className="gradient-text">skills</span>
           </motion.h2>
-          
-          <motion.p 
-            className="mt-4 text-slate-400 max-w-2xl mx-auto text-sm md:text-base"
+
+          <motion.p
+            className="mt-4 text-slate-200 max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
           >
-            A comprehensive overview of my technical expertise, tools, and certifications.
+            The tools and languages I actually reach for, plus a few certifications along the way.
           </motion.p>
         </motion.div>
 
@@ -248,7 +248,7 @@ export const SkillsSection = () => {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
-                <Award size={20} className="text-primary" />
+                <FaAws size={18} className="text-primary" />
               </div>
               <h3 className="text-lg font-semibold text-white">Certifications</h3>
             </div>
@@ -266,12 +266,18 @@ export const SkillsSection = () => {
                     whileHover={{ x: 4 }}
                     className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/30 transition-all duration-200 group"
                   >
-                    <div className="p-2 rounded-lg bg-slate-800/50 group-hover:scale-110 transition-transform duration-300">
-                      <Icon size={16} className="text-primary" />
+                    <div
+                      className="flex-shrink-0 rounded-lg bg-slate-900/60 p-2 ring-1 ring-inset ring-white/5 group-hover:scale-110 transition-transform duration-300"
+                      style={{ color: cert.color }}
+                    >
+                      <Icon size={16} />
                     </div>
-                    <span className="text-sm text-slate-300 group-hover:text-white transition-colors duration-200">
-                      {cert.name}
-                    </span>
+                    <div className="min-w-0">
+                      <div className="text-sm text-slate-300 group-hover:text-white transition-colors duration-200 truncate">
+                        {cert.name}
+                      </div>
+                      <div className="text-[11px] text-slate-500">{cert.issuer}</div>
+                    </div>
                   </motion.div>
                 );
               })}

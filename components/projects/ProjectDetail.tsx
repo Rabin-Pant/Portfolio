@@ -1,7 +1,7 @@
 // components/projects/ProjectDetail.tsx
 'use client';
 
-import Image from 'next/image'; // ✅ Added import
+import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, CheckCircle } from 'lucide-react';
@@ -40,7 +40,7 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
         transition={{ duration: 0.5 }}
         className="space-y-6 mb-12"
       >
-        <h1 className="text-4xl md:text-5xl font-mono font-bold">
+        <h1 className="font-display text-4xl md:text-5xl font-semibold">
           {project.title}
         </h1>
         <p className="text-xl text-slate-400">{project.tagline}</p>
@@ -90,7 +90,7 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
         </div>
       </motion.div>
 
-      {/* Project Image - ✅ Now shows actual images */}
+      {/* Project Image */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

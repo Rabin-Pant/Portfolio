@@ -4,6 +4,7 @@
 import { Hero } from '@/components/home/Hero';
 import { Interests } from '@/components/home/Interests';
 import { AboutSection } from '@/components/home/AboutSection';
+import { ExperienceSection } from '@/components/home/ExperienceSection';
 import { SkillsSection } from '@/components/home/SkillsSection';
 import { FeaturedProjects } from '@/components/home/FeaturedProjects';
 import { ContactSection } from '@/components/home/ContactSection';
@@ -17,6 +18,9 @@ export default function Home() {
       </section>
       <section id="about">
         <AboutSection />
+      </section>
+      <section id="experience">
+        <ExperienceSection />
       </section>
       <section id="interests">
         <Interests />
