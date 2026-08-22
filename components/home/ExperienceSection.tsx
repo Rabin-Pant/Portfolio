@@ -66,7 +66,7 @@ export const ExperienceSection = () => {
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
           >
-            One stop so far. More to come.
+           
           </motion.p>
         </motion.div>
 

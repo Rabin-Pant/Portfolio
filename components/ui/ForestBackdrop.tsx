@@ -30,8 +30,8 @@ function useMounted() {
  */
 // `boost` compensates for source quality, not the scrim (the scrim sits in
 // its own layer above every scene and is untouched by this). forest-floor/
-// forest-water are lower-resolution and much more compressed than branch.jpg
-// (474px/~33KB vs 612px/146KB) and are naturally soft, low-contrast shots to
+// waterfall are lower-resolution and much more compressed than branch.jpg
+// (474px/~25KB vs 612px/146KB) and are naturally soft, low-contrast shots to
 // begin with (mist, dappled light) — the same color-grade layer that
 // branch.jpg shrugs off crushes them further. A contrast/saturation lift on
 // the image itself reads as more detail without changing anything text sits
@@ -45,7 +45,7 @@ function useMounted() {
 const SCENES = [
   { src: '/images/branch.jpg', sections: ['hero', 'about'], boost: false },
   { src: '/images/forest-floor.webp', sections: ['experience', 'interests', 'skills'], boost: true },
-  { src: '/images/forest-water.webp', sections: ['projects', 'contact'], boost: true },
+  { src: '/images/office-plant.webp', sections: ['projects', 'contact'], boost: true },
 ] as const;
 
 const SECTION_SCENE: [string, number][] = SCENES.flatMap((scene, index) =>
@@ -500,7 +500,10 @@ export const ForestBackdrop = () => {
             transition={
               animate
                 ? { duration: 1.9, ease: [0.22, 1, 0.36, 1] }
-                : { duration: 0.3 }
+                // Slower than the old 0.3s — the light pulse below now gives
+                // reduced-motion visitors a deliberate transition moment,
+                // and 0.3s cut it off before it could read as intentional.
+                : { duration: 0.9, ease: 'easeInOut' }
             }
           >
             <Image
@@ -539,6 +542,36 @@ export const ForestBackdrop = () => {
             'radial-gradient(ellipse 120% 90% at 50% 15%, rgba(58,74,40,0.25) 0%, transparent 55%)',
           ].join(','),
         }}
+      />
+
+      {/* Light pulse: a soft, warm glow that washes over the scene on every
+          change — like a moment of sunlight through the canopy. Deliberately
+          NOT gated behind `animate`: it's opacity-only on a static-position
+          gradient (no movement, no scale), which is exactly the category
+          prefers-reduced-motion is meant to allow rather than suppress — the
+          setting targets large-scale/parallax/fast motion, not a slow fade.
+          Everything else in this file (the wind streaks and, when restored,
+          the leaf canvas) stays behind the `animate` gate below and is
+          skipped for reduced-motion visitors; without this layer those
+          visitors got nothing but a near-instant crossfade on scene change,
+          which on a device with the OS setting on (common on phones, often
+          bundled into battery saver) reads as "the effect doesn't work"
+          rather than "this visitor asked for less motion." This runs for
+          everyone, so nobody's experience depends on a device setting. */}
+      <motion.div
+        key={`pulse-${gust}`}
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 70% 50% at 50% 20%, rgba(226,238,208,1) 0%, transparent 65%)',
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0.16, 0] }}
+        transition={
+          animate
+            ? { duration: 1.6, ease: 'easeInOut' }
+            : { duration: 1.1, ease: 'easeInOut' }
+        }
       />
 
       {/* Gust layers sit ABOVE the scrim so they don't get dimmed out, but

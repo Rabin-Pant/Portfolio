@@ -38,10 +38,10 @@ export const Hero = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-4 md:mt-6 text-base md:text-lg text-slate-200 max-w-lg leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
             >
-              I'm a developer based in Kathmandu. I'm strongest on the backend and
-              database side: modeling data, designing APIs, and wiring the two
-              together with a frontend on top. AWS and cloud deployment round out
-              the rest.
+              I'm a developer based in Kathmandu. Most of my time goes into the
+              thinking before the coding: how the data should be structured, how
+              the pieces should fit together, what's likely to break later. The
+              actual building tends to be the easy part once that's sorted.
             </motion.p>
 
             {/* CTA Buttons */}
