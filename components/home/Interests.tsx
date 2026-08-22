@@ -3,46 +3,34 @@
 
 import { motion } from 'framer-motion';
 import {
-  Code2,
   BookOpen,
   Music,
   Gamepad2,
   Bike,
-  Globe,
   Heart
 } from 'lucide-react';
 
 export const Interests = () => {
   const interests = [
     {
-      icon: Code2,
-      label: 'Open source',
-      description: 'Poking around other people\'s repos and occasionally sending a PR',
-    },
-    {
       icon: BookOpen,
       label: 'Reading',
-      description: 'Tech blogs, architecture write-ups, the odd sci-fi novel',
+      description: 'Tech blogs, architecture write-ups, the old novels',
     },
     {
       icon: Music,
       label: 'Music',
-      description: 'Playing guitar badly, finding new artists worth listening to',
+      description: 'Finding new artists worth listening to',
     },
     {
       icon: Gamepad2,
       label: 'Gaming',
-      description: 'Strategy games mostly, I like seeing how they\'re designed',
+      description: 'Battle royal/RPGs games mostly',
     },
     {
       icon: Bike,
       label: 'Outdoors',
       description: 'Hiking and biking when I need to get away from a screen',
-    },
-    {
-      icon: Globe,
-      label: 'Travel',
-      description: 'New places, new people, new ways of doing the same things',
     },
   ];
 
@@ -140,8 +128,11 @@ export const Interests = () => {
           </motion.p>
         </motion.div>
 
-        {/* Interests Grid - 3 columns on mobile, 6 columns on desktop */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-6 max-w-4xl mx-auto">
+        {/* Interests Grid — 2 columns on mobile, 4 on desktop. Was 3 on
+            desktop, which orphaned the 4th card alone on its own row with
+            two empty cells beside it once two entries were removed; 4 lets
+            all of them sit in one even row instead. */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 max-w-4xl mx-auto">
           {interests.map((item, index) => {
             const Icon = item.icon;
             return (
