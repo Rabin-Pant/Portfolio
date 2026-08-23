@@ -2,6 +2,7 @@
 'use client';
 
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 
@@ -419,6 +420,10 @@ const STREAKS = [
  * still behind page content.
  */
 export const ForestBackdrop = () => {
+  // Section tracking must re-run on route change (see the effect below) —
+  // this component lives once in the root layout and never remounts, but
+  // the section DOM it observes does.
+  const pathname = usePathname();
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
   // Increments on every scene change. Used as the animation key so each gust
@@ -444,6 +449,17 @@ export const ForestBackdrop = () => {
   // source of scroll jank. Collapsing the root to a 1px line at the viewport
   // midpoint (via the -50%/-50% rootMargin) reproduces the same "which section
   // is under the middle of the screen" rule with zero layout reads.
+  //
+  // Keyed on `pathname` rather than running once: this component is mounted
+  // once in the root layout and outlives every client-side navigation, but
+  // the section elements it looks up by id do not — visiting a project page
+  // and coming back (or landing on a non-home route first, where none of
+  // these ids exist at all) destroys and recreates that DOM. An observer
+  // built once against the original elements silently watches detached
+  // nodes forever after that, freezing the backdrop on whatever scene was
+  // last active until a full page reload remounts everything. Re-running
+  // this per pathname tears down the stale observer and re-acquires
+  // whatever section elements exist on the page that's now mounted.
   useEffect(() => {
     const sceneOf = new Map<Element, number>();
     for (const [id, index] of SECTION_SCENE) {
@@ -475,7 +491,7 @@ export const ForestBackdrop = () => {
 
     sceneOf.forEach((_, el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [pathname]);
 
   // `will-change` is only worth setting while a transition is actually
   // running. Leaving it on permanently keeps three full-viewport composited
