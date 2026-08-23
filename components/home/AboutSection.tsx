@@ -208,18 +208,6 @@ export const AboutSection = () => {
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
-                  
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="absolute top-3 left-3 md:top-4 md:left-4 bg-black/60 backdrop-blur-sm rounded-full px-2 py-1 md:px-3 md:py-1.5 border border-white/10"
-                  >
-                    <span className="text-[10px] md:text-xs text-slate-300 flex items-center gap-1 md:gap-1.5">
-                      <Sparkles size={10} className="text-primary md:w-[12px] md:h-[12px]" />
-                      Available
-                    </span>
-                  </motion.div>
                 </div>
                 
                 <div className="p-4 md:p-6">

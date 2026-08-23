@@ -28,14 +28,16 @@ function useMounted() {
  * walks them top-down and keeps the last one whose top has passed the
  * viewport midpoint, the same approach the Navbar uses for its active link.
  */
-// `boost` compensates for source quality, not the scrim (the scrim sits in
+// `filter` compensates for source quality, not the scrim (the scrim sits in
 // its own layer above every scene and is untouched by this). forest-floor/
-// waterfall are lower-resolution and much more compressed than branch.jpg
-// (474px/~25KB vs 612px/146KB) and are naturally soft, low-contrast shots to
-// begin with (mist, dappled light) — the same color-grade layer that
+// office-plant are lower-resolution and much more compressed than branch.jpg
+// (474px/17-32KB vs 612px/146KB) and are naturally soft, low-contrast shots
+// to begin with (mist, dappled light) — the same color-grade layer that
 // branch.jpg shrugs off crushes them further. A contrast/saturation lift on
 // the image itself reads as more detail without changing anything text sits
-// on top of.
+// on top of. office-plant is the smallest/softest source of the three (also
+// stretched to full viewport width via `fill`, so its upscale is the most
+// visible), so its lift is tuned a step stronger than forest-floor's.
 // Filenames matter here, not just as labels: these two have had their file
 // content swapped multiple times during setup, and browsers cache the
 // resulting /_next/image response by full URL — a hard refresh doesn't
@@ -43,9 +45,17 @@ function useMounted() {
 // requested, so there is nothing anywhere (browser, Next's own image-
 // optimizer disk cache) that could be holding a stale cached response.
 const SCENES = [
-  { src: '/images/branch.jpg', sections: ['hero', 'about'], boost: false },
-  { src: '/images/forest-floor.webp', sections: ['experience', 'interests', 'skills'], boost: true },
-  { src: '/images/office-plant.webp', sections: ['projects', 'contact'], boost: true },
+  { src: '/images/branch.jpg', sections: ['hero', 'about'], filter: undefined },
+  {
+    src: '/images/forest-floor.webp',
+    sections: ['experience', 'interests', 'skills'],
+    filter: 'contrast(1.4) saturate(1.5) brightness(1.25)',
+  },
+  {
+    src: '/images/office-plant.webp',
+    sections: ['projects', 'contact'],
+    filter: 'contrast(1.5) saturate(1.6) brightness(1.22)',
+  },
 ] as const;
 
 const SECTION_SCENE: [string, number][] = SCENES.flatMap((scene, index) =>
@@ -255,10 +265,12 @@ const GustCanvas = ({ gust, enabled }: { gust: number; enabled: boolean }) => {
     const start = performance.now();
     let raf = 0;
     let lastDraw = 0;
-    // Capped at ~30fps — soft, blurred, fast-moving particles don't read as
-    // choppier at half the frame rate, and it halves the canvas's own draw
-    // cost for free.
-    const FRAME_MS = 1000 / 30;
+    // Was capped at ~30fps (halves the canvas's own draw cost vs. 60, and
+    // soft/blurred fast-moving particles don't read as choppier at half the
+    // frame rate). Raised to 60 for smoother motion on capable hardware — if
+    // this reads as laggy on lower-end/integrated GPUs or mobile, drop the
+    // divisor back to 30 first before touching anything else in this file.
+    const FRAME_MS = 1000 / 60;
 
     const tick = (now: number) => {
       const elapsed = now - start;
@@ -512,7 +524,7 @@ export const ForestBackdrop = () => {
               fill
               sizes="100vw"
               className="object-cover"
-              style={scene.boost ? { filter: 'contrast(1.4) saturate(1.5) brightness(1.25)' } : undefined}
+              style={scene.filter ? { filter: scene.filter } : undefined}
               priority={index === 0}
             />
           </motion.div>

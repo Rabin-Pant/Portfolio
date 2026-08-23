@@ -104,10 +104,6 @@ export const Hero = () => {
                       Full-Stack Developer
                     </div>
                   </div>
-                  <span className="flex items-center gap-1.5 whitespace-nowrap font-mono text-[10px] text-teal-300">
-                    <span className="h-1.5 w-1.5 rounded-full bg-teal-300 shadow-[0_0_0_3px_rgba(94,214,216,0.18)]" />
-                    Available
-                  </span>
                 </div>
               </div>
             </div>

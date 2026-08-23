@@ -36,7 +36,7 @@ export const projects: Project[] = [
       'A social feed with posts, likes, and comments',
     ],
     techStack: ['React', 'Node.js', 'PostgreSQL', 'Prisma', 'Socket.io', 'Tailwind CSS'],
-    image: '/images/projects/TalentBridge.png',
+    image: '/images/projects/TalentBridge-2.png',
     links: {
       github: 'https://github.com/Rabin-Pant/TALENTBRIDGE',
     },

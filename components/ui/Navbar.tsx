@@ -24,7 +24,15 @@ export const Navbar = () => {
   const isHomePage = pathname === '/';
 
   useEffect(() => {
-    const handleScroll = () => {
+    // Coalesced into rAF rather than run on every native `scroll` event —
+    // scroll events can fire many times per rendered frame, and each run
+    // below does a `getBoundingClientRect()` per section, which forces a
+    // synchronous layout. Uncoalesced, that's layout thrashing on every
+    // scroll tick, on every page (this bar is always mounted). Same fix
+    // ForestBackdrop already applies to its own section tracking.
+    let ticking = false;
+
+    const update = () => {
       setIsScrolled(window.scrollY > 20);
 
       if (isHomePage) {
@@ -41,9 +49,16 @@ export const Navbar = () => {
         }
         setActiveSection(current);
       }
+      ticking = false;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHomePage]);
 
