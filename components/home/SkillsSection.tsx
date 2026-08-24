@@ -1,6 +1,7 @@
 // components/home/SkillsSection.tsx
 'use client';
 
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import {
   Code2,
@@ -14,6 +15,62 @@ import {
 } from 'lucide-react';
 import { SiFigma } from 'react-icons/si';
 import { FaAws, FaLinkedin } from 'react-icons/fa6';
+
+// Fixed particles - static, defined once outside the component
+const particles = [
+  { id: 0, x: 10, y: 15, size: 1.5, duration: 10, delay: 0 },
+  { id: 1, x: 85, y: 25, size: 2, duration: 12, delay: 0.5 },
+  { id: 2, x: 20, y: 75, size: 1.5, duration: 9, delay: 1 },
+  { id: 3, x: 70, y: 80, size: 2, duration: 11, delay: 1.5 },
+  { id: 4, x: 45, y: 10, size: 1, duration: 8, delay: 0.3 },
+  { id: 5, x: 5, y: 50, size: 2, duration: 13, delay: 0.8 },
+  { id: 6, x: 92, y: 55, size: 1.5, duration: 10, delay: 1.2 },
+  { id: 7, x: 50, y: 92, size: 1, duration: 9, delay: 0.6 },
+  { id: 8, x: 65, y: 35, size: 2, duration: 12, delay: 1.8 },
+  { id: 9, x: 30, y: 65, size: 1.5, duration: 10, delay: 0.4 },
+  { id: 10, x: 75, y: 70, size: 1, duration: 11, delay: 0.9 },
+  { id: 11, x: 40, y: 45, size: 2, duration: 9, delay: 1.1 },
+  { id: 12, x: 55, y: 5, size: 1.5, duration: 12, delay: 0.2 },
+  { id: 13, x: 15, y: 90, size: 1, duration: 10, delay: 1.4 },
+  { id: 14, x: 80, y: 40, size: 2, duration: 11, delay: 0.7 },
+];
+
+const particleVariants = {
+  hidden: { opacity: 0 },
+  visible: ({ duration, delay }: { duration: number; delay: number }) => ({
+    y: [0, -40, 0, 40, 0],
+    x: [0, 30, 0, -30, 0],
+    opacity: [0.2, 0.5, 0.2],
+    transition: { duration, repeat: Infinity, delay, ease: 'easeInOut' as const },
+  }),
+};
+
+// Memoized, single viewport observer for all particles via variant propagation
+const SkillsParticles = memo(function SkillsParticles() {
+  return (
+    <motion.div
+      className="absolute inset-0 pointer-events-none"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: false, amount: 0 }}
+    >
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute rounded-full bg-primary/10"
+          style={{
+            width: p.size,
+            height: p.size,
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+          }}
+          custom={{ duration: p.duration, delay: p.delay }}
+          variants={particleVariants}
+        />
+      ))}
+    </motion.div>
+  );
+});
 
 export const SkillsSection = () => {
   const skillCategories = [
@@ -68,53 +125,9 @@ export const SkillsSection = () => {
   // Languages - Only names
   const languages = ['Java', 'SQL', 'JavaScript', 'Python', 'Bash', 'TypeScript'];
 
-  // Fixed particles
-  const particles = [
-    { id: 0, x: 10, y: 15, size: 1.5, duration: 10, delay: 0 },
-    { id: 1, x: 85, y: 25, size: 2, duration: 12, delay: 0.5 },
-    { id: 2, x: 20, y: 75, size: 1.5, duration: 9, delay: 1 },
-    { id: 3, x: 70, y: 80, size: 2, duration: 11, delay: 1.5 },
-    { id: 4, x: 45, y: 10, size: 1, duration: 8, delay: 0.3 },
-    { id: 5, x: 5, y: 50, size: 2, duration: 13, delay: 0.8 },
-    { id: 6, x: 92, y: 55, size: 1.5, duration: 10, delay: 1.2 },
-    { id: 7, x: 50, y: 92, size: 1, duration: 9, delay: 0.6 },
-    { id: 8, x: 65, y: 35, size: 2, duration: 12, delay: 1.8 },
-    { id: 9, x: 30, y: 65, size: 1.5, duration: 10, delay: 0.4 },
-    { id: 10, x: 75, y: 70, size: 1, duration: 11, delay: 0.9 },
-    { id: 11, x: 40, y: 45, size: 2, duration: 9, delay: 1.1 },
-    { id: 12, x: 55, y: 5, size: 1.5, duration: 12, delay: 0.2 },
-    { id: 13, x: 15, y: 90, size: 1, duration: 10, delay: 1.4 },
-    { id: 14, x: 80, y: 40, size: 2, duration: 11, delay: 0.7 },
-  ];
-
   return (
     <section className="py-20 md:py-28 bg-slate-900/10 relative overflow-hidden">
-      {/* Background Particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {particles.map((p) => (
-          <motion.div
-            key={p.id}
-            className="absolute rounded-full bg-primary/10"
-            style={{
-              width: p.size,
-              height: p.size,
-              left: `${p.x}%`,
-              top: `${p.y}%`,
-            }}
-            animate={{
-              y: [0, -40, 0, 40, 0],
-              x: [0, 30, 0, -30, 0],
-              opacity: [0.2, 0.5, 0.2],
-            }}
-            transition={{
-              duration: p.duration,
-              repeat: Infinity,
-              delay: p.delay,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
+      <SkillsParticles />
 
       <div className="container-custom relative z-10">
         {/* Section Header */}

@@ -1,12 +1,14 @@
 /* app/globals.css */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
-
 @import "tailwindcss";
 
 @theme {
   --color-primary: #6FB88D;
   --color-primary-dark: #4d9269;
   --color-primary-glow: rgba(111, 184, 141, 0.15);
+
+  --font-sans: var(--font-inter), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-display: var(--font-fraunces), Georgia, serif;
 }
 
 @layer base {
@@ -15,10 +17,6 @@
     color: #F3F7F2;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  html {
-    scroll-behavior: smooth;
   }
 
   /* Custom scrollbar */
@@ -70,19 +68,6 @@
     background-clip: text;
   }
 
-  .glow {
-    position: relative;
-  }
-
-  .glow::before {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    background: rgba(111, 184, 141, 0.15);
-    filter: blur(40px);
-    z-index: -10;
-  }
-
   /* Glass panel used by cards that sit over the fixed forest backdrop */
   .panel {
     background: rgba(23, 29, 25, 0.55);
@@ -91,51 +76,9 @@
   }
 }
 
-/* app/globals.css - Add these animations at the end */
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes spin-slow-reverse {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 8s linear infinite;
-}
-
-.animate-spin-slow-reverse {
-  animation: spin-slow-reverse 8s linear infinite;
-}
-
 @media (max-width: 768px) {
- 
   a, button, [role="button"] {
     min-height: 44px;
     min-width: 44px;
-  }
-  
- 
-  .mobile-menu-overlay {
-    touch-action: auto;
-    pointer-events: auto;
-  }
-  
-  
-  .mobile-menu-link {
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
   }
 }

@@ -1,11 +1,73 @@
 // components/home/ContactSection.tsx
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, memo } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Send, Sparkles, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react';
 import { GithubIcon } from '@/components/ui/GithubIcon';
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon';
+
+// Background particles - static, defined once outside the component
+const particles = [
+  { id: 0, x: 15, y: 10, size: 2, duration: 8, delay: 0 },
+  { id: 1, x: 85, y: 20, size: 1.5, duration: 10, delay: 0.5 },
+  { id: 2, x: 25, y: 80, size: 2.5, duration: 9, delay: 1 },
+  { id: 3, x: 75, y: 85, size: 1, duration: 11, delay: 1.5 },
+  { id: 4, x: 45, y: 15, size: 2, duration: 8, delay: 0.3 },
+  { id: 5, x: 10, y: 50, size: 1.5, duration: 10, delay: 0.8 },
+  { id: 6, x: 90, y: 55, size: 2, duration: 9, delay: 1.2 },
+  { id: 7, x: 50, y: 90, size: 1.5, duration: 8, delay: 0.6 },
+  { id: 8, x: 65, y: 30, size: 2.5, duration: 11, delay: 1.8 },
+  { id: 9, x: 30, y: 65, size: 1, duration: 9, delay: 0.4 },
+  { id: 10, x: 70, y: 70, size: 2, duration: 10, delay: 0.9 },
+  { id: 11, x: 40, y: 40, size: 1.5, duration: 8, delay: 1.1 },
+  { id: 12, x: 55, y: 5, size: 2, duration: 11, delay: 0.2 },
+  { id: 13, x: 20, y: 95, size: 1, duration: 9, delay: 1.4 },
+  { id: 14, x: 80, y: 45, size: 2.5, duration: 10, delay: 0.7 },
+  { id: 15, x: 35, y: 75, size: 1.5, duration: 12, delay: 1.6 },
+  { id: 16, x: 60, y: 15, size: 2, duration: 8, delay: 0.1 },
+  { id: 17, x: 5, y: 70, size: 1, duration: 11, delay: 0.3 },
+  { id: 18, x: 95, y: 35, size: 2, duration: 9, delay: 1.3 },
+  { id: 19, x: 50, y: 50, size: 1.5, duration: 10, delay: 0.5 },
+];
+
+const particleVariants = {
+  hidden: { opacity: 0 },
+  visible: ({ duration, delay }: { duration: number; delay: number }) => ({
+    y: [0, -30, 0, 30, 0],
+    x: [0, 20, 0, -20, 0],
+    opacity: [0.1, 0.3, 0.1],
+    transition: { duration, repeat: Infinity, delay, ease: 'easeInOut' as const },
+  }),
+};
+
+// Memoized so typing in the form (state updates in ContactSection) never
+// re-renders this - it's static and only re-evaluated by its own inView state.
+const ContactParticles = memo(function ContactParticles() {
+  return (
+    <motion.div
+      className="absolute inset-0 pointer-events-none"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: false, amount: 0 }}
+    >
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute rounded-full bg-primary/10"
+          style={{
+            width: p.size,
+            height: p.size,
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+          }}
+          custom={{ duration: p.duration, delay: p.delay }}
+          variants={particleVariants}
+        />
+      ))}
+    </motion.div>
+  );
+});
 
 export const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -150,58 +212,9 @@ export const ContactSection = () => {
     },
   ];
 
-  // Background particles
-  const particles = [
-    { id: 0, x: 15, y: 10, size: 2, duration: 8, delay: 0 },
-    { id: 1, x: 85, y: 20, size: 1.5, duration: 10, delay: 0.5 },
-    { id: 2, x: 25, y: 80, size: 2.5, duration: 9, delay: 1 },
-    { id: 3, x: 75, y: 85, size: 1, duration: 11, delay: 1.5 },
-    { id: 4, x: 45, y: 15, size: 2, duration: 8, delay: 0.3 },
-    { id: 5, x: 10, y: 50, size: 1.5, duration: 10, delay: 0.8 },
-    { id: 6, x: 90, y: 55, size: 2, duration: 9, delay: 1.2 },
-    { id: 7, x: 50, y: 90, size: 1.5, duration: 8, delay: 0.6 },
-    { id: 8, x: 65, y: 30, size: 2.5, duration: 11, delay: 1.8 },
-    { id: 9, x: 30, y: 65, size: 1, duration: 9, delay: 0.4 },
-    { id: 10, x: 70, y: 70, size: 2, duration: 10, delay: 0.9 },
-    { id: 11, x: 40, y: 40, size: 1.5, duration: 8, delay: 1.1 },
-    { id: 12, x: 55, y: 5, size: 2, duration: 11, delay: 0.2 },
-    { id: 13, x: 20, y: 95, size: 1, duration: 9, delay: 1.4 },
-    { id: 14, x: 80, y: 45, size: 2.5, duration: 10, delay: 0.7 },
-    { id: 15, x: 35, y: 75, size: 1.5, duration: 12, delay: 1.6 },
-    { id: 16, x: 60, y: 15, size: 2, duration: 8, delay: 0.1 },
-    { id: 17, x: 5, y: 70, size: 1, duration: 11, delay: 0.3 },
-    { id: 18, x: 95, y: 35, size: 2, duration: 9, delay: 1.3 },
-    { id: 19, x: 50, y: 50, size: 1.5, duration: 10, delay: 0.5 },
-  ];
-
   return (
     <section className="py-20 md:py-28 bg-slate-900/10 relative overflow-hidden">
-      {/* Background Particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {particles.map((p) => (
-          <motion.div
-            key={p.id}
-            className="absolute rounded-full bg-primary/10"
-            style={{
-              width: p.size,
-              height: p.size,
-              left: `${p.x}%`,
-              top: `${p.y}%`,
-            }}
-            animate={{
-              y: [0, -30, 0, 30, 0],
-              x: [0, 20, 0, -20, 0],
-              opacity: [0.1, 0.3, 0.1],
-            }}
-            transition={{
-              duration: p.duration,
-              repeat: Infinity,
-              delay: p.delay,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
+      <ContactParticles />
 
       <div className="container-custom relative z-10">
         {/* Section Header */}

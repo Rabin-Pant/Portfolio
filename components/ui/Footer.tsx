@@ -6,30 +6,51 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GithubIcon } from '@/components/ui/GithubIcon';
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon';
-import { 
-  Mail, 
-  MapPin, 
-  Phone, 
-  ArrowUp, 
+import {
+  Mail,
+  ArrowUp,
   Sparkles,
   Heart,
   Code
 } from 'lucide-react';
+
+const footerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0 }
+};
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.scrollY > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+    let ticking = false;
+
+    const update = () => {
+      setIsVisible(window.scrollY > 300);
+      ticking = false;
     };
 
-    window.addEventListener('scroll', toggleVisibility);
+    const toggleVisibility = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
     return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
 
@@ -67,24 +88,6 @@ export const Footer = () => {
   ];
 
   const techStack = ['React', 'Next.js', 'Node.js', 'TypeScript', 'PostgreSQL', 'AWS'];
-
-  const footerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: 0.6,
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0 }
-  };
 
   return (
     <footer className="bg-slate-900/30 border-t border-slate-800/50 relative overflow-hidden">

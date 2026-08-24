@@ -13,24 +13,33 @@ interface ProjectCardProps {
 }
 
 const projectStyles: Record<string, { emoji: string }> = {
-  'inventory-pro': { emoji: '📦' },
   'talentbridge': { emoji: '🤝' },
   'cinebook': { emoji: '🎟️' },
   'chat-app': { emoji: '💬' },
 };
 
+// Fixed particle positions (no Math.random) - static, defined once outside the component
+const particles = [
+  { x: 10, y: 20, size: 3, duration: 4.2, delay: 0.1 },
+  { x: 80, y: 15, size: 4, duration: 5.1, delay: 0.4 },
+  { x: 20, y: 70, size: 2.5, duration: 4.8, delay: 0.7 },
+  { x: 85, y: 75, size: 3.5, duration: 5.5, delay: 0.3 },
+  { x: 45, y: 10, size: 3, duration: 4.5, delay: 0.9 },
+  { x: 15, y: 90, size: 2, duration: 5.2, delay: 0.5 },
+];
+
+const particleVariants = {
+  hidden: { opacity: 0 },
+  visible: ({ duration, delay }: { duration: number; delay: number }) => ({
+    y: [0, -15, 0, 15, 0],
+    x: [0, 8, 0, -8, 0],
+    opacity: [0.2, 0.7, 0.2],
+    transition: { duration, repeat: Infinity, delay, ease: 'easeInOut' as const },
+  }),
+};
+
 export const ProjectCard = ({ project, index }: ProjectCardProps) => {
   const style = projectStyles[project.slug] || { emoji: '💻' };
-
-  // Fixed particle positions (no Math.random)
-  const particles = [
-    { x: 10, y: 20, size: 3, duration: 4.2, delay: 0.1 },
-    { x: 80, y: 15, size: 4, duration: 5.1, delay: 0.4 },
-    { x: 20, y: 70, size: 2.5, duration: 4.8, delay: 0.7 },
-    { x: 85, y: 75, size: 3.5, duration: 5.5, delay: 0.3 },
-    { x: 45, y: 10, size: 3, duration: 4.5, delay: 0.9 },
-    { x: 15, y: 90, size: 2, duration: 5.2, delay: 0.5 },
-  ];
 
   return (
     <motion.div
@@ -53,7 +62,12 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
         <Link href={`/projects/${project.slug}`}>
           <div className="relative h-32 bg-gradient-to-br from-slate-800/60 to-slate-900/60 overflow-hidden cursor-pointer">
             {/* Fixed Particles (no Math.random) */}
-            <div className="absolute inset-0 pointer-events-none">
+            <motion.div
+              className="absolute inset-0 pointer-events-none"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0 }}
+            >
               {particles.map((p, i) => (
                 <motion.div
                   key={i}
@@ -64,28 +78,20 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                     left: `${p.x}%`,
                     top: `${p.y}%`,
                   }}
-                  animate={{
-                    y: [0, -15, 0, 15, 0],
-                    x: [0, 8, 0, -8, 0],
-                    opacity: [0.2, 0.7, 0.2],
-                  }}
-                  transition={{
-                    duration: p.duration,
-                    repeat: Infinity,
-                    delay: p.delay,
-                    ease: "easeInOut",
-                  }}
+                  custom={{ duration: p.duration, delay: p.delay }}
+                  variants={particleVariants}
                 />
               ))}
-            </div>
+            </motion.div>
 
             {/* Pulsing Glow behind emoji */}
             <motion.div
               className="absolute inset-0 flex items-center justify-center"
-              animate={{
+              whileInView={{
                 scale: [1, 1.1, 1],
                 opacity: [0.5, 0.8, 0.5],
               }}
+              viewport={{ once: false, amount: 0 }}
               transition={{
                 duration: 3,
                 repeat: Infinity,
@@ -158,7 +164,8 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
               <span className="text-white font-medium text-sm flex items-center gap-2">
                 View Case Study
                 <motion.span
-                  animate={{ x: [0, 5, 0] }}
+                  whileInView={{ x: [0, 5, 0] }}
+                  viewport={{ once: false, amount: 0 }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
                   →
@@ -182,7 +189,8 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                   >
                     {project.title}
                     <motion.span
-                      animate={{ rotate: [0, 5, 0, -5, 0] }}
+                      whileInView={{ rotate: [0, 5, 0, -5, 0] }}
+                      viewport={{ once: false, amount: 0 }}
                       transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
                     >
                       <Sparkles size={14} className="text-primary" />

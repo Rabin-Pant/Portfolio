@@ -101,6 +101,7 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
           src={project.image}
           alt={`${project.title} screenshot`}
           fill
+          sizes="(min-width: 1024px) 1200px, 100vw"
           className="object-cover"
           priority
         />

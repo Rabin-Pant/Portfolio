@@ -1,5 +1,4 @@
 // app/projects/[slug]/page.tsx
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getProjectBySlug } from '@/lib/projects';
 import { ProjectDetail } from '@/components/projects/ProjectDetail';

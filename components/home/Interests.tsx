@@ -1,6 +1,7 @@
 // components/home/Interests.tsx
 'use client';
 
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import {
   BookOpen,
@@ -9,6 +10,67 @@ import {
   Bike,
   Heart
 } from 'lucide-react';
+
+// Floating particles for background - static, defined once outside the component
+const particles = [
+  { id: 0, x: 15, y: 10, size: 2.5, duration: 8, delay: 0, opacity: 0.15 },
+  { id: 1, x: 85, y: 20, size: 3, duration: 10, delay: 0.5, opacity: 0.2 },
+  { id: 2, x: 25, y: 80, size: 2, duration: 9, delay: 1, opacity: 0.12 },
+  { id: 3, x: 75, y: 85, size: 3.5, duration: 11, delay: 1.5, opacity: 0.18 },
+  { id: 4, x: 45, y: 15, size: 2, duration: 8, delay: 0.3, opacity: 0.15 },
+  { id: 5, x: 10, y: 50, size: 3, duration: 10, delay: 0.8, opacity: 0.2 },
+  { id: 6, x: 90, y: 55, size: 2.5, duration: 9, delay: 1.2, opacity: 0.15 },
+  { id: 7, x: 50, y: 90, size: 2, duration: 8, delay: 0.6, opacity: 0.12 },
+  { id: 8, x: 65, y: 30, size: 3, duration: 11, delay: 1.8, opacity: 0.18 },
+  { id: 9, x: 30, y: 65, size: 2.5, duration: 9, delay: 0.4, opacity: 0.15 },
+  { id: 10, x: 70, y: 70, size: 2, duration: 10, delay: 0.9, opacity: 0.12 },
+  { id: 11, x: 40, y: 40, size: 3, duration: 8, delay: 1.1, opacity: 0.2 },
+  { id: 12, x: 55, y: 5, size: 2.5, duration: 11, delay: 0.2, opacity: 0.15 },
+  { id: 13, x: 20, y: 95, size: 2, duration: 9, delay: 1.4, opacity: 0.12 },
+  { id: 14, x: 80, y: 45, size: 3, duration: 10, delay: 0.7, opacity: 0.18 },
+  { id: 15, x: 35, y: 75, size: 2.5, duration: 12, delay: 1.6, opacity: 0.15 },
+  { id: 16, x: 60, y: 15, size: 2, duration: 8, delay: 0.1, opacity: 0.12 },
+  { id: 17, x: 5, y: 70, size: 3, duration: 11, delay: 0.3, opacity: 0.2 },
+  { id: 18, x: 95, y: 35, size: 2.5, duration: 9, delay: 1.3, opacity: 0.15 },
+  { id: 19, x: 50, y: 50, size: 2, duration: 10, delay: 0.5, opacity: 0.12 },
+];
+
+const particleVariants = {
+  hidden: { opacity: 0 },
+  visible: ({ duration, delay, opacity }: { duration: number; delay: number; opacity: number }) => ({
+    y: [0, -30, 0, 30, 0],
+    x: [0, 20, 0, -20, 0],
+    opacity: [opacity, opacity * 2, opacity],
+    transition: { duration, repeat: Infinity, delay, ease: 'easeInOut' as const },
+  }),
+};
+
+// Memoized, single viewport observer for all 20 particles via variant propagation
+const InterestsParticles = memo(function InterestsParticles() {
+  return (
+    <motion.div
+      className="absolute inset-0 pointer-events-none"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: false, amount: 0 }}
+    >
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute rounded-full bg-primary/20"
+          style={{
+            width: p.size,
+            height: p.size,
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+          }}
+          custom={{ duration: p.duration, delay: p.delay, opacity: p.opacity }}
+          variants={particleVariants}
+        />
+      ))}
+    </motion.div>
+  );
+});
 
 export const Interests = () => {
   const interests = [
@@ -34,58 +96,9 @@ export const Interests = () => {
     },
   ];
 
-  // Floating particles for background
-  const particles = [
-  { id: 0, x: 15, y: 10, size: 2.5, duration: 8, delay: 0, opacity: 0.15 },
-  { id: 1, x: 85, y: 20, size: 3, duration: 10, delay: 0.5, opacity: 0.2 },
-  { id: 2, x: 25, y: 80, size: 2, duration: 9, delay: 1, opacity: 0.12 },
-  { id: 3, x: 75, y: 85, size: 3.5, duration: 11, delay: 1.5, opacity: 0.18 },
-  { id: 4, x: 45, y: 15, size: 2, duration: 8, delay: 0.3, opacity: 0.15 },
-  { id: 5, x: 10, y: 50, size: 3, duration: 10, delay: 0.8, opacity: 0.2 },
-  { id: 6, x: 90, y: 55, size: 2.5, duration: 9, delay: 1.2, opacity: 0.15 },
-  { id: 7, x: 50, y: 90, size: 2, duration: 8, delay: 0.6, opacity: 0.12 },
-  { id: 8, x: 65, y: 30, size: 3, duration: 11, delay: 1.8, opacity: 0.18 },
-  { id: 9, x: 30, y: 65, size: 2.5, duration: 9, delay: 0.4, opacity: 0.15 },
-  { id: 10, x: 70, y: 70, size: 2, duration: 10, delay: 0.9, opacity: 0.12 },
-  { id: 11, x: 40, y: 40, size: 3, duration: 8, delay: 1.1, opacity: 0.2 },
-  { id: 12, x: 55, y: 5, size: 2.5, duration: 11, delay: 0.2, opacity: 0.15 },
-  { id: 13, x: 20, y: 95, size: 2, duration: 9, delay: 1.4, opacity: 0.12 },
-  { id: 14, x: 80, y: 45, size: 3, duration: 10, delay: 0.7, opacity: 0.18 },
-  { id: 15, x: 35, y: 75, size: 2.5, duration: 12, delay: 1.6, opacity: 0.15 },
-  { id: 16, x: 60, y: 15, size: 2, duration: 8, delay: 0.1, opacity: 0.12 },
-  { id: 17, x: 5, y: 70, size: 3, duration: 11, delay: 0.3, opacity: 0.2 },
-  { id: 18, x: 95, y: 35, size: 2.5, duration: 9, delay: 1.3, opacity: 0.15 },
-  { id: 19, x: 50, y: 50, size: 2, duration: 10, delay: 0.5, opacity: 0.12 },
-];
-
   return (
     <section className="py-20 md:py-28 border-y border-slate-800/50 bg-slate-900/10 relative overflow-hidden">
-      {/* Animated Background Particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {particles.map((p) => (
-          <motion.div
-            key={p.id}
-            className="absolute rounded-full bg-primary/20"
-            style={{
-              width: p.size,
-              height: p.size,
-              left: `${p.x}%`,
-              top: `${p.y}%`,
-            }}
-            animate={{
-              y: [0, -30, 0, 30, 0],
-              x: [0, 20, 0, -20, 0],
-              opacity: [p.opacity, p.opacity * 2, p.opacity],
-            }}
-            transition={{
-              duration: p.duration,
-              repeat: Infinity,
-              delay: p.delay,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
+      <InterestsParticles />
 
       <div className="container-custom relative z-10">
         {/* Section Header */}

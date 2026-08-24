@@ -21,9 +21,7 @@ import {
   GraduationCap,
   Heart,
   Sparkles,
-  Zap,
   Brain,
-  Star,
   Clock
 } from 'lucide-react';
 
@@ -205,6 +203,7 @@ export const AboutSection = () => {
                     src="/images/rabin2.jpeg"
                     alt="Rabin Pant"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 480px"
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />

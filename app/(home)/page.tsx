@@ -1,6 +1,4 @@
 // app/(home)/page.tsx
-'use client';
-
 import { Hero } from '@/components/home/Hero';
 import { Interests } from '@/components/home/Interests';
 import { AboutSection } from '@/components/home/AboutSection';
