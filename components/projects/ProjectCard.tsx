@@ -16,6 +16,7 @@ const projectStyles: Record<string, { emoji: string }> = {
   'talentbridge': { emoji: '🤝' },
   'cinebook': { emoji: '🎟️' },
   'chat-app': { emoji: '💬' },
+  'mediatranscribe': { emoji: '🎙️' },
 };
 
 // Fixed particle positions (no Math.random) - static, defined once outside the component

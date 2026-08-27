@@ -19,6 +19,30 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: 'mediatranscribe',
+    title: 'MediaTranscribe',
+    tagline: 'Transcription that never leaves your machine',
+    description:
+      'A self-hosted media transcription app built with Laravel and React. Upload audio or video, let it transcribe in the background, then edit the timestamped transcript and export it as SRT or plain text.',
+    problem:
+      'Every decent transcription tool wants you to upload your recording to someone else\'s server and pay by the minute. That\'s a hard sell when the audio is a client call, an interview, or anything you\'d rather not hand over.',
+    solution:
+      'I built a transcription app that runs entirely on your own machine. Whisper does the speech-to-text locally, FFmpeg pulls the audio out of video files, and a Redis-backed queue handles the long jobs so the browser never sits there waiting.',
+    results: [
+      'Local transcription with whisper.cpp, no external API',
+      'FFmpeg audio extraction and validation, uploads up to 300 MB',
+      'Background queue with live processing status',
+      'Editable segments with timestamps, exported as SRT or TXT',
+    ],
+    techStack: ['Laravel', 'PHP', 'React', 'Inertia.js', 'PostgreSQL', 'Redis', 'FFmpeg', 'Whisper'],
+    image: '/images/projects/mediatranscribe-dashboard.png',
+    links: {
+      github: 'https://github.com/Rabin-Pant/MediaTranscribe',
+    },
+    featured: false,
+    year: '2026',
+  },
+  {
     slug: 'talentbridge',
     title: 'TalentBridge',
     tagline: 'A job portal that actually talks back',
