@@ -71,18 +71,19 @@ export const projects: Project[] = [
     title: 'CineBook',
     tagline: 'Movie tickets without the queue',
     description:
-      'A movie ticket booking system built with Java JSP/Servlets, JDBC, and MySQL, with Khalti and eSewa payment built in.',
+      'A full-stack movie ticket booking system built with Java 17, Jakarta Servlets/JSP, and PostgreSQL. Browse films, hold a seat while you pay through Khalti or eSewa, and walk in with a PDF ticket.',
     problem:
-      'Booking a movie ticket in Nepal usually meant showing up in person, or using a booking system with no real seat selection and payment tacked on as an afterthought.',
+      'Booking a movie ticket in Nepal usually meant showing up in person, or using a booking system with no real seat selection and payment tacked on as an afterthought. Two people could even end up claiming the same seat.',
     solution:
-      'I built a booking platform with a proper interactive seat map, both Khalti and eSewa for payment, and an admin dashboard for managing movies and showtimes.',
+      'I built a booking platform on a plain MVC stack, no framework doing the thinking for me. Auth filters guard every route, DAOs reach PostgreSQL through prepared statements, and the seat map puts a temporary hold on your seat so nobody takes it out from under you mid-checkout.',
     results: [
-      'Interactive seat map that updates live',
-      'Khalti and eSewa payment gateways',
-      'PDF tickets generated with iText',
-      'Admin dashboard with revenue analytics',
+      'Live seat map with temporary holds, so two people cannot claim the same seat',
+      'Khalti and eSewa sandbox checkout, plus cancellations with fee tracking',
+      'PDF tickets from iText, BCrypt-hashed logins, role-based auth filters on every route',
+      'Admin dashboard with Chart.js revenue analytics, poster uploads, and seating auto-generated per showtime',
+      'Builds from a clean clone: the Maven Wrapper and Cargo pull down Maven and Tomcat 10.1 on first run',
     ],
-    techStack: ['Java', 'JSP', 'Servlets', 'MySQL', 'JDBC', 'HTML/CSS', 'JavaScript'],
+    techStack: ['Java 17', 'JSP', 'Jakarta Servlets', 'PostgreSQL', 'JDBC', 'Maven', 'Tomcat', 'Chart.js'],
     image: '/images/projects/cinebook.png',
     links: {
       github: 'https://github.com/Rabin-Pant/CineBook-Online-Movie-Ticket-Booking-System',
