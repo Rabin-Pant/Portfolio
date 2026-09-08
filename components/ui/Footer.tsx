@@ -1,18 +1,8 @@
 // components/ui/Footer.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { GithubIcon } from '@/components/ui/GithubIcon';
-import { LinkedinIcon } from '@/components/ui/LinkedinIcon';
-import {
-  Mail,
-  ArrowUp,
-  Sparkles,
-  Heart,
-  Code
-} from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowUp, Heart } from 'lucide-react';
 
 const footerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -34,60 +24,10 @@ const itemVariants = {
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    let ticking = false;
-
-    const update = () => {
-      setIsVisible(window.scrollY > 300);
-      ticking = false;
-    };
-
-    const toggleVisibility = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    };
-
-    window.addEventListener('scroll', toggleVisibility, { passive: true });
-    return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  const quickLinks = [
-    { label: 'About', href: '/#about' },
-    { label: 'Experience', href: '/#experience' },
-    { label: 'Skills', href: '/#skills' },
-    { label: 'Projects', href: '/#projects' },
-    { label: 'Contact', href: '/#contact' },
-  ];
-
-  const socialLinks = [
-    { 
-      icon: GithubIcon, 
-      label: 'GitHub', 
-      href: 'https://github.com/Rabin-Pant',
-      color: 'hover:text-white'
-    },
-    { 
-      icon: LinkedinIcon, 
-      label: 'LinkedIn', 
-      href: 'https://www.linkedin.com/in/rabin-pant-6b4559358',
-      color: 'hover:text-[#0077B5]'
-    },
-    {
-      icon: Mail,
-      label: 'Email',
-      href: 'mailto:rabinpant194@gmail.com',
-      color: 'hover:text-primary'
-    },
-  ];
-
-  const techStack = ['React', 'Next.js', 'Node.js', 'TypeScript', 'PostgreSQL', 'AWS'];
 
   return (
     <footer className="bg-slate-900/30 border-t border-slate-800/50 relative overflow-hidden">
@@ -98,170 +38,42 @@ export const Footer = () => {
       </div>
 
       <div className="container-custom relative z-10">
-        {/* Main Footer */}
-        <motion.div 
-          className="py-12"
+        <motion.div
+          className="flex flex-col items-center gap-3 py-5 sm:flex-row sm:justify-between"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
           variants={footerVariants}
         >
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-            {/* Brand Column */}
-            <motion.div variants={itemVariants} className="md:col-span-1">
-              <Link href="/" className="group flex items-center space-x-2 mb-4">
-                <motion.span 
-                  className="text-xl font-mono font-bold"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  <span className="text-primary">R</span>abin
-                </motion.span>
-                <motion.span 
-                  className="w-1 h-1 bg-primary rounded-full"
-                  animate={{ scale: [1, 1.5, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                <span className="text-sm text-slate-400 font-mono">Pant</span>
-              </Link>
-              
-              <motion.p
-                className="text-sm text-slate-400 leading-relaxed mb-4"
-                whileHover={{ x: 2 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                Full-stack apps, built with a clean architecture and a data model
-                that doesn't fall apart six months later.
-              </motion.p>
-              
-              {/* Social Icons */}
-              <div className="flex items-center gap-3">
-                {socialLinks.map((link, index) => {
-                  const Icon = link.icon;
-                  return (
-                    <motion.a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`p-2.5 rounded-xl bg-slate-800/30 text-slate-400 ${link.color} border border-slate-700/50 transition-all duration-300`}
-                      whileHover={{
-                        scale: 1.15,
-                        y: -2,
-                        backgroundColor: 'rgba(111, 184, 141, 0.1)',
-                        borderColor: 'rgba(111, 184, 141, 0.3)'
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 + index * 0.1 }}
-                      aria-label={link.label}
-                    >
-                      <Icon size={18} />
-                    </motion.a>
-                  );
-                })}
-              </div>
-            </motion.div>
-
-            {/* Quick Links */}
-            <motion.div variants={itemVariants}>
-              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
-                <Sparkles size={14} className="text-primary" />
-                Quick Links
-              </h4>
-              <ul className="space-y-2.5">
-                {quickLinks.map((link) => (
-                  <motion.li 
-                    key={link.label}
-                    whileHover={{ x: 4 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <Link
-                      href={link.href}
-                      className="text-sm text-slate-400 hover:text-primary transition-colors duration-200"
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-
-            {/* Tech Stack & Availability */}
-            <motion.div variants={itemVariants}>
-              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
-                <Code size={14} className="text-primary" />
-                Tech Stack
-              </h4>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {techStack.map((tech, index) => (
-                  <motion.span
-                    key={tech}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.4 + index * 0.05 }}
-                    whileHover={{
-                      scale: 1.05,
-                      y: -2,
-                      backgroundColor: 'rgba(111, 184, 141, 0.15)',
-                      borderColor: 'rgba(111, 184, 141, 0.3)'
-                    }}
-                    className="px-2.5 py-1 rounded-full bg-slate-800/30 text-xs text-slate-300 border border-slate-700/50 transition-all duration-200 cursor-default"
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Bottom Bar */}
-        <motion.div 
-          className="border-t border-slate-800/50 py-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <motion.p 
-              className="text-xs text-slate-500 flex items-center gap-1.5"
-              whileHover={{ x: 2 }}
+          <motion.p
+            variants={itemVariants}
+            className="text-xs text-slate-500 flex items-center gap-1.5 whitespace-nowrap"
+          >
+            Made by <span className="text-primary font-medium">Rabin Pant</span>
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity, delay: 1 }}
             >
-              Made by <span className="text-primary font-medium">Rabin Pant</span>
-              <motion.span
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-              >
-                <Heart size={10} className="text-red-500 inline" />
-              </motion.span>
-              © {currentYear}
-            </motion.p>
+              <Heart size={10} className="text-red-500 inline" />
+            </motion.span>
+            © {currentYear}
+          </motion.p>
 
-            {/* Back to Top */}
-            <AnimatePresence>
-              {isVisible && (
-                <motion.button
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.2 }}
-                  onClick={scrollToTop}
-                  className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-primary transition-colors duration-200 group px-3 py-1.5 rounded-lg bg-slate-800/30 border border-slate-700/50 hover:border-primary/30 hover:bg-primary/5"
-                >
-                  <motion.div
-                    animate={{ y: [0, -3, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    <ArrowUp size={14} className="group-hover:-translate-y-0.5 transition-transform" />
-                  </motion.div>
-                  Back to Top
-                </motion.button>
-              )}
-            </AnimatePresence>
-          </div>
+          <motion.button
+            variants={itemVariants}
+            onClick={scrollToTop}
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-primary transition-colors duration-200 group px-3 py-2 rounded-lg bg-slate-800/30 border border-slate-700/50 hover:border-primary/30 hover:bg-primary/5"
+          >
+            <motion.div
+              animate={{ y: [0, -3, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <ArrowUp size={14} className="group-hover:-translate-y-0.5 transition-transform" />
+            </motion.div>
+            Back to Top
+          </motion.button>
         </motion.div>
       </div>
     </footer>

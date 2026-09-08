@@ -322,7 +322,6 @@ export const ContactSection = () => {
                       onBlur={() => setFocusedField(null)}
                       required
                       className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none transition-colors duration-200"
-                      placeholder="John Doe"
                     />
                   </motion.div>
                   {errors.name && (
@@ -362,7 +361,6 @@ export const ContactSection = () => {
                       onBlur={() => setFocusedField(null)}
                       required
                       className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none transition-colors duration-200"
-                      placeholder="john@example.com"
                     />
                   </motion.div>
                   {errors.email && (
@@ -375,9 +373,6 @@ export const ContactSection = () => {
                       {errors.email}
                     </motion.p>
                   )}
-                  <p className="mt-1 text-[10px] text-slate-500">
-                    I won't share this with anyone.
-                  </p>
                 </motion.div>
 
                 {/* Subject */}
@@ -405,7 +400,6 @@ export const ContactSection = () => {
                       onBlur={() => setFocusedField(null)}
                       required
                       className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none transition-colors duration-200"
-                      placeholder="Project Collaboration"
                     />
                   </motion.div>
                   {errors.subject && (
@@ -445,7 +439,6 @@ export const ContactSection = () => {
                       required
                       rows={4}
                       className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none transition-colors duration-200 resize-none"
-                      placeholder="Tell me about your project..."
                     />
                   </motion.div>
                   {errors.message && (
@@ -508,16 +501,6 @@ export const ContactSection = () => {
                   </motion.button>
                 </motion.div>
 
-                {/* Trust Badge */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  viewport={{ once: true }}
-                  className="text-center text-[10px] text-slate-500"
-                >
-                  <p>Sent through Web3Forms. Your email stays private.</p>
-                </motion.div>
               </form>
             </div>
           </motion.div>
@@ -608,7 +591,6 @@ export const ContactSection = () => {
                   <p className="text-sm font-medium text-white">Kathmandu, Nepal</p>
                   <div className="flex items-center gap-3 mt-1">
                     <span className="text-xs text-slate-400">🇳🇵</span>
-                    <span className="text-xs text-slate-400">Remote • Worldwide</span>
                   </div>
                 </div>
               </div>

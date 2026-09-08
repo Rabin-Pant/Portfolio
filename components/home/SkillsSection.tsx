@@ -90,7 +90,7 @@ export const SkillsSection = () => {
       icon: Database,
       title: 'Database',
       description: 'Efficient data storage and management',
-      skills: ['PostgreSQL', 'MySQL', 'Prisma', 'JDBC', 'SQL', 'TypeORM'],
+      skills: ['PostgreSQL', 'MySQL', 'Oracle', 'Prisma', 'JDBC', 'SQL'],
     },
     {
       icon: Cloud,
@@ -112,18 +112,73 @@ export const SkillsSection = () => {
     },
   ];
 
-  const certifications = [
-    { name: 'AWS Cloud Foundations', issuer: 'Amazon Web Services', icon: FaAws, color: '#FF9900' },
-    { name: 'AWS Machine Learning Foundations', issuer: 'Amazon Web Services', icon: FaAws, color: '#FF9900' },
-    { name: 'AWS ML for Natural Language Processing', issuer: 'Amazon Web Services', icon: FaAws, color: '#FF9900' },
-    { name: 'AWS Data Engineering Foundations', issuer: 'Amazon Web Services', icon: FaAws, color: '#FF9900' },
-    { name: 'AWS Generative AI Foundations', issuer: 'Amazon Web Services', icon: FaAws, color: '#FF9900' },
-    { name: 'Java OOP', issuer: 'LinkedIn Learning', icon: FaLinkedin, color: '#0A66C2' },
+  const cloudCertifications = [
+    { name: 'AWS Cloud Foundations', issuer: 'Amazon Web Services', icon: FaAws, color: '#FF9900', link: 'https://www.credly.com/badges/6af2504a-9dcc-434f-b1fb-d2a8e49ad382/linked_in_profile' },
+    { name: 'AWS Machine Learning Foundations', issuer: 'AWS Academy Graduate', icon: FaAws, color: '#FF9900', link: 'https://www.credly.com/badges/d055c99f-8284-4073-8657-1746dd48f7ea/linked_in_profile' },
+    { name: 'AWS Machine Learning for Natural Language Processing', issuer: 'AWS Academy Graduate', icon: FaAws, color: '#FF9900', link: 'https://www.credly.com/badges/7c7e0c3c-9e87-4962-a6ac-1815551012e8/linked_in_profile' },
+    { name: 'AWS Data Engineering Foundations', issuer: 'AWS Academy Graduate', icon: FaAws, color: '#FF9900', link: 'https://www.credly.com/badges/9063927c-796b-4d02-a7ea-aaa8553f2028/linked_in_profile' },
+    { name: 'AWS Generative AI Foundations', issuer: 'AWS Academy Graduate', icon: FaAws, color: '#FF9900', link: 'https://www.credly.com/badges/45aae555-abf3-4c98-8e89-5175e3b69d4d/linked_in_profile' },
+  ];
+
+  const devCertifications = [
+    { name: 'Java OOP', issuer: 'LinkedIn Learning', icon: FaLinkedin, color: '#0A66C2', link: 'https://www.linkedin.com/learning-login/share?account=57118729&forceAccount=false&redirect=https%3A%2F%2Fwww.linkedin.com%2Flearning%2Fcollections%2F7503016642931662848%3Ftrk%3Dshare_collection_url%26shareId%3DvuYB0JFqS222wpyDdMHpig%253D%253D' },
     { name: 'UI/UX with Figma', issuer: 'Figma', icon: SiFigma, color: '#F24E1E' },
   ];
 
   // Languages - Only names
   const languages = ['Java', 'SQL', 'JavaScript', 'Python', 'Bash', 'TypeScript'];
+
+  const renderCertifications = (certs: typeof cloudCertifications | typeof devCertifications) =>
+    certs.map((cert, index) => {
+      const Icon = cert.icon;
+      const cardClassName =
+        'flex items-center gap-3 p-3 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/30 transition-all duration-200 group';
+      const cardContent = (
+        <>
+          <div
+            className="flex-shrink-0 rounded-lg bg-slate-900/60 p-2 ring-1 ring-inset ring-white/5 group-hover:scale-110 transition-transform duration-300"
+            style={{ color: cert.color }}
+          >
+            <Icon size={16} />
+          </div>
+          <div className="min-w-0">
+            <div className="text-sm text-slate-300 group-hover:text-white transition-colors duration-200 truncate">
+              {cert.name}
+            </div>
+            <div className="text-[11px] text-slate-500">{cert.issuer}</div>
+          </div>
+        </>
+      );
+
+      return cert.link ? (
+        <motion.a
+          key={cert.name}
+          href={cert.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: index * 0.05 }}
+          viewport={{ once: true }}
+          whileHover={{ x: 4 }}
+          className={cardClassName}
+        >
+          {cardContent}
+        </motion.a>
+      ) : (
+        <motion.div
+          key={cert.name}
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: index * 0.05 }}
+          viewport={{ once: true }}
+          whileHover={{ x: 4 }}
+          className={cardClassName}
+        >
+          {cardContent}
+        </motion.div>
+      );
+    });
 
   return (
     <section className="py-20 md:py-28 bg-slate-900/10 relative overflow-hidden">
@@ -219,7 +274,7 @@ export const SkillsSection = () => {
         </div>
 
         {/* Languages & Certifications */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Programming Languages - Clean version without stars */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -251,7 +306,7 @@ export const SkillsSection = () => {
             </div>
           </motion.div>
 
-          {/* Certifications */}
+          {/* AWS Certifications */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -263,37 +318,31 @@ export const SkillsSection = () => {
               <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
                 <FaAws size={18} className="text-primary" />
               </div>
-              <h3 className="text-lg font-semibold text-white">Certifications</h3>
+              <h3 className="text-lg font-semibold text-white">AWS Certifications</h3>
             </div>
 
             <div className="space-y-3">
-              {certifications.map((cert, index) => {
-                const Icon = cert.icon;
-                return (
-                  <motion.div
-                    key={cert.name}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    viewport={{ once: true }}
-                    whileHover={{ x: 4 }}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/30 transition-all duration-200 group"
-                  >
-                    <div
-                      className="flex-shrink-0 rounded-lg bg-slate-900/60 p-2 ring-1 ring-inset ring-white/5 group-hover:scale-110 transition-transform duration-300"
-                      style={{ color: cert.color }}
-                    >
-                      <Icon size={16} />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-sm text-slate-300 group-hover:text-white transition-colors duration-200 truncate">
-                        {cert.name}
-                      </div>
-                      <div className="text-[11px] text-slate-500">{cert.issuer}</div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+              {renderCertifications(cloudCertifications)}
+            </div>
+          </motion.div>
+
+          {/* Programming & Design Certifications */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="bg-slate-900/30 rounded-2xl p-6 border border-slate-800 hover:border-primary/30 transition-all duration-300"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
+                <Layout size={18} className="text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">Programming & Design Certifications</h3>
+            </div>
+
+            <div className="space-y-3">
+              {renderCertifications(devCertifications)}
             </div>
           </motion.div>
         </div>
