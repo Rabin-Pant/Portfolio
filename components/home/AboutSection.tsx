@@ -11,8 +11,8 @@ import {
   Target, 
   Lightbulb,
   Users,
-  Code2,
-  BookOpen,
+  Compass,
+  LibraryBig,
   Award,
   ArrowRight,
   Calendar,
@@ -34,25 +34,29 @@ export const AboutSection = () => {
       year: '2022',
       title: 'Getting started',
       description: 'I got curious about how websites actually work and built my first HTML and CSS page. That was enough to hook me.',
-      icon: Code2,
+      icon: Compass,
+      marker: null,
     },
     {
       year: '2023',
       title: 'Going deeper',
       description: 'Picked up JavaScript and started building small static apps, then got interested in how bigger systems are put together.',
-      icon: BookOpen,
+      icon: LibraryBig,
+      marker: null,
     },
     {
       year: '2024',
       title: 'Finding a path',
       description: 'Started BSc (Hons) Computing. Spent a lot of time on software architecture, algorithms, and cloud computing.',
       icon: GraduationCap,
+      marker: null,
     },
     {
       year: '2025',
       title: 'Building for real',
       description: 'Shipped three production apps and picked up five AWS certifications along the way. This is where I started treating full-stack work seriously.',
-      icon: Award,
+      icon: BadgeCheck,
+      marker: null,
     },
   ];
 
@@ -307,7 +311,13 @@ export const AboutSection = () => {
                             className="relative p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700"
                           >
                             <div className="absolute -left-[21px] sm:-left-[29px] p-1 sm:p-1.5 rounded-full bg-primary/20 border border-primary/30">
-                              <Icon size={10} className="text-primary sm:w-3 sm:h-3" />
+                              {step.marker ? (
+                                <span className="px-0.5 text-[9px] font-mono font-semibold leading-3 text-primary sm:text-[10px] sm:leading-4">
+                                  {step.marker}
+                                </span>
+                              ) : (
+                                <Icon size={10} className="text-primary sm:w-3 sm:h-3" />
+                              )}
                             </div>
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
                               <span className="text-xs font-mono text-primary whitespace-nowrap">{step.year}</span>
