@@ -4,14 +4,14 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Code2,
+  PanelsTopLeft,
   Database,
-  Cloud,
-  Layout,
-  Server,
-  GitBranch,
-  Terminal,
-  Boxes
+  CloudCog,
+  PenTool,
+  ServerCog,
+  GitPullRequest,
+  Braces,
+  Blocks
 } from 'lucide-react';
 import { SiFigma } from 'react-icons/si';
 import { FaAws, FaLinkedin } from 'react-icons/fa6';
@@ -75,13 +75,13 @@ const SkillsParticles = memo(function SkillsParticles() {
 export const SkillsSection = () => {
   const skillCategories = [
     {
-      icon: Code2,
+      icon: PanelsTopLeft,
       title: 'Frontend',
       description: 'Building responsive, interactive user interfaces',
       skills: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS'],
     },
     {
-      icon: Server,
+      icon: ServerCog,
       title: 'Backend',
       description: 'Scalable APIs and robust server-side logic',
       skills: ['Node.js', 'Java', 'Python', 'JSP/Servlets', 'REST APIs', 'WebSocket/Socket.io'],
@@ -93,19 +93,19 @@ export const SkillsSection = () => {
       skills: ['PostgreSQL', 'MySQL', 'Oracle', 'Prisma', 'JDBC', 'SQL'],
     },
     {
-      icon: Cloud,
+      icon: CloudCog,
       title: 'Cloud & DevOps',
       description: 'Cloud-native deployment and infrastructure',
       skills: ['AWS', 'Vercel', 'Render', 'Neon', 'Git', 'CI/CD', 'Linux', 'Bash'],
     },
     {
-      icon: Layout,
+      icon: PenTool,
       title: 'Design & Tools',
       description: 'User-centered design and development workflows',
       skills: ['Figma', 'UI/UX Design', 'System Design', 'Architecture Diagrams'],
     },
     {
-      icon: GitBranch,
+      icon: GitPullRequest,
       title: 'Version Control',
       description: 'Collaborative development with best practices',
       skills: ['Git', 'GitHub', 'Git Flow', 'Pull Requests', 'Code Review'],
@@ -193,17 +193,6 @@ export const SkillsSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm mb-4"
-          >
-            <Terminal size={14} />
-            <span>What I work with</span>
-          </motion.div>
-
           <motion.h2
             className="font-display text-3xl md:text-4xl font-semibold"
             initial={{ opacity: 0, y: 20 }}
@@ -285,7 +274,7 @@ export const SkillsSection = () => {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
-                <Code2 size={20} className="text-primary" />
+                <Braces size={20} className="text-primary" />
               </div>
               <h3 className="text-lg font-semibold text-white">Programming Languages</h3>
             </div>
@@ -336,7 +325,7 @@ export const SkillsSection = () => {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
-                <Layout size={18} className="text-primary" />
+                <PenTool size={18} className="text-primary" />
               </div>
               <h3 className="text-lg font-semibold text-white">Programming & Design Certifications</h3>
             </div>
@@ -356,10 +345,10 @@ export const SkillsSection = () => {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8"
         >
           {[
-            { icon: Code2, label: 'Languages', value: '6+' },
-            { icon: Boxes, label: 'Frameworks', value: '8+' },
+            { icon: Braces, label: 'Languages', value: '6+' },
+            { icon: Blocks, label: 'Frameworks', value: '8+' },
             { icon: Database, label: 'Databases', value: '3+' },
-            { icon: Cloud, label: 'Cloud Platforms', value: '5+' },
+            { icon: CloudCog, label: 'Cloud Platforms', value: '5+' },
           ].map((stat, index) => {
             const Icon = stat.icon;
             return (

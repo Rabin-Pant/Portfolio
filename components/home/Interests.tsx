@@ -4,11 +4,10 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
 import {
-  BookOpen,
-  Music,
+  LibraryBig,
+  Headphones,
   Gamepad2,
-  Bike,
-  Heart
+  Mountain
 } from 'lucide-react';
 
 // Floating particles for background - static, defined once outside the component
@@ -75,12 +74,12 @@ const InterestsParticles = memo(function InterestsParticles() {
 export const Interests = () => {
   const interests = [
     {
-      icon: BookOpen,
+      icon: LibraryBig,
       label: 'Reading',
       description: 'Tech blogs, architecture write-ups, the old novels',
     },
     {
-      icon: Music,
+      icon: Headphones,
       label: 'Music',
       description: 'Finding new artists worth listening to',
     },
@@ -90,7 +89,7 @@ export const Interests = () => {
       description: 'Battle royal/RPGs games mostly',
     },
     {
-      icon: Bike,
+      icon: Mountain,
       label: 'Outdoors',
       description: 'Hiking and biking when I need to get away from a screen',
     },
@@ -109,17 +108,6 @@ export const Interests = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm mb-4"
-          >
-            <Heart size={14} />
-            <span>Outside of work</span>
-          </motion.div>
-
           <motion.h2
             className="font-display text-3xl md:text-4xl font-semibold"
             initial={{ opacity: 0, y: 20 }}
@@ -127,7 +115,7 @@ export const Interests = () => {
             transition={{ delay: 0.1 }}
             viewport={{ once: true }}
           >
-            What I'm into <span className="gradient-text">besides code</span>
+            What I&apos;m into <span className="gradient-text">besides tech</span>
           </motion.h2>
 
           <motion.p
@@ -137,7 +125,7 @@ export const Interests = () => {
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
           >
-            A few things I spend time on when I'm away from the keyboard.
+            A few things I spend time on when I&apos;m away from the keyboard.
           </motion.p>
         </motion.div>
 

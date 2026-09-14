@@ -27,7 +27,7 @@ export const Hero = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-tight text-balance"
             >
-              I'm good at turning<br />
+              I&apos;m good at turning<br />
               <span className="gradient-text">messy data into working systems.</span>
             </motion.h1>
 
@@ -38,10 +38,10 @@ export const Hero = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-4 md:mt-6 text-base md:text-lg text-slate-200 max-w-lg leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
             >
-              I'm a developer based in Kathmandu. Most of my time goes into the
+              I&apos;m a developer based in Kathmandu. Most of my time goes into the
               thinking before the coding: how the data should be structured, how
-              the pieces should fit together, what's likely to break later. The
-              actual building tends to be the easy part once that's sorted.
+              the pieces should fit together, what&apos;s likely to break later. The
+              actual building tends to be the easy part once that&apos;s sorted.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -65,7 +65,7 @@ export const Hero = () => {
                 className="inline-flex items-center justify-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-lg border border-slate-700 hover:border-primary hover:bg-primary/10 transition-all duration-200 font-medium text-sm md:text-base"
               >
                 <FileText size={16} />
-                Download résumé
+                Download Resume
               </a>
             </motion.div>
           </div>

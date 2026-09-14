@@ -2,7 +2,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowUp, Heart } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 
 const footerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -50,12 +50,6 @@ export const Footer = () => {
             className="text-xs text-slate-500 flex items-center gap-1.5 whitespace-nowrap"
           >
             Made by <span className="text-primary font-medium">Rabin Pant</span>
-            <motion.span
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-            >
-              <Heart size={10} className="text-red-500 inline" />
-            </motion.span>
             © {currentYear}
           </motion.p>
 

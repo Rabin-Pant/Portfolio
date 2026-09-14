@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { Menu, X, Sparkles } from 'lucide-react';
 import { GithubIcon } from '@/components/ui/GithubIcon';
 
@@ -112,23 +113,17 @@ export const Navbar = () => {
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              className="flex items-center space-x-2 cursor-pointer"
+              className="flex items-center cursor-pointer"
             >
-              <span className="text-xl font-mono font-bold text-white">
-                <span className="text-primary">R</span>abin
-              </span>
-              <motion.span 
-                className="w-1 h-1 bg-primary rounded-full"
-                animate={{ scale: [1, 1.5, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
+              <Image
+                src="/images/Logo-transparent.png"
+                alt="Rabin Pant"
+                width={128}
+                height={67}
+                className="h-10 w-24 object-contain sm:h-12 sm:w-28"
+                priority
               />
-              <span className="text-sm text-slate-300 font-mono">Pant</span>
             </motion.div>
-            <motion.span
-              className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary"
-              whileHover={{ width: "100%" }}
-              transition={{ duration: 0.3 }}
-            />
           </Link>
 
           {/* Desktop Navigation */}

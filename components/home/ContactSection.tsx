@@ -3,7 +3,7 @@
 
 import { useState, useRef, memo } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, Sparkles, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react';
+import { Mail, MapPin, Send, Link2, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react';
 import { GithubIcon } from '@/components/ui/GithubIcon';
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon';
 
@@ -225,17 +225,6 @@ export const ContactSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm mb-4"
-          >
-            <Sparkles size={14} />
-            <span>Let's talk</span>
-          </motion.div>
-
           <motion.h2
             className="font-display text-3xl md:text-4xl font-semibold"
             initial={{ opacity: 0, y: 20 }}
@@ -523,7 +512,7 @@ export const ContactSection = () => {
                 className="flex items-center gap-3 mb-6"
               >
                 <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
-                  <Sparkles size={20} className="text-primary" />
+                  <Link2 size={20} className="text-primary" />
                 </div>
                 <h3 className="font-display text-lg font-semibold">
                   Find me <span className="gradient-text">elsewhere</span>

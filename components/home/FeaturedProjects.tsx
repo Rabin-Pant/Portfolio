@@ -25,7 +25,7 @@ export const FeaturedProjects = () => {
             Featured <span className="gradient-text">projects</span>
           </h2>
           <p className="mt-4 text-slate-200 max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]">
-            A few things I've built end to end, from the database up to the interface.
+            A few things I&apos;ve built end to end, from the database up to the interface.
           </p>
         </motion.div>
 

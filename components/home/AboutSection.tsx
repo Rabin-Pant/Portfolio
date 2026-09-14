@@ -19,10 +19,11 @@ import {
   MapPin,
   Briefcase,
   GraduationCap,
-  Heart,
   Sparkles,
   Brain,
-  Clock
+  FolderKanban,
+  BadgeCheck,
+  Layers3
 } from 'lucide-react';
 
 export const AboutSection = () => {
@@ -87,10 +88,10 @@ export const AboutSection = () => {
   ];
 
   const stats = [
-    { value: '3+', label: 'Projects', icon: Briefcase },
-    { value: '5', label: 'AWS Certs', icon: Award },
-    { value: '7+', label: 'Tech Stacks', icon: Code2 },
-    { value: '4+', label: 'Years Learning', icon: Clock },
+    { value: '3+', label: 'Projects', icon: FolderKanban },
+    { value: '5', label: 'AWS Certs', icon: BadgeCheck },
+    { value: '7+', label: 'Tech Stacks', icon: Layers3 },
+    { value: '4+', label: 'Years Learning', icon: GraduationCap },
   ];
 
   const tabs = [
@@ -116,17 +117,6 @@ export const AboutSection = () => {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm mb-4"
-          >
-            <Heart size={12} className="md:w-[14px] md:h-[14px]" />
-            <span>A bit about me</span>
-          </motion.div>
-
           <motion.h2
             className="font-display text-2xl md:text-4xl font-semibold"
             initial={{ opacity: 0, y: 20 }}

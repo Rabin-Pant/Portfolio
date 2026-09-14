@@ -7,7 +7,6 @@ import {
   MapPin,
   Calendar,
   CheckCircle2,
-  Sparkles,
 } from 'lucide-react';
 
 export const ExperienceSection = () => {
@@ -16,7 +15,7 @@ export const ExperienceSection = () => {
       company: 'Karmachari Sanchaya Kosh',
       location: 'Pulchowk, Lalitpur',
       role: 'Full Stack Developer Intern',
-      period: 'August 2026 — Present',
+      period: 'August 2026 - Present',
       current: true,
       stack: ['C#', 'ASP.NET Core Web API', 'ASP.NET Core MVC', 'Entity Framework Core', 'Oracle Database'],
       highlights: [
@@ -38,17 +37,6 @@ export const ExperienceSection = () => {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm mb-4"
-          >
-            <Briefcase size={12} className="md:w-[14px] md:h-[14px]" />
-            <span>Where I've worked</span>
-          </motion.div>
-
           <motion.h2
             className="font-display text-2xl md:text-4xl font-semibold"
             initial={{ opacity: 0, y: 20 }}
@@ -117,7 +105,6 @@ export const ExperienceSection = () => {
                       viewport={{ once: true }}
                       className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/25 text-amber-300 text-[10px] md:text-xs font-medium self-start flex-shrink-0"
                     >
-                      <Sparkles size={10} />
                       Currently here
                     </motion.span>
                   )}
