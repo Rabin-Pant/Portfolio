@@ -45,18 +45,18 @@ function useMounted() {
 // reliably bust that. Renamed to filenames that were never previously
 // requested, so there is nothing anywhere (browser, Next's own image-
 // optimizer disk cache) that could be holding a stale cached response.
+//
+// The filters are now baked into the `-graded` files (same contrast/saturate/
+// brightness formulas the browser uses, applied once offline) instead of a
+// live CSS `filter`, which the GPU had to re-apply on these full-viewport
+// layers during every crossfade. The originals are kept next to them; to
+// re-grade, edit the source file and re-bake rather than adding `filter` back.
 const SCENES = [
-  { src: '/images/branch.jpg', sections: ['hero', 'about'], filter: undefined },
-  {
-    src: '/images/forest-floor.webp',
-    sections: ['experience', 'interests', 'skills'],
-    filter: 'contrast(1.4) saturate(1.5) brightness(1.25)',
-  },
-  {
-    src: '/images/office-plant.webp',
-    sections: ['projects', 'contact'],
-    filter: 'contrast(1.5) saturate(1.6) brightness(1.22)',
-  },
+  { src: '/images/branch.jpg', sections: ['hero', 'about'] },
+  // Baked from forest-floor.webp: contrast(1.4) saturate(1.5) brightness(1.25)
+  { src: '/images/forest-floor-graded.webp', sections: ['experience', 'interests', 'skills'] },
+  // Baked from office-plant.webp: contrast(1.5) saturate(1.6) brightness(1.22)
+  { src: '/images/office-plant-graded.webp', sections: ['projects', 'contact'] },
 ] as const;
 
 const SECTION_SCENE: [string, number][] = SCENES.flatMap((scene, index) =>
@@ -266,12 +266,10 @@ const GustCanvas = ({ gust, enabled }: { gust: number; enabled: boolean }) => {
     const start = performance.now();
     let raf = 0;
     let lastDraw = 0;
-    // Was capped at ~30fps (halves the canvas's own draw cost vs. 60, and
-    // soft/blurred fast-moving particles don't read as choppier at half the
-    // frame rate). Raised to 60 for smoother motion on capable hardware — if
-    // this reads as laggy on lower-end/integrated GPUs or mobile, drop the
-    // divisor back to 30 first before touching anything else in this file.
-    const FRAME_MS = 1000 / 60;
+    // Capped at ~30fps: halves the canvas's own draw cost vs. 60, and soft,
+    // fast-moving particles don't read as choppier at half the frame rate.
+    // 60 was tried and lagged on integrated GPUs (Iris Xe at 2880x1800).
+    const FRAME_MS = 1000 / 30;
 
     const tick = (now: number) => {
       const elapsed = now - start;
@@ -540,7 +538,6 @@ export const ForestBackdrop = () => {
               fill
               sizes="100vw"
               className="object-cover"
-              style={scene.filter ? { filter: scene.filter } : undefined}
               priority={index === 0}
             />
           </motion.div>
@@ -552,8 +549,12 @@ export const ForestBackdrop = () => {
           tinting, not the text-safety layer — that's the scrim below, which
           this doesn't touch. Was 80%, which combined with the scrim to crush
           the two lower-contrast scenes into near-invisibility; text legibility
-          comes entirely from the scrim, so this can drop without any risk. */}
-      <div className="absolute inset-0 bg-[#0d1508] mix-blend-multiply opacity-45" />
+          comes entirely from the scrim, so this can drop without any risk.
+          Normal blending at 43% instead of mix-blend-multiply at 45%: over a
+          color this dark the two are within a couple of percent, but a blend
+          mode forces the compositor to read back everything beneath this
+          full-viewport fixed layer on every frame. */}
+      <div className="absolute inset-0 bg-[#0d1508] opacity-[0.43]" />
       {/* Canopy tint + directional scrim, stacked as two backgrounds on a
           single element rather than two: the backdrop is position:fixed, so
           every full-viewport layer here is re-composited on each scroll frame.

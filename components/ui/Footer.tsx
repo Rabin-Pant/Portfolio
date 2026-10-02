@@ -33,8 +33,10 @@ export const Footer = () => {
     <footer className="bg-slate-900/30 border-t border-slate-800/50 relative overflow-hidden">
       {/* Animated Background Gradient */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse delay-1000" />
+        {/* Radial gradients rather than blur-3xl: pulsing the opacity of a
+            blurred element re-applies the 64px blur on every frame. */}
+        <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[radial-gradient(circle,rgba(111,184,141,0.05)_0%,transparent_70%)] animate-pulse" />
+        <div className="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-[radial-gradient(circle,rgba(111,184,141,0.05)_0%,transparent_70%)] animate-pulse delay-1000" />
       </div>
 
       <div className="container-custom relative z-10">
@@ -60,12 +62,9 @@ export const Footer = () => {
             whileTap={{ scale: 0.97 }}
             className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-primary transition-colors duration-200 group px-3 py-2 rounded-lg bg-slate-800/30 border border-slate-700/50 hover:border-primary/30 hover:bg-primary/5"
           >
-            <motion.div
-              animate={{ y: [0, -3, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
+            <div className="anim-bob" style={{ animationDuration: '1.5s' }}>
               <ArrowUp size={14} className="group-hover:-translate-y-0.5 transition-transform" />
-            </motion.div>
+            </div>
             Back to Top
           </motion.button>
         </motion.div>

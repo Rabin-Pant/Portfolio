@@ -29,8 +29,11 @@ const particles = [
   { x: 15, y: 90, size: 2, duration: 5.2, delay: 0.5 },
 ];
 
+// `hidden` must also target x/y: the infinite x/y loops from `visible` only
+// stop when a new animation takes over those same values. With opacity alone
+// they kept running forever after the card scrolled out of view.
 const particleVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0, x: 0, y: 0, transition: { duration: 0.3 } },
   visible: ({ duration, delay }: { duration: number; delay: number }) => ({
     y: [0, -15, 0, 15, 0],
     x: [0, 8, 0, -8, 0],
@@ -58,7 +61,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
       {/* Glow Effect on Hover */}
       <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-primary-dark rounded-xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 shadow-primary/10" />
 
-      <div className="relative bg-slate-900/80 backdrop-blur-sm rounded-xl overflow-hidden border border-slate-800 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-2xl">
+      <div className="relative bg-slate-900/80 rounded-xl overflow-hidden border border-slate-800 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-2xl">
         {/* Header with Icon */}
         <Link href={`/projects/${project.slug}`}>
           <div className="relative h-32 bg-gradient-to-br from-slate-800/60 to-slate-900/60 overflow-hidden cursor-pointer">
@@ -85,11 +88,12 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
               ))}
             </motion.div>
 
-            {/* Pulsing Glow behind emoji */}
+            {/* Pulsing Glow behind emoji. Opacity only: scaling a blur-2xl
+                element makes the GPU re-rasterise the blur on every frame. */}
             <motion.div
               className="absolute inset-0 flex items-center justify-center"
+              initial={{ opacity: 0.5 }}
               whileInView={{
-                scale: [1, 1.1, 1],
                 opacity: [0.5, 0.8, 0.5],
               }}
               viewport={{ once: false, amount: 0 }}
@@ -99,7 +103,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                 ease: "easeInOut",
               }}
             >
-              <div className="w-24 h-24 rounded-full bg-primary/10 blur-2xl" />
+              <div className="w-40 h-40 rounded-full bg-[radial-gradient(circle,rgba(111,184,141,0.1)_0%,transparent_65%)]" />
             </motion.div>
 
             {/* Large Emoji/Icon */}
@@ -129,7 +133,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.3 + i * 0.05 + index * 0.1 }}
-                  className="text-[10px] px-2 py-1 rounded-full bg-black/50 text-slate-300 border border-slate-700/50 backdrop-blur-sm hover:bg-black/70 transition-colors"
+                  className="text-[10px] px-2 py-1 rounded-full bg-black/50 text-slate-300 border border-slate-700/50 hover:bg-black/70 transition-colors"
                 >
                   {tech}
                 </motion.span>
@@ -139,7 +143,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  className="text-[10px] px-2 py-1 rounded-full bg-black/50 text-slate-500 border border-slate-700/50 backdrop-blur-sm"
+                  className="text-[10px] px-2 py-1 rounded-full bg-black/50 text-slate-500 border border-slate-700/50"
                 >
                   +{project.techStack.length - 3}
                 </motion.span>
@@ -153,7 +157,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 + index * 0.1 }}
             >
-              <span className="text-xs font-mono text-slate-300 bg-black/30 px-2 py-0.5 rounded-full backdrop-blur-sm border border-white/5">
+              <span className="text-xs font-mono text-slate-300 bg-black/30 px-2 py-0.5 rounded-full border border-white/5">
                 {project.year}
               </span>
             </motion.div>
@@ -164,13 +168,11 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
             >
               <span className="text-white font-medium text-sm flex items-center gap-2">
                 View Case Study
-                <motion.span
-                  whileInView={{ x: [0, 5, 0] }}
-                  viewport={{ once: false, amount: 0 }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
+                {/* Only animates while hovered — the overlay is invisible
+                    otherwise, so a permanent loop here was wasted work. */}
+                <span className="inline-block [--nudge:5px] group-hover:anim-nudge">
                   →
-                </motion.span>
+                </span>
               </span>
             </motion.div>
           </div>
@@ -189,13 +191,9 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                     transition={{ delay: 0.1 + index * 0.1 }}
                   >
                     {project.title}
-                    <motion.span
-                      whileInView={{ rotate: [0, 5, 0, -5, 0] }}
-                      viewport={{ once: false, amount: 0 }}
-                      transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
-                    >
+                    <span className="inline-block anim-wiggle" style={{ animationDelay: `${index * 0.2}s` }}>
                       <Sparkles size={14} className="text-primary" />
-                    </motion.span>
+                    </span>
                   </motion.h3>
                   <motion.p 
                     className="text-sm text-slate-400 mt-0.5"

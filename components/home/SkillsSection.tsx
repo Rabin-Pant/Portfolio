@@ -35,8 +35,11 @@ const particles = [
   { id: 14, x: 80, y: 40, size: 2, duration: 11, delay: 0.7 },
 ];
 
+// `hidden` must also target x/y: the infinite x/y loops from `visible` only
+// stop when a new animation takes over those same values. With opacity alone
+// they kept running forever after the section scrolled out of view.
 const particleVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0, x: 0, y: 0, transition: { duration: 0.3 } },
   visible: ({ duration, delay }: { duration: number; delay: number }) => ({
     y: [0, -40, 0, 40, 0],
     x: [0, 30, 0, -30, 0],

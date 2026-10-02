@@ -68,11 +68,65 @@
     background-clip: text;
   }
 
-  /* Glass panel used by cards that sit over the fixed forest backdrop */
+  /* Panel used by cards that sit over the fixed forest backdrop. No
+     backdrop-filter: the backdrop is position:fixed, so a blur here has to be
+     recomputed on every scroll frame, which lags on integrated GPUs. A more
+     opaque fill gives the same legibility. */
   .panel {
-    background: rgba(23, 29, 25, 0.55);
-    -webkit-backdrop-filter: blur(16px) saturate(1.1);
-    backdrop-filter: blur(16px) saturate(1.1);
+    background: rgba(23, 29, 25, 0.75);
+  }
+}
+
+/* Looping decorative motion. CSS rather than framer-motion `repeat: Infinity`:
+   framer drives these from JS on every frame for as long as the component is
+   mounted (on- or off-screen), while CSS transform/opacity animations run on
+   the compositor. They animate the individual `translate`/`rotate`/`scale`
+   properties, not `transform`, so they don't clobber Tailwind v4 utilities
+   like `group-hover:scale-110` on the same element. Distance, duration and
+   delay are tunable per element via --bob / --nudge and animation-* styles. */
+@keyframes bob-y {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 var(--bob, -3px); }
+}
+
+@keyframes nudge-x {
+  0%, 100% { translate: 0 0; }
+  50% { translate: var(--nudge, 3px) 0; }
+}
+
+@keyframes wiggle {
+  0%, 50%, 100% { rotate: 0deg; }
+  25% { rotate: 5deg; }
+  75% { rotate: -5deg; }
+}
+
+@keyframes dot-pulse {
+  0%, 100% { scale: 1; opacity: 0.3; }
+  50% { scale: 1.5; opacity: 0.8; }
+}
+
+@utility anim-bob {
+  animation: bob-y 3s ease-in-out infinite;
+}
+
+@utility anim-nudge {
+  animation: nudge-x 1.5s ease-in-out infinite;
+}
+
+@utility anim-wiggle {
+  animation: wiggle 2s ease-in-out infinite;
+}
+
+@utility anim-dot-pulse {
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-bob,
+  .anim-nudge,
+  .anim-wiggle,
+  .anim-dot-pulse {
+    animation: none;
   }
 }
 

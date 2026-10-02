@@ -108,8 +108,11 @@ export const AboutSection = () => {
     <section className="py-20 md:py-28 bg-slate-900/10 relative overflow-hidden">
       {/* Background Decoration */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+        {/* Soft glows as radial gradients rather than blur-3xl: same look,
+            but a gradient is painted once, while a 64px blur filter is a
+            per-frame GPU pass whenever this area is re-composited. */}
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-[radial-gradient(circle,rgba(111,184,141,0.05)_0%,transparent_70%)]" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-[radial-gradient(circle,rgba(111,184,141,0.05)_0%,transparent_70%)]" />
       </div>
 
       <div className="container-custom relative z-10">
@@ -160,7 +163,7 @@ export const AboutSection = () => {
                 transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
-                className="bg-slate-900/30 backdrop-blur-sm rounded-xl md:rounded-2xl p-3 md:p-4 text-center border border-slate-800 hover:border-primary/30 transition-all duration-300 group"
+                className="bg-slate-900/60 rounded-xl md:rounded-2xl p-3 md:p-4 text-center border border-slate-800 hover:border-primary/30 transition-all duration-300 group"
               >
                 <div className="flex justify-center mb-1 md:mb-2">
                   <div className="p-1.5 md:p-2.5 rounded-lg md:rounded-xl bg-primary/10 group-hover:scale-110 transition-transform duration-300">
@@ -278,7 +281,7 @@ export const AboutSection = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.3 }}
-                className="bg-slate-900/30 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-8 border border-slate-800 min-h-[300px] md:min-h-[380px]"
+                className="bg-slate-900/60 rounded-xl md:rounded-2xl p-4 md:p-8 border border-slate-800 min-h-[300px] md:min-h-[380px]"
               >
                 {activeTab === 'journey' && (
                   <div className="space-y-4 md:space-y-6">
@@ -410,12 +413,9 @@ export const AboutSection = () => {
                     </div>
 
                     <div className="mt-4 p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700 text-center group hover:border-primary/30 transition-all duration-300">
-                      <motion.div
-                        animate={{ y: [0, -3, 0] }}
-                        transition={{ duration: 3, repeat: Infinity }}
-                      >
+                      <div className="anim-bob">
                         <Sparkles size={16} className="text-primary mx-auto mb-1 sm:mb-2" />
-                      </motion.div>
+                      </div>
                       <p className="text-xs sm:text-sm text-slate-400">
                         "Good software starts with a good plan."
                       </p>

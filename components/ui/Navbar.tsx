@@ -24,43 +24,54 @@ export const Navbar = () => {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
+  // The scroll listener only reads window.scrollY, which doesn't force layout.
+  // React skips the re-render when the boolean hasn't changed.
   useEffect(() => {
-    // Coalesced into rAF rather than run on every native `scroll` event —
-    // scroll events can fire many times per rendered frame, and each run
-    // below does a `getBoundingClientRect()` per section, which forces a
-    // synchronous layout. Uncoalesced, that's layout thrashing on every
-    // scroll tick, on every page (this bar is always mounted). Same fix
-    // ForestBackdrop already applies to its own section tracking.
-    let ticking = false;
-
-    const update = () => {
-      setIsScrolled(window.scrollY > 20);
-
-      if (isHomePage) {
-        const sections = ['about', 'experience', 'skills', 'projects', 'contact'];
-        let current = '';
-        for (const section of sections) {
-          const element = document.getElementById(section);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            if (rect.top <= 100) {
-              current = section;
-            }
-          }
-        }
-        setActiveSection(current);
-      }
-      ticking = false;
-    };
-
-    const handleScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Active-section tracking. This used to call getBoundingClientRect() on
+  // every section on every scroll frame (a forced layout each time). Now an
+  // IntersectionObserver watches a 1px line 100px below the top of the
+  // viewport, and the rect check only runs when a section actually crosses
+  // that line — same "last section whose top is <= 100px" rule, a handful of
+  // layout reads per full scroll instead of one per frame.
+  useEffect(() => {
+    if (!isHomePage) return;
+    const sections = ['about', 'experience', 'skills', 'projects', 'contact'];
+    const elements = sections
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (elements.length === 0) return;
+
+    const pickActive = () => {
+      let current = '';
+      for (const el of elements) {
+        if (el.getBoundingClientRect().top <= 100) current = el.id;
+      }
+      setActiveSection(current);
+    };
+
+    let io: IntersectionObserver | null = null;
+    const observe = () => {
+      io?.disconnect();
+      // The bottom margin depends on viewport height, so rebuild on resize.
+      const bottom = Math.max(0, window.innerHeight - 101);
+      io = new IntersectionObserver(pickActive, {
+        rootMargin: `-100px 0px -${bottom}px 0px`,
+        threshold: 0,
+      });
+      elements.forEach((el) => io!.observe(el));
+    };
+
+    observe();
+    window.addEventListener('resize', observe);
+    return () => {
+      io?.disconnect();
+      window.removeEventListener('resize', observe);
+    };
   }, [isHomePage]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -98,7 +109,7 @@ export const Navbar = () => {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         isScrolled || isOpen
-          ? 'bg-[#0B0F0D]/85 backdrop-blur-xl border-b border-slate-800/50 shadow-lg'
+          ? 'bg-[#0B0F0D]/85 backdrop-blur-md border-b border-slate-800/50 shadow-lg'
           : 'bg-[#0B0F0D]/55 backdrop-blur-sm'
       }`}
     >
@@ -233,7 +244,7 @@ export const Navbar = () => {
               className="md:hidden overflow-hidden"
             >
               <motion.div 
-                className="py-6 space-y-3 border-t border-slate-700/50 bg-[#0A0A0A]/95 backdrop-blur-xl rounded-b-2xl"
+                className="py-6 space-y-3 border-t border-slate-700/50 bg-[#0A0A0A]/95 rounded-b-2xl"
                 onClick={() => setIsOpen(false)} // Close menu when tapping outside links
               >
                 {navLinks.map((link, index) => (

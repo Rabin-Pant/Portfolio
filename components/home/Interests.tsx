@@ -34,8 +34,11 @@ const particles = [
   { id: 19, x: 50, y: 50, size: 2, duration: 10, delay: 0.5, opacity: 0.12 },
 ];
 
+// `hidden` must also target x/y: the infinite x/y loops from `visible` only
+// stop when a new animation takes over those same values. With opacity alone
+// they kept running forever after the section scrolled out of view.
 const particleVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0, x: 0, y: 0, transition: { duration: 0.3 } },
   visible: ({ duration, delay, opacity }: { duration: number; delay: number; opacity: number }) => ({
     y: [0, -30, 0, 30, 0],
     x: [0, 20, 0, -20, 0],
@@ -161,20 +164,12 @@ export const Interests = () => {
 
                 <div className="flex flex-col items-center text-center">
                   {/* Icon with floating animation */}
-                  <motion.div
-                    className="p-3 rounded-xl bg-primary/10 border border-primary/20 group-hover:scale-110 transition-transform duration-300"
-                    animate={{
-                      y: [0, -5, 0],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: index * 0.2,
-                      ease: "easeInOut",
-                    }}
+                  <div
+                    className="anim-bob [--bob:-5px] p-3 rounded-xl bg-primary/10 border border-primary/20 group-hover:scale-110 transition-[scale] duration-300"
+                    style={{ animationDelay: `${index * 0.2}s` }}
                   >
                     <Icon size={28} className="text-primary" />
-                  </motion.div>
+                  </div>
                   
                   {/* Label */}
                   <motion.h3 
@@ -194,17 +189,9 @@ export const Interests = () => {
                   </motion.p>
 
                   {/* Decorative dot */}
-                  <motion.div 
-                    className="mt-4 w-1 h-1 rounded-full bg-primary/30"
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.3, 0.8, 0.3],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: index * 0.1,
-                    }}
+                  <div
+                    className="anim-dot-pulse mt-4 w-1 h-1 rounded-full bg-primary/30"
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   />
                 </div>
               </motion.div>

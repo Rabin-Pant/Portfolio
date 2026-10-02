@@ -31,8 +31,11 @@ const particles = [
   { id: 19, x: 50, y: 50, size: 1.5, duration: 10, delay: 0.5 },
 ];
 
+// `hidden` must also target x/y: the infinite x/y loops from `visible` only
+// stop when a new animation takes over those same values. With opacity alone
+// they kept running forever after the section scrolled out of view.
 const particleVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0, x: 0, y: 0, transition: { duration: 0.3 } },
   visible: ({ duration, delay }: { duration: number; delay: number }) => ({
     y: [0, -30, 0, 30, 0],
     x: [0, 20, 0, -20, 0],
@@ -255,7 +258,7 @@ export const ContactSection = () => {
             viewport={{ once: true }}
             className="lg:col-span-3"
           >
-            <div className="bg-slate-900/30 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl">
+            <div className="bg-slate-900/60 rounded-2xl p-6 md:p-8 border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -503,7 +506,7 @@ export const ContactSection = () => {
             className="lg:col-span-2 space-y-6"
           >
             {/* Connect Cards */}
-            <div className="bg-slate-900/30 backdrop-blur-sm rounded-2xl p-6 border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl">
+            <div className="bg-slate-900/60 rounded-2xl p-6 border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -548,12 +551,9 @@ export const ContactSection = () => {
                         </p>
                         <p className="text-xs text-slate-400">{link.username}</p>
                       </div>
-                      <motion.div
-                        animate={{ x: [0, 3, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity, delay: index * 0.2 }}
-                      >
+                      <div className="anim-nudge" style={{ animationDelay: `${index * 0.2}s` }}>
                         <ArrowRight size={16} className="text-slate-500 group-hover:text-primary transition-colors duration-300" />
-                      </motion.div>
+                      </div>
                     </motion.a>
                   );
                 })}
@@ -566,7 +566,7 @@ export const ContactSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
               viewport={{ once: true }}
-              className="bg-slate-900/30 backdrop-blur-sm rounded-2xl p-6 border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl"
+              className="bg-slate-900/60 rounded-2xl p-6 border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl"
             >
               <div className="flex items-center gap-3">
                 <motion.div
