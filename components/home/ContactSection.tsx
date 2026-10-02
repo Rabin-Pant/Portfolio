@@ -172,10 +172,21 @@ export const ContactSection = () => {
     setSubmitError(null);
 
     try {
-      const res = await fetch('/api/contact', {
+      // Web3Forms' free plan only accepts submissions made directly from the
+      // browser - server-to-server calls (e.g. from a Next.js API route) are
+      // rejected with a 403 unless you're on their Pro plan.
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+          botcheck: formData.botcheck,
+          from_name: 'Portfolio Contact Form',
+        }),
       });
       const data = await res.json();
 
