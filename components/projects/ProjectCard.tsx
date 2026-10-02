@@ -19,29 +19,6 @@ const projectStyles: Record<string, { emoji: string }> = {
   'mediatranscribe': { emoji: '🎙️' },
 };
 
-// Fixed particle positions (no Math.random) - static, defined once outside the component
-const particles = [
-  { x: 10, y: 20, size: 3, duration: 4.2, delay: 0.1 },
-  { x: 80, y: 15, size: 4, duration: 5.1, delay: 0.4 },
-  { x: 20, y: 70, size: 2.5, duration: 4.8, delay: 0.7 },
-  { x: 85, y: 75, size: 3.5, duration: 5.5, delay: 0.3 },
-  { x: 45, y: 10, size: 3, duration: 4.5, delay: 0.9 },
-  { x: 15, y: 90, size: 2, duration: 5.2, delay: 0.5 },
-];
-
-// `hidden` must also target x/y: the infinite x/y loops from `visible` only
-// stop when a new animation takes over those same values. With opacity alone
-// they kept running forever after the card scrolled out of view.
-const particleVariants = {
-  hidden: { opacity: 0, x: 0, y: 0, transition: { duration: 0.3 } },
-  visible: ({ duration, delay }: { duration: number; delay: number }) => ({
-    y: [0, -15, 0, 15, 0],
-    x: [0, 8, 0, -8, 0],
-    opacity: [0.2, 0.7, 0.2],
-    transition: { duration, repeat: Infinity, delay, ease: 'easeInOut' as const },
-  }),
-};
-
 export const ProjectCard = ({ project, index }: ProjectCardProps) => {
   const style = projectStyles[project.slug] || { emoji: '💻' };
 
@@ -65,46 +42,10 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
         {/* Header with Icon */}
         <Link href={`/projects/${project.slug}`}>
           <div className="relative h-32 bg-gradient-to-br from-slate-800/60 to-slate-900/60 overflow-hidden cursor-pointer">
-            {/* Fixed Particles (no Math.random) */}
-            <motion.div
-              className="absolute inset-0 pointer-events-none"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0 }}
-            >
-              {particles.map((p, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute rounded-full bg-white/10"
-                  style={{
-                    width: p.size,
-                    height: p.size,
-                    left: `${p.x}%`,
-                    top: `${p.y}%`,
-                  }}
-                  custom={{ duration: p.duration, delay: p.delay }}
-                  variants={particleVariants}
-                />
-              ))}
-            </motion.div>
-
-            {/* Pulsing Glow behind emoji. Opacity only: scaling a blur-2xl
-                element makes the GPU re-rasterise the blur on every frame. */}
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center"
-              initial={{ opacity: 0.5 }}
-              whileInView={{
-                opacity: [0.5, 0.8, 0.5],
-              }}
-              viewport={{ once: false, amount: 0 }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
+            {/* Glow behind emoji — static, brightens slightly on hover. */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity duration-500">
               <div className="w-40 h-40 rounded-full bg-[radial-gradient(circle,rgba(111,184,141,0.1)_0%,transparent_65%)]" />
-            </motion.div>
+            </div>
 
             {/* Large Emoji/Icon */}
             <motion.div
@@ -191,9 +132,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                     transition={{ delay: 0.1 + index * 0.1 }}
                   >
                     {project.title}
-                    <span className="inline-block anim-wiggle" style={{ animationDelay: `${index * 0.2}s` }}>
-                      <Sparkles size={14} className="text-primary" />
-                    </span>
+                    <Sparkles size={14} className="text-primary" />
                   </motion.h3>
                   <motion.p 
                     className="text-sm text-slate-400 mt-0.5"

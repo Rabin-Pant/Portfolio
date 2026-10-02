@@ -303,14 +303,11 @@ export const AboutSection = () => {
                     
                     {/* Mobile-optimized timeline */}
                     <div className="relative pl-4 sm:pl-6 border-l-2 border-primary/30 space-y-4 sm:space-y-5 mt-4 md:mt-6">
-                      {journeySteps.map((step, index) => {
+                      {journeySteps.map((step) => {
                         const Icon = step.icon;
                         return (
-                          <motion.div
+                          <div
                             key={step.year}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: index * 0.1 }}
                             className="relative p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700"
                           >
                             <div className="absolute -left-[21px] sm:-left-[29px] p-1 sm:p-1.5 rounded-full bg-primary/20 border border-primary/30">
@@ -327,7 +324,7 @@ export const AboutSection = () => {
                               <h4 className="font-semibold text-white text-sm sm:text-base">{step.title}</h4>
                             </div>
                             <p className="text-xs sm:text-sm text-slate-400 mt-1 leading-relaxed">{step.description}</p>
-                          </motion.div>
+                          </div>
                         );
                       })}
                     </div>
@@ -347,16 +344,12 @@ export const AboutSection = () => {
                     </p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4">
-                      {futureGoals.map((goal, index) => {
+                      {futureGoals.map((goal) => {
                         const Icon = goal.icon;
                         return (
-                          <motion.div
+                          <div
                             key={goal.title}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: index * 0.08 }}
-                            whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
-                            className="p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/50 transition-all duration-300 group cursor-default"
+                            className="p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 group cursor-default"
                           >
                             <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
                               <div className="p-1.5 sm:p-2 rounded-lg bg-primary/10 group-hover:scale-110 transition-transform duration-300">
@@ -365,7 +358,7 @@ export const AboutSection = () => {
                               <h4 className="font-semibold text-white text-xs sm:text-sm">{goal.title}</h4>
                             </div>
                             <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed pl-1">{goal.description}</p>
-                          </motion.div>
+                          </div>
                         );
                       })}
                     </div>
@@ -392,30 +385,24 @@ export const AboutSection = () => {
                     </p>
 
                     <div className="space-y-2 sm:space-y-3 mt-4">
-                      {philosophyItems.map((item, index) => {
+                      {philosophyItems.map((item) => {
                         const Icon = item.icon;
                         return (
-                          <motion.div
+                          <div
                             key={item.text}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.3, delay: index * 0.08 }}
-                            whileHover={{ x: 4, transition: { type: "spring", stiffness: 300 } }}
-                            className="flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/30 transition-all duration-300 group cursor-default"
+                            className="flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/30 hover:translate-x-1 transition-all duration-300 group cursor-default"
                           >
                             <div className="p-1 sm:p-1.5 rounded-lg bg-primary/10 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                               <Icon size={12} className="text-primary" />
                             </div>
                             <span className="text-xs sm:text-sm text-slate-300 leading-relaxed">{item.text}</span>
-                          </motion.div>
+                          </div>
                         );
                       })}
                     </div>
 
                     <div className="mt-4 p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700 text-center group hover:border-primary/30 transition-all duration-300">
-                      <div className="anim-bob">
-                        <Sparkles size={16} className="text-primary mx-auto mb-1 sm:mb-2" />
-                      </div>
+                      <Sparkles size={16} className="text-primary mx-auto mb-1 sm:mb-2" />
                       <p className="text-xs sm:text-sm text-slate-400">
                         "Good software starts with a good plan."
                       </p>

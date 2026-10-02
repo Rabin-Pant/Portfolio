@@ -29,34 +29,21 @@ function useMounted() {
  * walks them top-down and keeps the last one whose top has passed the
  * viewport midpoint, the same approach the Navbar uses for its active link.
  */
-// `filter` compensates for source quality, not the scrim (the scrim sits in
-// its own layer above every scene and is untouched by this). forest-floor/
-// office-plant are lower-resolution and much more compressed than branch.jpg
-// (474px/17-32KB vs 612px/146KB) and are naturally soft, low-contrast shots
-// to begin with (mist, dappled light) — the same color-grade layer that
-// branch.jpg shrugs off crushes them further. A contrast/saturation lift on
-// the image itself reads as more detail without changing anything text sits
-// on top of. office-plant is the smallest/softest source of the three (also
-// stretched to full viewport width via `fill`, so its upscale is the most
-// visible), so its lift is tuned a step stronger than forest-floor's.
-// Filenames matter here, not just as labels: these two have had their file
-// content swapped multiple times during setup, and browsers cache the
-// resulting /_next/image response by full URL — a hard refresh doesn't
-// reliably bust that. Renamed to filenames that were never previously
-// requested, so there is nothing anywhere (browser, Next's own image-
-// optimizer disk cache) that could be holding a stale cached response.
-//
-// The filters are now baked into the `-graded` files (same contrast/saturate/
-// brightness formulas the browser uses, applied once offline) instead of a
-// live CSS `filter`, which the GPU had to re-apply on these full-viewport
-// layers during every crossfade. The originals are kept next to them; to
-// re-grade, edit the source file and re-bake rather than adding `filter` back.
+// `filter` is static (never animated), so it costs nothing beyond a one-time
+// rasterization per layer — only an *animated* filter is expensive, since
+// that forces a re-rasterize every frame.
 const SCENES = [
-  { src: '/images/branch.jpg', sections: ['hero', 'about'] },
-  // Baked from forest-floor.webp: contrast(1.4) saturate(1.5) brightness(1.25)
-  { src: '/images/forest-floor-graded.webp', sections: ['experience', 'interests', 'skills'] },
-  // Baked from office-plant.webp: contrast(1.5) saturate(1.6) brightness(1.22)
-  { src: '/images/office-plant-graded.webp', sections: ['projects', 'contact'] },
+  { src: '/images/branch.jpg', sections: ['hero', 'about'], filter: undefined },
+  {
+    src: '/images/forest-floor.webp',
+    sections: ['experience', 'interests', 'skills'],
+    filter: 'saturate(1.35) contrast(1.12) brightness(1.08)',
+  },
+  {
+    src: '/images/office-plant.webp',
+    sections: ['projects', 'contact'],
+    filter: 'saturate(1.35) contrast(1.12) brightness(1.08)',
+  },
 ] as const;
 
 const SECTION_SCENE: [string, number][] = SCENES.flatMap((scene, index) =>
@@ -266,10 +253,7 @@ const GustCanvas = ({ gust, enabled }: { gust: number; enabled: boolean }) => {
     const start = performance.now();
     let raf = 0;
     let lastDraw = 0;
-    // Capped at ~30fps: halves the canvas's own draw cost vs. 60, and soft,
-    // fast-moving particles don't read as choppier at half the frame rate.
-    // 60 was tried and lagged on integrated GPUs (Iris Xe at 2880x1800).
-    const FRAME_MS = 1000 / 30;
+    const FRAME_MS = 1000 / 60;
 
     const tick = (now: number) => {
       const elapsed = now - start;
@@ -538,35 +522,26 @@ export const ForestBackdrop = () => {
               fill
               sizes="100vw"
               className="object-cover"
+              style={scene.filter ? { filter: scene.filter } : undefined}
               priority={index === 0}
             />
           </motion.div>
         );
       })}
 
-      {/* Color grade: pulls the bright, warm-lit photos toward the site's
-          dark green palette instead of just dimming them to grey. This is
-          tinting, not the text-safety layer — that's the scrim below, which
-          this doesn't touch. Was 80%, which combined with the scrim to crush
-          the two lower-contrast scenes into near-invisibility; text legibility
-          comes entirely from the scrim, so this can drop without any risk.
-          Normal blending at 43% instead of mix-blend-multiply at 45%: over a
-          color this dark the two are within a couple of percent, but a blend
-          mode forces the compositor to read back everything beneath this
-          full-viewport fixed layer on every frame. */}
-      <div className="absolute inset-0 bg-[#0d1508] opacity-[0.43]" />
-      {/* Canopy tint + directional scrim, stacked as two backgrounds on a
-          single element rather than two: the backdrop is position:fixed, so
-          every full-viewport layer here is re-composited on each scroll frame.
-          Top layer in the list paints on top. The scrim is darkest at the top
-          (nav/hero copy) and bottom (footer), lighter through the middle so
-          the canopy still reads. */}
+      {/* Color grade + canopy tint + directional scrim, merged into one
+          full-viewport layer instead of two (was a flat color-grade div plus
+          a separate gradient div). One fewer fixed, always-composited layer
+          for the same visual result: text legibility comes entirely from the
+          scrim gradients, and the flat grade tint is reproduced here as a
+          solid-color stop at the front of the same background-image list.
+          The scrim is darkest at the top (nav/hero copy) and bottom
+          (footer), lighter through the middle so the canopy still reads. */}
       <div
         className="absolute inset-0"
         style={{
           backgroundImage: [
-            // First entry paints on top — the scrim sat above the tint when
-            // these were two separate elements, so it must lead here.
+            'linear-gradient(rgba(13,21,8,0.43), rgba(13,21,8,0.43))',
             'linear-gradient(180deg, rgba(6,10,5,0.82) 0%, rgba(6,10,5,0.5) 16%, rgba(6,10,5,0.55) 50%, rgba(6,10,5,0.65) 78%, rgba(6,10,5,0.92) 100%)',
             'radial-gradient(ellipse 120% 90% at 50% 15%, rgba(58,74,40,0.25) 0%, transparent 55%)',
           ].join(','),
