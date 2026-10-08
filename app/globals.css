@@ -115,24 +115,6 @@
   z-index: -1;
   background: rgba(6, 17, 14, 0.25);
 }
-.journey-pause {
-  position: fixed;
-  right: 1.25rem;
-  bottom: max(1.25rem, env(safe-area-inset-bottom));
-  z-index: 35;
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid #334536;
-  border-radius: 50%;
-  background: rgba(11, 24, 20, 0.94);
-  color: #c2d1ba;
-  cursor: pointer;
-}
-.journey-pause:hover { color: white; }
-.journey-pause:focus-visible { outline: 2px solid #b6d398; outline-offset: 4px; }
-body > main { padding-bottom: 5rem; }
 
 @media (max-width: 767px) {
   .forest-journey-scrim {

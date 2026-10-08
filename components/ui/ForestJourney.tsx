@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { usePathname } from 'next/navigation';
-import { Pause, Play } from 'lucide-react';
 import { JOURNEY_WAYPOINTS, STUDIO_PROGRESS, type JourneyScene } from '@/lib/forest-journey';
 
 function subscribeToMotion(callback: () => void) {
@@ -16,7 +15,6 @@ export function ForestJourney() {
   const host = useRef<HTMLDivElement>(null);
   const scene = useRef<JourneyScene | null>(null);
   const progress = useRef(0);
-  const [paused, setPaused] = useState(false);
   const [ready, setReady] = useState(false);
   const reducedMotion = useSyncExternalStore(
     subscribeToMotion,
@@ -110,31 +108,13 @@ export function ForestJourney() {
     };
   }, [reducedMotion]);
 
-  useEffect(() => {
-    scene.current?.setPaused(paused);
-  }, [paused, ready, reducedMotion]);
-
   const animated = ready && !reducedMotion;
 
   return (
-    <>
-      <div className="forest-journey" aria-hidden="true" data-renderer={animated ? 'three' : 'fallback'}>
-        <div className="forest-journey-fallback" />
-        <div ref={host} className={`forest-journey-canvas ${animated ? 'is-ready' : ''}`} />
-        <div className="forest-journey-scrim" />
-      </div>
-      {animated && (
-          <button
-            type="button"
-            className="journey-pause"
-            onClick={() => setPaused((value) => !value)}
-            aria-label={paused ? 'Resume background animation' : 'Pause background animation'}
-            aria-pressed={paused}
-            title={paused ? 'Resume background animation' : 'Pause background animation'}
-          >
-            {paused ? <Play size={15} aria-hidden="true" /> : <Pause size={15} aria-hidden="true" />}
-          </button>
-      )}
-    </>
+    <div className="forest-journey" aria-hidden="true" data-renderer={animated ? 'three' : 'fallback'}>
+      <div className="forest-journey-fallback" />
+      <div ref={host} className={`forest-journey-canvas ${animated ? 'is-ready' : ''}`} />
+      <div className="forest-journey-scrim" />
+    </div>
   );
 }

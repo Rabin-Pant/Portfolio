@@ -595,7 +595,6 @@ export function createForestScene(host: HTMLElement, onUnavailable: () => void):
   let targetProgress = 0;
   let currentProgress = 0;
   let initialized = false;
-  let paused = false;
   let lost = false;
   let disposed = false;
   let frame = 0;
@@ -628,7 +627,7 @@ export function createForestScene(host: HTMLElement, onUnavailable: () => void):
 
   function render(time: number) {
     frame = 0;
-    if (disposed || lost || document.hidden || paused) return;
+    if (disposed || lost || document.hidden) return;
     frame = requestAnimationFrame(render);
     // Keep a 60 fps cadence across 60 Hz and higher-refresh displays.
     // Advance the deadline rather than rounding every interval to rAF ticks.
@@ -691,7 +690,7 @@ export function createForestScene(host: HTMLElement, onUnavailable: () => void):
   }
 
   function start() {
-    if (!frame && !disposed && !lost && !paused && !document.hidden) {
+    if (!frame && !disposed && !lost && !document.hidden) {
       lastTime = 0;
       nextFrameTime = 0;
       frame = requestAnimationFrame(render);
@@ -733,12 +732,6 @@ export function createForestScene(host: HTMLElement, onUnavailable: () => void):
         frame = 0;
         render(performance.now());
       }
-    },
-    setPaused(value) {
-      paused = value;
-      cancelAnimationFrame(frame);
-      frame = 0;
-      start();
     },
     dispose() {
       disposed = true;

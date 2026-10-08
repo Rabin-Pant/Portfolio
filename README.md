@@ -11,7 +11,7 @@ sections remain ordinary HTML and work independently of the scene.
 ## Forest journey
 
 - `components/ui/ForestJourney.tsx` loads the renderer, measures section
-  positions when layout changes, and provides the animation pause button.
+  positions when layout changes.
 - `lib/forest-journey.ts` contains eight section anchors and individual project
   waypoints. Each full-length project story explores a different location:
   MediaTranscribe at the waterfall, TalentBridge in the windmill meadow,
@@ -33,8 +33,7 @@ most four CPU threads use lighter settings. Resolution is capped and reduced
 further when frame delivery or render submission stays slow. Frame deadlines
 maintain the same cadence on higher-refresh displays; actual frame rates depend
 on the device. A small tolerance accommodates animation timestamp jitter.
-Rendering stops while the tab is hidden or the visitor
-pauses it. Reduced-motion visitors get the static illustration without loading
+Rendering runs automatically while the tab is visible. Reduced-motion visitors get the static illustration without loading
 Three.js. GPU resources and event listeners are disposed when the renderer unmounts.
 
 The project listing and detail routes use the studio camera position. No old

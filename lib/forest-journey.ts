@@ -29,7 +29,6 @@ export const JOURNEY_WAYPOINTS = JOURNEY_STOPS.flatMap((stop, index) => {
 
 export type JourneyScene = {
   setProgress: (progress: number) => void;
-  setPaused: (paused: boolean) => void;
   dispose: () => void;
 };
 
