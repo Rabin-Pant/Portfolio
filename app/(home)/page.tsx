@@ -4,13 +4,14 @@ import { Interests } from '@/components/home/Interests';
 import { AboutSection } from '@/components/home/AboutSection';
 import { ExperienceSection } from '@/components/home/ExperienceSection';
 import { SkillsSection } from '@/components/home/SkillsSection';
-import { FeaturedProjects } from '@/components/home/FeaturedProjects';
+import { ProjectsSection } from '@/components/home/ProjectsSection';
+import { CertificationsSection } from '@/components/home/CertificationsSection';
 import { ContactSection } from '@/components/home/ContactSection';
 import { Footer } from '@/components/ui/Footer';
 
 export default function Home() {
   return (
-    <main>
+    <div className="journey-home">
       <section id="hero">
         <Hero />
       </section>
@@ -26,13 +27,16 @@ export default function Home() {
       <section id="skills">
         <SkillsSection />
       </section>
+      <section id="certifications">
+        <CertificationsSection />
+      </section>
       <section id="projects">
-        <FeaturedProjects />
+        <ProjectsSection />
       </section>
       <section id="contact">
         <ContactSection />
       </section>
       <Footer />
-    </main>
+    </div>
   );
 }

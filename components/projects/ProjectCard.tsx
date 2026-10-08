@@ -38,7 +38,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
       {/* Glow Effect on Hover */}
       <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-primary-dark rounded-xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 shadow-primary/10" />
 
-      <div className="relative bg-slate-900/80 rounded-xl overflow-hidden border border-slate-800 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-2xl">
+      <div className="relative panel rounded-xl overflow-hidden border border-slate-800 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-2xl">
         {/* Header with Icon */}
         <Link href={`/projects/${project.slug}`}>
           <div className="relative h-32 bg-gradient-to-br from-slate-800/60 to-slate-900/60 overflow-hidden cursor-pointer">

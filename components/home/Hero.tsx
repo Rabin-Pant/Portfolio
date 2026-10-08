@@ -52,7 +52,7 @@ export const Hero = () => {
               className="mt-6 md:mt-10 flex flex-col sm:flex-row gap-3 md:gap-4"
             >
               <Link
-                href="/projects"
+                href="#projects"
                 className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-lg bg-primary hover:bg-primary-dark transition-all duration-200 font-medium text-sm md:text-base shadow-lg shadow-primary/20 hover:shadow-primary/40"
               >
                 See my work

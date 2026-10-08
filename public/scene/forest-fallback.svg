@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#59776f"/><stop offset="1" stop-color="#b4b992"/></linearGradient>
+    <linearGradient id="ground" x2="0" y2="1"><stop stop-color="#4c6950"/><stop offset="1" stop-color="#172f26"/></linearGradient>
+    <linearGradient id="trail" x2="0" y2="1"><stop stop-color="#b6ad84"/><stop offset="1" stop-color="#7e8161"/></linearGradient>
+    <g id="pine"><path d="M-7 0H7V-190H-7Z" fill="#463e2b"/><path d="M0-290-70-120H70Z" fill="#30513e"/><path d="M0-235-95-55H95Z" fill="#365c43"/><path d="M0-170-115 0H115Z" fill="#40674a"/></g>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h1600v1000H0z"/>
+  <circle cx="1110" cy="230" r="65" fill="#e5ce91" opacity=".7"/>
+  <path d="m0 470 190-155 150 110 190-245 225 235 215-200 245 220 190-175 195 195v545H0Z" fill="#6c8374"/>
+  <path d="m0 510 220-120 230 140 230-170 210 130 235-125 275 190v445H0Z" fill="#526d57"/>
+  <path d="M0 585Q430 465 800 540t800-20v480H0Z" fill="url(#ground)"/>
+  <path d="M-20 745q370-115 710-15t930-85" stroke="#708f84" stroke-width="44"/>
+  <path d="M485 1000q280-230 305-280t95-130l32 5q-80 95-66 150t-130 255Z" fill="url(#trail)"/>
+  <g opacity=".7"><use href="#pine" transform="translate(120 615) scale(.8)"/><use href="#pine" transform="translate(330 580) scale(.6)"/><use href="#pine" transform="translate(470 595) scale(.55)"/><use href="#pine" transform="translate(610 570) scale(.45)"/><use href="#pine" transform="translate(1000 555) scale(.5)"/><use href="#pine" transform="translate(1420 580) scale(.7)"/></g>
+  <g><path d="M1130 550h200v140h-200Z" fill="#8c7957"/><path d="m1105 550 125-85 125 85Z" fill="#283d36"/><path d="M1150 575h55v50h-55Zm90 0h55v50h-55Z" fill="#e6bc74"/><path d="M1210 615h25v75h-25Z" fill="#423b2b"/><path d="M1105 690h250v15h-250Z" fill="#5b5038"/></g>
+  <g stroke="#5c4932" stroke-width="12"><path d="m759 759 104-44m-120 12 104-44"/><path d="m745 713 104-44" stroke-width="6"/></g>
+  <use href="#pine" transform="translate(50 960) scale(2.3)"/><use href="#pine" transform="translate(290 850) scale(1.55)"/><use href="#pine" transform="translate(1450 880) scale(1.6)"/><use href="#pine" transform="translate(1610 1030) scale(2.6)"/>
+  <path d="M0 875q200-45 430 80l-55 45H0Zm1600-25q-250 10-365 150h365Z" fill="#233f2d"/>
+</svg>

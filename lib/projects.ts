@@ -13,7 +13,6 @@ export interface Project {
     github?: string;
     live?: string;
   };
-  featured: boolean;
   year: string;
 }
 
@@ -39,7 +38,6 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/Rabin-Pant/MediaTranscribe',
     },
-    featured: false,
     year: '2026',
   },
   {
@@ -63,7 +61,6 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/Rabin-Pant/TALENTBRIDGE',
     },
-    featured: true,
     year: '2025',
   },
   {
@@ -88,7 +85,6 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/Rabin-Pant/CineBook-Online-Movie-Ticket-Booking-System',
     },
-    featured: true,
     year: '2025',
   },
   {
@@ -113,14 +109,9 @@ export const projects: Project[] = [
       github: 'https://github.com/Rabin-Pant/Chat-App',
       live: 'https://chat-app-psi-ecru-73.vercel.app',
     },
-    featured: true,
     year: '2025',
   },
 ];
-
-export const getFeaturedProjects = (): Project[] => {
-  return projects.filter((project) => project.featured);
-};
 
 export const getProjectBySlug = (slug: string): Project | undefined => {
   return projects.find((project) => project.slug === slug);

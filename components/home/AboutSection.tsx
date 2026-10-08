@@ -293,8 +293,8 @@ export const AboutSection = () => {
                     </div>
                     <p className="text-slate-400 leading-relaxed text-sm md:text-base">
                       It started in 2022 with a pretty basic question:
-                      <span className="text-white"> "how do websites actually work?" </span>
-                      I've been building, breaking things, and figuring it out since then.
+                      <span className="text-white"> &quot;how do websites actually work?&quot; </span>
+                      I&apos;ve been building, breaking things, and figuring it out since then.
                     </p>
                     <p className="text-slate-400 leading-relaxed text-sm md:text-base">
                       I picked Computer Science because I wanted the
@@ -337,10 +337,10 @@ export const AboutSection = () => {
                       <div className="p-2 md:p-2.5 rounded-xl bg-primary/10 border border-primary/20 flex-shrink-0">
                         <Rocket size={18} className="text-primary md:w-[20px] md:h-[20px]" />
                       </div>
-                      <h3 className="text-lg md:text-xl font-mono font-bold text-white">What's Next</h3>
+                      <h3 className="text-lg md:text-xl font-mono font-bold text-white">What&apos;s Next</h3>
                     </div>
                     <p className="text-slate-400 leading-relaxed text-sm md:text-base">
-                      Here's what I'm working toward next.
+                      Here&apos;s what I&apos;m working toward next.
                     </p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4">
@@ -381,7 +381,7 @@ export const AboutSection = () => {
                       <h3 className="text-lg md:text-xl font-mono font-bold text-white">My Philosophy</h3>
                     </div>
                     <p className="text-slate-400 leading-relaxed text-sm md:text-base">
-                      A few things I try to stick to, whether or not anyone's checking.
+                      A few things I try to stick to, whether or not anyone&apos;s checking.
                     </p>
 
                     <div className="space-y-2 sm:space-y-3 mt-4">
@@ -404,7 +404,7 @@ export const AboutSection = () => {
                     <div className="mt-4 p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700 text-center group hover:border-primary/30 transition-all duration-300">
                       <Sparkles size={16} className="text-primary mx-auto mb-1 sm:mb-2" />
                       <p className="text-xs sm:text-sm text-slate-400">
-                        "Good software starts with a good plan."
+                        &quot;Good software starts with a good plan.&quot;
                       </p>
                       <p className="text-[10px] sm:text-xs text-slate-500 mt-1">— My development mantra</p>
                     </div>
@@ -431,7 +431,7 @@ export const AboutSection = () => {
                 href="/#contact"
                 className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-xl border border-slate-700 hover:border-primary hover:bg-primary/10 transition-all duration-200 text-xs md:text-sm font-medium"
               >
-                Let's Connect
+                Let&apos;s Connect
                 <ChevronRight size={14} />
               </Link>
             </motion.div>

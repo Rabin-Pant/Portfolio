@@ -13,6 +13,7 @@
 
 @layer base {
   body {
+    isolation: isolate;
     background-color: #0B0F0D;
     color: #F3F7F2;
     -webkit-font-smoothing: antialiased;
@@ -68,13 +69,164 @@
     background-clip: text;
   }
 
-  /* Panel used by cards that sit over the fixed forest backdrop. No
-     backdrop-filter: the backdrop is position:fixed, so a blur here has to be
-     recomputed on every scroll frame, which lags on integrated GPUs. A more
-     opaque fill gives the same legibility. */
+  /* Solid translucent panels keep text readable without a full-screen blur. */
   .panel {
-    background: rgba(23, 29, 25, 0.75);
+    background: rgba(18, 29, 25, 0.88);
   }
+}
+
+/* One persistent environment behind the document, with a static illustration
+   available before WebGL loads and for visitors who prefer reduced motion. */
+.forest-journey {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: #172b26;
+}
+
+.forest-journey-fallback,
+.forest-journey-canvas,
+.forest-journey-scrim {
+  position: absolute;
+  inset: 0;
+}
+
+.forest-journey-fallback {
+  background: #263e35 url('/scene/forest-fallback.svg') center / cover no-repeat;
+}
+
+.forest-journey-canvas { opacity: 0; transition: opacity 1.2s ease; }
+.forest-journey-canvas.is-ready { opacity: 1; }
+.forest-journey-canvas canvas { display: block; width: 100%; height: 100%; }
+.forest-journey-scrim {
+  background:
+    linear-gradient(90deg, rgba(6, 17, 14, 0.63), rgba(6, 17, 14, 0.22) 58%, rgba(6, 17, 14, 0.08)),
+    linear-gradient(180deg, rgba(6, 14, 12, 0.5), transparent 26%, rgba(6, 14, 12, 0.12) 60%, rgba(6, 14, 12, 0.75));
+}
+
+.journey-home > section { scroll-margin-top: 90px; }
+.journey-home > section:not(:first-child) { position: relative; }
+.journey-home > section:not(:first-child)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(6, 17, 14, 0.25);
+}
+.journey-pause {
+  position: fixed;
+  right: 1.25rem;
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
+  z-index: 35;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #334536;
+  border-radius: 50%;
+  background: rgba(11, 24, 20, 0.94);
+  color: #c2d1ba;
+  cursor: pointer;
+}
+.journey-pause:hover { color: white; }
+.journey-pause:focus-visible { outline: 2px solid #b6d398; outline-offset: 4px; }
+body > main { padding-bottom: 5rem; }
+
+@media (max-width: 767px) {
+  .forest-journey-scrim {
+    background: linear-gradient(180deg, rgba(6, 17, 14, 0.38), rgba(6, 17, 14, 0.22) 45%, rgba(6, 17, 14, 0.5));
+  }
+
+  /* Let the scenery show through stacked phone cards without costly blur. */
+  .journey-home {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+  }
+  .journey-home .gradient-text {
+    text-shadow: none;
+    background-image: linear-gradient(to right, #8bd6a7, #c0ebce);
+  }
+  .journey-home > section:not(:first-child)::before {
+    background: rgba(6, 17, 14, 0.08);
+  }
+  .journey-home .bg-slate-900\/10 {
+    background-color: rgba(15, 23, 42, 0.04);
+  }
+  .journey-home .panel {
+    background: rgba(18, 29, 25, 0.64);
+  }
+  .journey-home .bg-slate-900\/60 {
+    background-color: rgba(15, 23, 42, 0.44);
+  }
+  .journey-home .bg-slate-900\/30 {
+    background-color: rgba(15, 23, 42, 0.22);
+  }
+  .journey-home input, .journey-home textarea {
+    background-color: rgba(30, 41, 59, 0.3);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .forest-journey-canvas { transition: none; }
+}
+
+.section-kicker {
+  color: #b7c9aa;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.65rem;
+  line-height: 1.6;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.project-stories-header { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 3rem; }
+.project-story { padding: 3.5rem 0 4.5rem; border-top: 1px solid rgba(163, 190, 158, 0.3); scroll-margin-top: 110px; }
+.project-story:last-child { padding-bottom: 0; }
+.project-story-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 2rem; }
+.project-story-number { font-family: var(--font-fraunces), serif; color: #c4d0b7; font-size: 1.8rem; }
+.project-story-number > span { color: #9cafa0; font-family: var(--font-jetbrains-mono), monospace; font-size: 0.65rem; }
+.project-story-year { color: #b3c0b7; font-family: var(--font-jetbrains-mono), monospace; font-size: 0.65rem; letter-spacing: 0.06em; }
+.project-story-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(2rem, 4vw, 4rem); align-items: start; }
+.project-story-tagline { margin-top: 0.7rem; color: #bfd3b4; font-size: 0.95rem; }
+.project-story-description { margin-top: 1.5rem; color: #d0dad2; line-height: 1.85; font-size: 0.95rem; }
+.project-story-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+.project-story-stack > li { padding: 0.3rem 0.55rem; background: rgba(16, 31, 25, 0.85); border: 1px solid #3a5040; border-radius: 4px; color: #cbd6c7; font-family: var(--font-jetbrains-mono), monospace; font-size: 0.65rem; }
+.project-story-links { display: flex; flex-wrap: wrap; gap: 1.75rem; margin-top: 1.7rem; }
+.project-story-links > a { display: inline-flex; align-items: center; gap: 0.5rem; color: #b9d5ac; font-size: 0.85rem; padding: 0.3rem 0; }
+.project-story-links > a:hover { color: white; }
+.project-story-links > a:focus-visible, a.certification-row:focus-visible { outline: 2px solid #b6d398; outline-offset: 4px; }
+.project-story-image { margin-top: 2rem; overflow: hidden; border: 1px solid #40523f; border-radius: 0.6rem; background: #15221b; box-shadow: 0 16px 40px #0003; }
+.project-story-notes { padding: 1.75rem; border: 1px solid #334636; border-radius: 0.6rem; }
+.project-story-notes > div + div { margin-top: 1.8rem; padding-top: 1.8rem; border-top: 1px solid #334636; }
+.project-story-notes p { color: #c7d1ca; font-size: 0.875rem; line-height: 1.85; }
+.project-story-results { display: grid; gap: 0.85rem; }
+.project-story-results > li { display: flex; align-items: start; gap: 0.65rem; color: #c7d1ca; font-size: 0.85rem; line-height: 1.7; }
+.project-story-results svg { margin-top: 0.28rem; color: #9abf8b; flex-shrink: 0; }
+.certification-groups { display: grid; grid-template-columns: 1.1fr 1fr; gap: 1.75rem; align-items: start; }
+.certification-group { border: 1px solid #334636; border-radius: 0.6rem; padding: 1.75rem; }
+.certification-group-heading { display: flex; align-items: start; gap: 0.85rem; padding-bottom: 1.25rem; }
+.certification-group-heading > svg { margin-top: 0.25rem; }
+.certification-group-heading p { color: #aebeb0; font-size: 0.7rem; line-height: 1.7; margin-top: 0.6rem; }
+.certification-list > li { border-top: 1px solid #334636; }
+.certification-row { display: flex; align-items: center; gap: 1rem; padding: 1.25rem 0; color: #bbccb3; }
+a.certification-row { transition: color 0.2s; }
+a.certification-row:hover { color: white; }
+.certification-copy { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+.certification-copy > span:first-child { color: #e0e7db; font-size: 0.9rem; line-height: 1.55; }
+.certification-copy > span:last-child { color: #a9b9ab; font-size: 0.7rem; }
+@media (max-width: 1023px) {
+  .project-story-grid { grid-template-columns: 1fr; }
+  .project-story-image { max-width: 44rem; }
+}
+@media (max-width: 767px) {
+  .project-stories-header { flex-direction: column; align-items: start; gap: 1.25rem; }
+  .project-story { padding: 2.5rem 0 3rem; }
+  .project-story-heading { margin-bottom: 1.5rem; }
+  .project-story-notes, .certification-group { padding: 1.25rem; }
+  .project-story-description { font-size: 0.875rem; }
+  .certification-groups { grid-template-columns: 1fr; gap: 2.5rem; }
+  .project-story-grid { gap: 2.5rem; }
+  .certification-row { gap: 0.75rem; }
 }
 
 /* Looping decorative motion. CSS rather than framer-motion `repeat: Infinity`:

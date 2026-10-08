@@ -13,6 +13,7 @@ const navLinks = [
   { href: '/#about', label: 'About', delay: 0.1 },
   { href: '/#experience', label: 'Experience', delay: 0.13 },
   { href: '/#skills', label: 'Skills', delay: 0.15 },
+  { href: '/#certifications', label: 'Certifications', delay: 0.18 },
   { href: '/#projects', label: 'Projects', delay: 0.2 },
   { href: '/#contact', label: 'Contact', delay: 0.25 },
 ];
@@ -40,7 +41,7 @@ export const Navbar = () => {
   // layout reads per full scroll instead of one per frame.
   useEffect(() => {
     if (!isHomePage) return;
-    const sections = ['about', 'experience', 'skills', 'projects', 'contact'];
+    const sections = navLinks.map(({ href }) => href.replace('/#', ''));
     const elements = sections
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
@@ -84,7 +85,7 @@ export const Navbar = () => {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      window.location.href = href;
+      window.location.assign(href);
     }
   };
 
@@ -138,7 +139,7 @@ export const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-6">
             {navLinks.map((link) => (
               <motion.a
                 key={link.href}
@@ -211,7 +212,7 @@ export const Navbar = () => {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-white hover:text-primary transition-colors p-3 rounded-lg hover:bg-white/10 z-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="lg:hidden text-white hover:text-primary transition-colors p-3 rounded-lg hover:bg-white/10 z-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Toggle menu"
             initial={{ opacity: 0, rotate: -90 }}
             animate={{ opacity: 1, rotate: 0 }}
@@ -242,7 +243,7 @@ export const Navbar = () => {
               exit={{ opacity: 0, scaleY: 0.95 }}
               transition={{ duration: 0.2, ease: "easeInOut" }}
               style={{ transformOrigin: 'top' }}
-              className="md:hidden overflow-hidden"
+              className="lg:hidden overflow-hidden"
             >
               <motion.div 
                 className="py-6 space-y-3 border-t border-slate-700/50 bg-[#0A0A0A]/95 rounded-b-2xl"

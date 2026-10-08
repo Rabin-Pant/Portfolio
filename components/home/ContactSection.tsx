@@ -3,9 +3,7 @@
 
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, Link2, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react';
-import { GithubIcon } from '@/components/ui/GithubIcon';
-import { LinkedinIcon } from '@/components/ui/LinkedinIcon';
+import { Mail, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 export const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -142,25 +140,6 @@ export const ContactSection = () => {
     }
   };
 
-  const socialLinks = [
-    {
-      icon: GithubIcon,
-      label: 'GitHub',
-      href: 'https://github.com/Rabin-Pant',
-      username: '@Rabin-Pant',
-      color: 'text-white',
-      bg: 'hover:bg-white/10',
-    },
-    {
-      icon: LinkedinIcon,
-      label: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/rabin-pant-6b4559358',
-      username: 'Rabin Pant',
-      color: 'text-[#0077B5]',
-      bg: 'hover:bg-[#0077B5]/10',
-    },
-  ];
-
   return (
     <section className="py-20 md:py-28 bg-slate-900/10 relative overflow-hidden">
       <div className="container-custom relative z-10">
@@ -194,7 +173,7 @@ export const ContactSection = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
-          {/* Form - 3/5 of the space */}
+          {/* Contact form */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -202,7 +181,7 @@ export const ContactSection = () => {
             viewport={{ once: true }}
             className="lg:col-span-3"
           >
-            <div className="bg-slate-900/60 rounded-2xl p-6 md:p-8 border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl">
+            <div className="panel rounded-2xl p-6 md:p-8 border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -441,92 +420,7 @@ export const ContactSection = () => {
             </div>
           </motion.div>
 
-          {/* Social Links - 2/5 of the space */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="lg:col-span-2 space-y-6"
-          >
-            {/* Connect Cards */}
-            <div className="bg-slate-900/60 rounded-2xl p-6 border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl">
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                viewport={{ once: true }}
-                className="flex items-center gap-3 mb-6"
-              >
-                <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
-                  <Link2 size={20} className="text-primary" />
-                </div>
-                <h3 className="font-display text-lg font-semibold">
-                  Find me <span className="gradient-text">elsewhere</span>
-                </h3>
-              </motion.div>
 
-              <div className="space-y-4">
-                {socialLinks.map((link, index) => {
-                  const Icon = link.icon;
-                  return (
-                    <motion.a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
-                      viewport={{ once: true }}
-                      whileHover={{ x: 6, transition: { type: "spring", stiffness: 300 } }}
-                      className={`flex items-center gap-4 p-4 rounded-xl bg-slate-800/30 border border-slate-700 ${link.bg} transition-all duration-300 group`}
-                    >
-                      <motion.div
-                        className={`p-2.5 rounded-xl bg-slate-800/50 ${link.bg} group-hover:scale-110 transition-transform duration-300`}
-                        whileHover={{ rotate: [0, -5, 5, 0] }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        <Icon size={22} className={link.color} />
-                      </motion.div>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium text-white group-hover:text-primary transition-colors duration-300">
-                          {link.label}
-                        </p>
-                        <p className="text-xs text-slate-400">{link.username}</p>
-                      </div>
-                      <ArrowRight size={16} className="text-slate-500 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300" />
-                    </motion.a>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Location Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              viewport={{ once: true }}
-              className="bg-slate-900/60 rounded-2xl p-6 border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl"
-            >
-              <div className="flex items-center gap-3">
-                <motion.div
-                  className="p-2.5 rounded-xl bg-primary/10 border border-primary/20"
-                  whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <MapPin size={20} className="text-primary" />
-                </motion.div>
-                <div>
-                  <p className="text-sm font-medium text-white">Kathmandu, Nepal</p>
-                  <div className="flex items-center gap-3 mt-1">
-                    <span className="text-xs text-slate-400">🇳🇵</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
         </div>
       </div>
     </section>

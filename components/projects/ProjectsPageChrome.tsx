@@ -36,7 +36,7 @@ export const ProjectsPageHeader = ({ count }: { count: number }) => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          Everything I've built end to end, in one place.
+          Everything I&apos;ve built end to end, in one place.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -83,7 +83,7 @@ export const ProjectsBottomCTA = () => {
           href="/#contact"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary hover:bg-primary-dark transition-all duration-200 font-medium shadow-lg shadow-primary/20 hover:shadow-primary/40"
         >
-          Let's talk
+          Let&apos;s talk
           <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
