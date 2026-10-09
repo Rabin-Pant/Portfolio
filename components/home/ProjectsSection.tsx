@@ -24,7 +24,7 @@ export function ProjectsSection() {
                 <span className="project-story-year">Built in {project.year}</span>
               </div>
               <div className="project-story-grid">
-                <div className="project-story-main">
+                <div>
                   <h3 id={`title-${project.slug}`} className="font-display text-3xl md:text-4xl font-semibold text-white">{project.title}</h3>
                   <p className="project-story-tagline">{project.tagline}</p>
                   <p className="project-story-description">{project.description}</p>

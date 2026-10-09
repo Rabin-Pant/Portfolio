@@ -70,7 +70,7 @@ export const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Right: Profile Photo */}
+          {/* Right: transparent portrait cutout */}
           {/* Opacity only — an animated scale on a real photo forces the GPU
               to resample the whole texture every frame. Confirmed expensive
               via CDP trace elsewhere on this site (59% of a full-viewport
@@ -82,30 +82,18 @@ export const Hero = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex justify-center"
           >
-            {/* Capped smaller on phones: at near-full mobile width, this
-                portrait-ratio card was ~540px tall on a ~660px viewport. */}
-            <div className="relative w-full max-w-55 sm:max-w-sm">
-              <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#10160d] shadow-2xl">
-                <div className="relative aspect-[4/5] w-full overflow-hidden">
-                  <Image
-                    src="/images/rabin.jpeg"
-                    alt="Rabin Pant"
-                    fill
-                    sizes="(max-width: 640px) 80vw, (max-width: 1024px) 40vw, 24vw"
-                    className="object-cover"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F0D] via-transparent to-transparent" />
-                </div>
-                <div className="flex items-center justify-between gap-3 p-5">
-                  <div>
-                    <div className="font-display text-lg font-semibold text-white">Rabin Pant</div>
-                    <div className="mt-0.5 font-mono text-[10px] uppercase tracking-wide text-slate-500">
-                      Full-Stack Developer
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div
+              className="relative aspect-[4/5] w-full max-w-55 translate-x-4 overflow-hidden sm:max-w-sm lg:translate-x-12"
+              style={{ maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)' }}
+            >
+              <Image
+                src="/images/rabin-cutout.png"
+                alt="Rabin Pant"
+                fill
+                sizes="(max-width: 640px) 220px, 384px"
+                className="object-cover object-top drop-shadow-[0_18px_36px_rgba(0,0,0,0.45)]"
+                priority
+              />
             </div>
           </motion.div>
         </div>

@@ -1,5 +1,39 @@
 import * as THREE from 'three';
 
+// A small cutout of individual leaves gives canopy edges fine detail without
+// thousands of separate leaf meshes or a downloaded texture.
+export function createFoliageTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 512;
+  const context = canvas.getContext('2d');
+  if (!context) throw new Error('Unable to create foliage texture');
+  let seed = 193;
+  const random = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 4294967296; };
+  // Overlapping sprays with small gaps, shaded leaves, and fine central veins.
+  for (let i = 0; i < 1150; i++) {
+    const angle = random() * Math.PI * 2;
+    const radius = Math.sqrt(random()) * (185 + Math.sin(angle * 5) * 22 + Math.cos(angle * 3) * 15);
+    const x = 256 + Math.cos(angle) * radius;
+    const y = 256 + Math.sin(angle) * radius * 0.87;
+    const shade = Math.floor(160 + random() * 65 + (1 - y / 512) * 25);
+    context.save(); context.translate(x, y); context.rotate(angle + random() * 2);
+    const length = 5 + random() * 9, width = 3 + random() * 3;
+    const gradient = context.createLinearGradient(0, -width, 0, width);
+    gradient.addColorStop(0, `rgb(${shade},${Math.min(255, shade + 8)},${Math.floor(shade * 0.78)})`);
+    gradient.addColorStop(1, `rgb(${shade * 0.68},${shade * 0.76},${shade * 0.5})`);
+    context.fillStyle = gradient;
+    context.beginPath(); context.moveTo(-length, 0);
+    context.quadraticCurveTo(0, -width * 1.5, length, 0);
+    context.quadraticCurveTo(0, width * 1.5, -length, 0); context.fill();
+    context.strokeStyle = 'rgba(244,255,209,0.22)'; context.lineWidth = 0.65;
+    context.beginPath(); context.moveTo(-length, 0); context.lineTo(length, 0); context.stroke();
+    context.restore();
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
 export function createContactTexture() {
   const size = 64;
   const pixels = new Uint8Array(size * size * 4);
@@ -16,8 +50,8 @@ export function createContactTexture() {
 }
 
 // Small, deterministic surface maps generated once; no image downloads.
-export function createSurfaceTexture(kind: 'earth' | 'grain' | 'stone') {
-  const size = 128;
+export function createSurfaceTexture(kind: 'earth' | 'stone' | 'bark') {
+  const size = kind === 'bark' ? 512 : 128;
   const pixels = new Uint8Array(size * size * 4);
   let seed = 917;
   for (let y = 0; y < size; y++) {
@@ -27,8 +61,8 @@ export function createSurfaceTexture(kind: 'earth' | 'grain' | 'stone') {
       const u = x / size * Math.PI * 2;
       const v = y / size * Math.PI * 2;
       const broad = Math.sin(u * 3 + Math.sin(v * 2)) * Math.cos(v * 3 + Math.sin(u));
-      const grain = Math.sin(u * 24 + Math.sin(v * 2) * 2 + Math.sin(u * 3));
-      const value = kind === 'grain' ? 207 + grain * 23 + noise * 20
+      const fissure = Math.pow(Math.abs(Math.sin(u * 18 + Math.sin(v * 2) * 0.6 + Math.sin(v * 7) * 0.16)), 12);
+      const value = kind === 'bark' ? 185 + broad * 22 - fissure * 88 + Math.sin(u * 53 + Math.sin(v * 4)) * 12 + (noise - 0.5) * 22
         : 211 + broad * (kind === 'earth' ? 28 : 17) + (noise - 0.5) * 29;
       const index = (y * size + x) * 4;
       pixels[index] = value;
@@ -45,27 +79,6 @@ export function createSurfaceTexture(kind: 'earth' | 'grain' | 'stone') {
   texture.colorSpace = THREE.SRGBColorSpace;
   texture.needsUpdate = true;
   return texture;
-}
-
-export function createPineGeometry(lightweight: boolean) {
-  const profile = [new THREE.Vector2(0.05, -0.5)];
-  const tiers = lightweight ? 5 : 7;
-  for (let i = 0; i < tiers; i++) {
-    const t = i / tiers;
-    profile.push(new THREE.Vector2((1 - t) * 0.96, t - 0.49));
-    profile.push(new THREE.Vector2((1 - t) * 0.59, t - 0.43));
-  }
-  profile.push(new THREE.Vector2(0, 0.5));
-  const shape = new THREE.LatheGeometry(profile, lightweight ? 8 : 11);
-  const positions = shape.getAttribute('position');
-  for (let i = 0; i < positions.count; i++) {
-    const x = positions.getX(i), y = positions.getY(i), z = positions.getZ(i);
-    const angle = Math.atan2(z, x);
-    const irregularity = 1 + Math.sin(angle * 5 + y * 19) * 0.12;
-    positions.setXYZ(i, x * irregularity, y + Math.sin(angle * 3) * 0.025, z * irregularity);
-  }
-  shape.computeVertexNormals();
-  return shape;
 }
 
 export function createOrganicGeometry(detail: number) {

@@ -11,7 +11,7 @@ export const JOURNEY_STOPS = [
   { id: 'contact' },
 ] as const;
 
-export const STUDIO_PROGRESS = JOURNEY_STOPS.length - 1 + projects.length;
+export const CROWN_PROGRESS = JOURNEY_STOPS.length - 1 + projects.length;
 
 // Each project gets its own stretch of the route, so the camera keeps moving
 // through a different location for each full-length story.

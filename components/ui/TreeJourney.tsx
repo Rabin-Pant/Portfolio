@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { usePathname } from 'next/navigation';
-import { JOURNEY_WAYPOINTS, STUDIO_PROGRESS, type JourneyScene } from '@/lib/forest-journey';
+import { JOURNEY_WAYPOINTS, CROWN_PROGRESS, type JourneyScene } from '@/lib/tree-journey';
 
 function subscribeToMotion(callback: () => void) {
   const query = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -10,7 +10,7 @@ function subscribeToMotion(callback: () => void) {
   return () => query.removeEventListener('change', callback);
 }
 
-export function ForestJourney() {
+export function TreeJourney() {
   const pathname = usePathname();
   const host = useRef<HTMLDivElement>(null);
   const scene = useRef<JourneyScene | null>(null);
@@ -32,7 +32,7 @@ export function ForestJourney() {
     function update() {
       frame = 0;
       if (disposed) return;
-      let value = STUDIO_PROGRESS;
+      let value = CROWN_PROGRESS;
       if (isHome && anchors.length === JOURNEY_WAYPOINTS.length) {
         const position = window.scrollY + window.innerHeight * 0.3;
         value = 0;
@@ -88,10 +88,10 @@ export function ForestJourney() {
     let instance: JourneyScene | undefined;
 
     // The renderer is a separate chunk; portfolio content renders first.
-    import('@/lib/forest-scene').then(({ createForestScene }) => {
+    import('@/lib/tree-scene').then(({ createTreeScene }) => {
       if (disposed) return;
       try {
-        instance = createForestScene(container, () => setReady(false));
+        instance = createTreeScene(container, () => setReady(false));
         scene.current = instance;
         instance.setProgress(progress.current);
         setReady(true);
@@ -111,10 +111,10 @@ export function ForestJourney() {
   const animated = ready && !reducedMotion;
 
   return (
-    <div className="forest-journey" aria-hidden="true" data-renderer={animated ? 'three' : 'fallback'}>
-      <div className="forest-journey-fallback" />
-      <div ref={host} className={`forest-journey-canvas ${animated ? 'is-ready' : ''}`} />
-      <div className="forest-journey-scrim" />
+    <div className="tree-journey" aria-hidden="true" data-renderer={animated ? 'three' : 'fallback'}>
+      <div className="tree-journey-fallback" />
+      <div ref={host} className={`tree-journey-canvas ${animated ? 'is-ready' : ''}`} />
+      <div className="tree-journey-scrim" />
     </div>
   );
 }

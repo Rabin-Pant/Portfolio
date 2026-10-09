@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#63786a"/><stop offset="1" stop-color="#c1bf95"/></linearGradient>
+    <linearGradient id="bark" x2="1" y2="0"><stop stop-color="#3c4830"/><stop offset=".55" stop-color="#736443"/><stop offset="1" stop-color="#404d32"/></linearGradient>
+    <radialGradient id="mist"><stop stop-color="#e0eacf" stop-opacity=".3"/><stop offset="1" stop-color="#d0e2c4" stop-opacity="0"/></radialGradient>
+    <g id="leaves"><ellipse rx="155" ry="70" fill="#39613d"/><ellipse cx="-70" cy="-22" rx="105" ry="58" fill="#557d45"/><ellipse cx="65" cy="-26" rx="110" ry="64" fill="#6d914e"/><ellipse cx="0" cy="-46" rx="95" ry="52" fill="#799c56"/></g>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h1600v1000H0z"/>
+  <ellipse cx="1190" cy="210" rx="320" ry="300" fill="url(#mist)"/>
+  <path d="M0 930q400-200 800-130t800 110v90H0Z" fill="#344d35"/>
+  <g stroke="url(#bark)" stroke-linecap="round">
+    <path d="M925 925Q810 675 885 460T920 145" stroke-width="125"/>
+    <path d="M900 825Q760 905 510 930m390-80q130 20 320 105m-325-70q-5 45-115 115" stroke-width="48"/>
+    <path d="M866 570Q655 510 485 345m395 110q235-10 400-195m-390 90q-160-105-260-205m268 110q115-125 180-160m-155 510q250 45 390-95" stroke-width="34"/>
+    <path d="m636 465-190-55m283-218-255-35m590 194 240 25m-125-186 155 20m-370-25-140-85" stroke-width="16"/>
+  </g>
+  <use href="#leaves" transform="translate(450 355) scale(1.05)"/>
+  <use href="#leaves" transform="translate(555 220) scale(1.25)"/>
+  <use href="#leaves" transform="translate(740 145) scale(1.2)"/>
+  <use href="#leaves" transform="translate(985 125) scale(1.3)"/>
+  <use href="#leaves" transform="translate(1215 250) scale(1.4)"/>
+  <use href="#leaves" transform="translate(1330 450) scale(1.1)"/>
+  <use href="#leaves" transform="translate(830 305) scale(1.1)"/>
+  <g stroke="#536442" stroke-width="11" stroke-linecap="round">
+    <path d="M940 815Q815 710 894 550T900 300M870 845Q960 660 865 505T907 290M910 805Q795 630 888 430"/>
+    <path d="M893 827Q815 889 638 948M909 850Q1025 896 1160 952M887 863Q745 902 718 987M923 871Q1010 925 1017 985"/>
+  </g>
+  <g stroke="#bfd18a" opacity=".3" stroke-width="3"><path d="M902 765q-30-180 2-370m-70 132q-115-33-203-115"/></g>
+  <path d="M1075 505h115v12h-115z" fill="#8e7d52"/>
+  <path d="M1090 510v-65m83 65v-65" stroke="#5f6946" stroke-width="5"/>
+  <g fill="#e0d894"><circle cx="1090" cy="445" r="7"/><circle cx="1173" cy="445" r="7"/><circle cx="724" cy="604" r="3"/><circle cx="985" cy="690" r="3"/><circle cx="621" cy="520" r="3"/><circle cx="1070" cy="350" r="3"/></g>
+  <ellipse cx="880" cy="750" rx="670" ry="120" fill="url(#mist)"/>
+</svg>

@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/ui/Navbar';
-import { ForestJourney } from '@/components/ui/ForestJourney';
+import { TreeJourney } from '@/components/ui/TreeJourney';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
-        <ForestJourney />
+        <TreeJourney />
         <Navbar />
         <main className="pt-16 md:pt-20">{children}</main>
       </body>

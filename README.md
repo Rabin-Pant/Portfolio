@@ -2,41 +2,60 @@
 
 Next.js, React, TypeScript, Tailwind CSS, Framer Motion, and Three.js.
 
-The background is a procedural 3D forest journey. Scrolling follows a trail
-from dawn at the forest entrance, across a stream and wooden bridge, through
-a clearing, workshop, mountain overlook, lake, waterfall, windmill meadow,
-stone amphitheatre, and firefly camp, to a woodland studio at dusk. Existing portfolio
-sections remain ordinary HTML and work independently of the scene.
+The background is a procedural Yggdrasil-inspired world tree. Scrolling climbs
+from braided roots around a woven trunk and into a broad, layered crown.
+Wide views show a colossal tree rooted in a sunlit meadow, surrounded by much
+smaller trees, swaying grass, and wildflowers. Portfolio sections are ordinary
+HTML and work independently of the scene.
 
-## Forest journey
+## Tree journey
 
-- `components/ui/ForestJourney.tsx` loads the renderer, measures section
+- `components/ui/TreeJourney.tsx` lazy-loads the renderer and measures section
   positions when layout changes.
-- `lib/forest-journey.ts` contains eight section anchors and individual project
-  waypoints. Each full-length project story explores a different location:
-  MediaTranscribe at the waterfall, TalentBridge in the windmill meadow,
-  CineBook at the amphitheatre, and Chat App at the firefly camp.
-- `lib/forest-scene.ts` creates the environment, camera stops, lighting, water,
-  foliage movement, and floating particles. The windmill turns, water falls,
-  flags flutter, and the campfire flickers. All models are generated in code.
-- `lib/forest-surfaces.ts` generates small reusable surface textures, irregular
-  pine boughs, broadleaf canopies, rock shapes, ferns, and soft contact shading.
-  Water uses wave normals and a sky tint; the sky uses a horizon gradient.
-  These effects need no reflection passes, shadow maps, or downloaded textures.
-- `public/scene/forest-fallback.svg` is the static background used before the
-  renderer loads, with reduced motion, or if WebGL is unavailable or loses its context.
+- `lib/tree-journey.ts` contains eight section anchors and individual project
+  waypoints. Each project visits a distinct inhabited branch realm.
+- `lib/tree-realms.ts` defines ten original realms, their visual lore, positions,
+  architecture, and color palettes. `lib/branch-realms.ts` builds their settlements,
+  moving residents, local snowfall, boats, windmill, and celestial landmarks.
+  Distant settlements use simplified silhouettes; nearby realms show full detail.
+- `lib/tree-camera.ts` defines the roots-to-crown camera stops.
+- `lib/tree-scene.ts` controls the continuous spiral camera route, daylight sky,
+  realm-specific sky colors, lighting, frame cadence, adaptive resolution, and
+  renderer lifecycle. Antialiasing, anisotropic textures, and higher initial pixel
+  density improve clarity; resolution scales down to native density when needed.
+- `lib/tree-world.ts` builds the woven trunk, spreading roots, branching canopy,
+  supporting boughs, clouds, and glowing motes. `lib/tree-meadow.ts` adds
+  instanced meadow vegetation and gradually reveals the underground roots during
+  descent. Branch geometry is merged and foliage is instanced to reduce draw calls.
+- `lib/tree-surfaces.ts` generates small reusable surface textures, organic
+  rock shapes, ferns, fine leaf cutouts, and soft contact shading. Canopy
+  clusters use intersecting leaf cards with alpha testing and gentle wind.
+  `lib/tree-geometry.ts` shares tapered branch geometry between the world tree and
+  smaller meadow trees. Desktop sunlight uses a cached 2048px shadow map;
+  lighter devices use contact shading. No reflection passes, models, or downloaded
+  textures are required. Grass has varied blade shapes and shaded roots and tips.
+- `public/scene/tree-fallback.svg` provides a matching static world tree before
+  WebGL loads, with reduced motion, or if WebGL is unavailable or loses context.
 
-The renderer loads separately from the portfolio content. Trees and ground
+The route descends into the snowy Rootbound Underworld (About), where the tree's
+exposed roots hang below the island, then climbs through Frosthaven (Experience),
+Bloomgrove (Interests), Copperleaf (Skills), Skyward Academy (Certifications),
+Tideglass (MediaTranscribe), Bridgeward (TalentBridge), Starfall (CineBook),
+Emberlight (Chat App), and the crown sanctuary Solarium (Contact). Lore guides
+visuals only; no extra story labels or guide text are added to the portfolio.
+
+The renderer loads separately from the portfolio content. Foliage and ground
 details use instancing. Rendering targets 60 fps in both development and
 production, including small screens. Small screens and devices reporting at
 most four CPU threads use lighter settings. Resolution is capped and reduced
 further when frame delivery or render submission stays slow. Frame deadlines
 maintain the same cadence on higher-refresh displays; actual frame rates depend
 on the device. A small tolerance accommodates animation timestamp jitter.
-Rendering runs automatically while the tab is visible. Reduced-motion visitors get the static illustration without loading
-Three.js. GPU resources and event listeners are disposed when the renderer unmounts.
+Rendering runs automatically while the tab is visible. Reduced-motion visitors
+get the static illustration without loading Three.js. GPU resources and event
+listeners are disposed when the renderer unmounts.
 
-The project listing and detail routes use the studio camera position. No old
+The project listing and detail routes use the crown camera position. No old
 photo background or transition particle system is retained.
 
 All four projects are shown in full on the homepage by
@@ -47,38 +66,16 @@ goes directly to these stories. Existing project URLs remain available.
 chapter, with AWS and Programming & Design groups. Skills contains only skills
 and programming languages.
 
-## Getting Started
-
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). The homepage is
+`app/(home)/page.tsx`. Fonts are Fraunces, Inter, and JetBrains Mono via
+`next/font`.
 
-The homepage is `app/(home)/page.tsx`. The page auto-updates as you edit files.
-Fonts are Fraunces, Inter, and JetBrains Mono, loaded with `next/font`.
-
-Run `npm run lint` and `npm run build` to validate changes.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Before deployment, run `npm run lint` and `npm run build`. The contact form
+requires `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` in the Vercel environment.

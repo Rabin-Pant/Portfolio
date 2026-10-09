@@ -20,18 +20,9 @@ const navLinks = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const pathname = usePathname();
   const isHomePage = pathname === '/';
-
-  // The scroll listener only reads window.scrollY, which doesn't force layout.
-  // React skips the re-render when the boolean hasn't changed.
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Active-section tracking. This used to call getBoundingClientRect() on
   // every section on every scroll frame (a forced layout each time). Now an
@@ -108,11 +99,7 @@ export const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        isScrolled || isOpen
-          ? 'bg-[#0B0F0D]/85 backdrop-blur-md border-b border-slate-800/50 shadow-lg'
-          : 'bg-[#0B0F0D]/55 backdrop-blur-sm'
-      }`}
+      className="fixed top-0 w-full z-50 bg-transparent"
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
@@ -145,8 +132,8 @@ export const Navbar = () => {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`text-sm font-medium transition-colors duration-200 relative group cursor-pointer ${
-                  isActive(link.href) ? 'text-primary' : 'text-slate-300 hover:text-white'
+                className={`text-sm font-semibold [text-shadow:0_1px_3px_rgba(0,0,0,0.95),0_2px_10px_rgba(0,0,0,0.65)] transition-colors duration-200 relative group cursor-pointer ${
+                  isActive(link.href) ? 'text-primary' : 'text-white hover:text-primary'
                 }`}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -172,7 +159,7 @@ export const Navbar = () => {
               href="https://github.com/Rabin-Pant"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-300 hover:text-white transition-colors duration-200"
+              className="text-white hover:text-primary drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] transition-colors duration-200"
               aria-label="GitHub Profile"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -212,8 +199,9 @@ export const Navbar = () => {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden text-white hover:text-primary transition-colors p-3 rounded-lg hover:bg-white/10 z-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="lg:hidden drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] text-white hover:text-primary transition-colors p-3 rounded-lg hover:bg-white/10 z-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Toggle menu"
+            aria-expanded={isOpen}
             initial={{ opacity: 0, rotate: -90 }}
             animate={{ opacity: 1, rotate: 0 }}
             transition={{ delay: 0.2 }}
