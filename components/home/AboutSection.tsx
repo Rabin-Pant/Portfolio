@@ -35,28 +35,24 @@ export const AboutSection = () => {
       title: 'Getting started',
       description: 'I got curious about how websites actually work and built my first HTML and CSS page. That was enough to hook me.',
       icon: Compass,
-      marker: null,
     },
     {
       year: '2023',
       title: 'Going deeper',
       description: 'Picked up JavaScript and started building small static apps, then got interested in how bigger systems are put together.',
       icon: LibraryBig,
-      marker: null,
     },
     {
       year: '2024',
       title: 'Finding a path',
       description: 'Started BSc (Hons) Computing. Spent a lot of time on software architecture, algorithms, and cloud computing.',
       icon: GraduationCap,
-      marker: null,
     },
     {
       year: '2025',
       title: 'Building for real',
       description: 'Shipped three production apps and picked up five AWS certifications along the way. This is where I started treating full-stack work seriously.',
       icon: BadgeCheck,
-      marker: null,
     },
   ];
 
@@ -111,8 +107,8 @@ export const AboutSection = () => {
         {/* Soft glows as radial gradients rather than blur-3xl: same look,
             but a gradient is painted once, while a 64px blur filter is a
             per-frame GPU pass whenever this area is re-composited. */}
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-[radial-gradient(circle,rgba(111,184,141,0.05)_0%,transparent_70%)]" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-[radial-gradient(circle,rgba(111,184,141,0.05)_0%,transparent_70%)]" />
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-[radial-gradient(circle,rgba(221,200,163,0.05)_0%,transparent_70%)]" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-[radial-gradient(circle,rgba(221,200,163,0.05)_0%,transparent_70%)]" />
       </div>
 
       <div className="container-custom relative z-10">
@@ -135,7 +131,7 @@ export const AboutSection = () => {
           </motion.h2>
 
           <motion.p
-            className="mt-3 md:mt-4 text-slate-200 max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
+            className="mt-3 md:mt-4 text-body max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -171,7 +167,7 @@ export const AboutSection = () => {
                   </div>
                 </div>
                 <div className="text-xl md:text-3xl font-mono font-bold text-primary">{stat.value}</div>
-                <div className="text-[10px] md:text-sm text-slate-400">{stat.label}</div>
+                <div className="text-[10px] md:text-sm text-muted">{stat.label}</div>
               </motion.div>
             );
           })}
@@ -188,7 +184,7 @@ export const AboutSection = () => {
             className="lg:col-span-2"
           >
             <div className="lg:sticky lg:top-24">
-              <div className="bg-[#10160d] rounded-xl md:rounded-2xl overflow-hidden border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl group">
+              <div className="bg-surface rounded-xl md:rounded-2xl overflow-hidden border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl group">
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
                   {/* No hover-scale here: an animated transform: scale() on a
                       real photo forces the GPU to resample the whole texture
@@ -207,31 +203,31 @@ export const AboutSection = () => {
                 </div>
                 
                 <div className="p-4 md:p-6">
-                  <h3 className="text-lg md:text-xl font-mono font-bold text-white">Rabin Pant</h3>
+                  <h3 className="text-lg md:text-xl font-mono font-bold text-foreground">Rabin Pant</h3>
                   <p className="text-xs md:text-sm text-primary">Full-Stack Developer</p>
                   
                   <div className="mt-3 md:mt-4 space-y-2 md:space-y-2.5 text-sm">
-                    <div className="flex items-center gap-2 md:gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
+                    <div className="flex items-center gap-2 md:gap-3 text-muted group/item hover:text-body transition-colors">
                       <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
-                        <MapPin size={12} className="text-slate-500 group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
+                        <MapPin size={12} className="text-muted group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
                       <span className="text-xs md:text-sm">Kathmandu, Nepal</span>
                     </div>
-                    <div className="flex items-center gap-2 md:gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
+                    <div className="flex items-center gap-2 md:gap-3 text-muted group/item hover:text-body transition-colors">
                       <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
-                        <GraduationCap size={12} className="text-slate-500 group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
+                        <GraduationCap size={12} className="text-muted group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
                       <span className="text-xs md:text-sm">BSc (Hons) Computing</span>
                     </div>
-                    <div className="flex items-center gap-2 md:gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
+                    <div className="flex items-center gap-2 md:gap-3 text-muted group/item hover:text-body transition-colors">
                       <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
-                        <Briefcase size={12} className="text-slate-500 group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
+                        <Briefcase size={12} className="text-muted group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
                       <span className="text-xs md:text-sm">3+ Projects</span>
                     </div>
-                    <div className="flex items-center gap-2 md:gap-3 text-slate-400 group/item hover:text-slate-300 transition-colors">
+                    <div className="flex items-center gap-2 md:gap-3 text-muted group/item hover:text-body transition-colors">
                       <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
-                        <Award size={12} className="text-slate-500 group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
+                        <Award size={12} className="text-muted group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
                       <span className="text-xs md:text-sm">5 AWS Certifications</span>
                     </div>
@@ -260,8 +256,8 @@ export const AboutSection = () => {
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-all duration-300 whitespace-nowrap text-xs sm:text-sm font-medium flex-shrink-0 ${
                       isActive
-                        ? 'bg-primary text-white shadow-lg shadow-primary/25'
-                        : 'bg-slate-800/30 text-slate-400 hover:text-white hover:bg-slate-700/50'
+                        ? 'bg-primary text-ink shadow-lg shadow-primary/25'
+                        : 'bg-slate-800/30 text-muted hover:text-foreground hover:bg-slate-700/50'
                     }`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -289,16 +285,16 @@ export const AboutSection = () => {
                       <div className="p-2 md:p-2.5 rounded-xl bg-primary/10 border border-primary/20 flex-shrink-0">
                         <Calendar size={18} className="text-primary md:w-[20px] md:h-[20px]" />
                       </div>
-                      <h3 className="text-lg md:text-xl font-mono font-bold text-white">My Journey</h3>
+                      <h3 className="text-lg md:text-xl font-mono font-bold text-foreground">My Journey</h3>
                     </div>
-                    <p className="text-slate-400 leading-relaxed text-sm md:text-base">
+                    <p className="text-muted leading-relaxed text-sm md:text-base">
                       It started in 2022 with a pretty basic question:
-                      <span className="text-white"> &quot;how do websites actually work?&quot; </span>
+                      <span className="text-foreground"> &quot;how do websites actually work?&quot; </span>
                       I&apos;ve been building, breaking things, and figuring it out since then.
                     </p>
-                    <p className="text-slate-400 leading-relaxed text-sm md:text-base">
+                    <p className="text-muted leading-relaxed text-sm md:text-base">
                       I picked Computer Science because I wanted the
-                      <span className="text-white"> why</span>, not just enough to copy-paste something that works.
+                      <span className="text-foreground"> why</span>, not just enough to copy-paste something that works.
                     </p>
                     
                     {/* Mobile-optimized timeline */}
@@ -311,19 +307,13 @@ export const AboutSection = () => {
                             className="relative p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700"
                           >
                             <div className="absolute -left-[21px] sm:-left-[29px] p-1 sm:p-1.5 rounded-full bg-primary/20 border border-primary/30">
-                              {step.marker ? (
-                                <span className="px-0.5 text-[9px] font-mono font-semibold leading-3 text-primary sm:text-[10px] sm:leading-4">
-                                  {step.marker}
-                                </span>
-                              ) : (
-                                <Icon size={10} className="text-primary sm:w-3 sm:h-3" />
-                              )}
+                              <Icon size={10} className="text-primary sm:w-3 sm:h-3" />
                             </div>
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
                               <span className="text-xs font-mono text-primary whitespace-nowrap">{step.year}</span>
-                              <h4 className="font-semibold text-white text-sm sm:text-base">{step.title}</h4>
+                              <h4 className="font-semibold text-foreground text-sm sm:text-base">{step.title}</h4>
                             </div>
-                            <p className="text-xs sm:text-sm text-slate-400 mt-1 leading-relaxed">{step.description}</p>
+                            <p className="text-xs sm:text-sm text-muted mt-1 leading-relaxed">{step.description}</p>
                           </div>
                         );
                       })}
@@ -337,9 +327,9 @@ export const AboutSection = () => {
                       <div className="p-2 md:p-2.5 rounded-xl bg-primary/10 border border-primary/20 flex-shrink-0">
                         <Rocket size={18} className="text-primary md:w-[20px] md:h-[20px]" />
                       </div>
-                      <h3 className="text-lg md:text-xl font-mono font-bold text-white">What&apos;s Next</h3>
+                      <h3 className="text-lg md:text-xl font-mono font-bold text-foreground">What&apos;s Next</h3>
                     </div>
-                    <p className="text-slate-400 leading-relaxed text-sm md:text-base">
+                    <p className="text-muted leading-relaxed text-sm md:text-base">
                       Here&apos;s what I&apos;m working toward next.
                     </p>
 
@@ -355,16 +345,16 @@ export const AboutSection = () => {
                               <div className="p-1.5 sm:p-2 rounded-lg bg-primary/10 group-hover:scale-110 transition-transform duration-300">
                                 <Icon size={16} className="text-primary" />
                               </div>
-                              <h4 className="font-semibold text-white text-xs sm:text-sm">{goal.title}</h4>
+                              <h4 className="font-semibold text-foreground text-xs sm:text-sm">{goal.title}</h4>
                             </div>
-                            <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed pl-1">{goal.description}</p>
+                            <p className="text-[11px] sm:text-xs text-muted leading-relaxed pl-1">{goal.description}</p>
                           </div>
                         );
                       })}
                     </div>
 
                     <div className="mt-4 p-3 sm:p-4 rounded-xl bg-primary/5 border border-primary/20">
-                      <p className="text-xs sm:text-sm text-slate-300">
+                      <p className="text-xs sm:text-sm text-body">
                         <span className="text-primary font-medium">Long term,</span>{" "}
                         I want to build things people in Nepal actually use, and help more people here get into tech.
                       </p>
@@ -378,9 +368,9 @@ export const AboutSection = () => {
                       <div className="p-2 md:p-2.5 rounded-xl bg-primary/10 border border-primary/20 flex-shrink-0">
                         <Lightbulb size={18} className="text-primary md:w-[20px] md:h-[20px]" />
                       </div>
-                      <h3 className="text-lg md:text-xl font-mono font-bold text-white">My Philosophy</h3>
+                      <h3 className="text-lg md:text-xl font-mono font-bold text-foreground">My Philosophy</h3>
                     </div>
-                    <p className="text-slate-400 leading-relaxed text-sm md:text-base">
+                    <p className="text-muted leading-relaxed text-sm md:text-base">
                       A few things I try to stick to, whether or not anyone&apos;s checking.
                     </p>
 
@@ -395,7 +385,7 @@ export const AboutSection = () => {
                             <div className="p-1 sm:p-1.5 rounded-lg bg-primary/10 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                               <Icon size={12} className="text-primary" />
                             </div>
-                            <span className="text-xs sm:text-sm text-slate-300 leading-relaxed">{item.text}</span>
+                            <span className="text-xs sm:text-sm text-body leading-relaxed">{item.text}</span>
                           </div>
                         );
                       })}
@@ -403,10 +393,10 @@ export const AboutSection = () => {
 
                     <div className="mt-4 p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700 text-center group hover:border-primary/30 transition-all duration-300">
                       <Sparkles size={16} className="text-primary mx-auto mb-1 sm:mb-2" />
-                      <p className="text-xs sm:text-sm text-slate-400">
+                      <p className="text-xs sm:text-sm text-muted">
                         &quot;Good software starts with a good plan.&quot;
                       </p>
-                      <p className="text-[10px] sm:text-xs text-slate-500 mt-1">— My development mantra</p>
+                      <p className="text-[10px] sm:text-xs text-muted mt-1">— My development mantra</p>
                     </div>
                   </div>
                 )}
@@ -422,7 +412,7 @@ export const AboutSection = () => {
             >
               <Link
                 href="/#projects"
-                className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-xl bg-primary hover:bg-primary-dark transition-all duration-200 text-xs md:text-sm font-medium shadow-lg shadow-primary/20 hover:shadow-primary/40"
+                className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-xl bg-primary text-ink hover:bg-primary-dark transition-all duration-200 text-xs md:text-sm font-medium shadow-lg shadow-primary/20 hover:shadow-primary/40"
               >
                 View My Work
                 <ArrowRight size={14} />

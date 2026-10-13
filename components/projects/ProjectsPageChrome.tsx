@@ -31,7 +31,7 @@ export const ProjectsPageHeader = ({ count }: { count: number }) => {
           All <span className="gradient-text">projects</span>
         </motion.h1>
         <motion.p
-          className="text-slate-400 max-w-2xl mx-auto"
+          className="text-body drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] max-w-2xl mx-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
@@ -45,7 +45,7 @@ export const ProjectsPageHeader = ({ count }: { count: number }) => {
         >
           <Link
             href="/"
-            className="inline-block mt-4 text-sm text-slate-400 hover:text-white transition-colors duration-200"
+            className="inline-block mt-4 text-sm text-body drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] hover:text-foreground transition-colors duration-200"
           >
             ← Back to home
           </Link>
@@ -59,8 +59,8 @@ export const ProjectsPageHeader = ({ count }: { count: number }) => {
         className="flex justify-center mb-8"
       >
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/30 border border-slate-700">
-          <span className="text-sm text-slate-400">
-            Showing <span className="text-white font-medium">{count}</span> projects
+          <span className="text-sm text-muted">
+            Showing <span className="text-foreground font-medium">{count}</span> projects
           </span>
         </div>
       </motion.div>
@@ -78,10 +78,10 @@ export const ProjectsBottomCTA = () => {
       className="text-center mt-16"
     >
       <div className="inline-flex flex-col items-center gap-4">
-        <p className="text-sm text-slate-400">Got something in mind?</p>
+        <p className="text-sm text-body drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]">Got something in mind?</p>
         <Link
           href="/#contact"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary hover:bg-primary-dark transition-all duration-200 font-medium shadow-lg shadow-primary/20 hover:shadow-primary/40"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-ink hover:bg-primary-dark transition-all duration-200 font-medium shadow-lg shadow-primary/20 hover:shadow-primary/40"
         >
           Let&apos;s talk
           <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

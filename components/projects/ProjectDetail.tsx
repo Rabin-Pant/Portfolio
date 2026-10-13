@@ -19,15 +19,15 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
       <div className="flex items-center gap-4 mb-8">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-200"
+          className="inline-flex items-center gap-2 text-body drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] hover:text-foreground transition-colors duration-200"
         >
           <ArrowLeft size={16} />
           All Projects
         </Link>
-        <span className="text-slate-600">|</span>
+        <span className="text-subdued">|</span>
         <Link
           href="/"
-          className="text-sm text-slate-400 hover:text-white transition-colors duration-200"
+          className="text-sm text-body drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] hover:text-foreground transition-colors duration-200"
         >
           Home
         </Link>
@@ -43,12 +43,12 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
         <h1 className="font-display text-4xl md:text-5xl font-semibold">
           {project.title}
         </h1>
-        <p className="text-xl text-slate-400">{project.tagline}</p>
+        <p className="text-xl text-body drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]">{project.tagline}</p>
         <div className="flex flex-wrap gap-2">
           {project.techStack.map((tech) => (
             <span
               key={tech}
-              className="px-3 py-1 rounded-full bg-slate-800 text-sm text-slate-300 border border-slate-700"
+              className="px-3 py-1 rounded-full bg-slate-800 text-sm text-body border border-slate-700"
             >
               {tech}
             </span>
@@ -67,13 +67,13 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
           <h3 className="text-sm font-mono text-primary uppercase tracking-wider mb-3">
             The Problem
           </h3>
-          <p className="text-slate-300 leading-relaxed">{project.problem}</p>
+          <p className="text-body leading-relaxed">{project.problem}</p>
         </div>
         <div className="bg-slate-900/30 rounded-xl p-6 border border-slate-800">
           <h3 className="text-sm font-mono text-primary uppercase tracking-wider mb-3">
             The Solution
           </h3>
-          <p className="text-slate-300 leading-relaxed">{project.solution}</p>
+          <p className="text-body leading-relaxed">{project.solution}</p>
         </div>
         <div className="bg-slate-900/30 rounded-xl p-6 border border-slate-800">
           <h3 className="text-sm font-mono text-primary uppercase tracking-wider mb-3">
@@ -81,7 +81,7 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
           </h3>
           <ul className="space-y-2">
             {project.results.map((result) => (
-              <li key={result} className="flex items-start gap-2 text-slate-300">
+              <li key={result} className="flex items-start gap-2 text-body">
                 <CheckCircle size={16} className="text-primary flex-shrink-0 mt-1" />
                 <span>{result}</span>
               </li>
@@ -131,7 +131,7 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
             href={project.links.live}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary hover:bg-primary-dark transition-all duration-200"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-ink hover:bg-primary-dark transition-all duration-200"
           >
             <ExternalLink size={18} />
             Live Demo

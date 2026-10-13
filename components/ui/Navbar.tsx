@@ -106,7 +106,8 @@ export const Navbar = () => {
           {/* Logo */}
           <Link 
             href="/" 
-            className="group flex items-center space-x-2 relative z-50"
+            className="group flex shrink-0 items-center relative z-50"
+            aria-label="Rabin Pant home"
             onClick={handleLogoClick}
           >
             <motion.div
@@ -115,11 +116,12 @@ export const Navbar = () => {
               className="flex items-center cursor-pointer"
             >
               <Image
-                src="/images/Logo-transparent.png"
-                alt="Rabin Pant"
-                width={128}
-                height={67}
-                className="h-10 w-24 object-contain sm:h-12 sm:w-28"
+                src="/images/Rabin Pant Yggdrasil Fantasy Logo.png"
+                alt="Rabin Pant Yggdrasil logo"
+                width={180}
+                height={72}
+                sizes="(min-width: 768px) 180px, 150px"
+                className="h-auto w-[150px] shrink-0 object-contain md:w-[180px]"
                 priority
               />
             </motion.div>
@@ -133,7 +135,7 @@ export const Navbar = () => {
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
                 className={`text-sm font-semibold [text-shadow:0_1px_3px_rgba(0,0,0,0.95),0_2px_10px_rgba(0,0,0,0.65)] transition-colors duration-200 relative group cursor-pointer ${
-                  isActive(link.href) ? 'text-primary' : 'text-white hover:text-primary'
+                  isActive(link.href) ? 'text-primary' : 'text-foreground hover:text-primary'
                 }`}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -159,7 +161,7 @@ export const Navbar = () => {
               href="https://github.com/Rabin-Pant"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-primary drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] transition-colors duration-200"
+              className="text-foreground hover:text-primary drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] transition-colors duration-200"
               aria-label="GitHub Profile"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -176,7 +178,7 @@ export const Navbar = () => {
               download
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 rounded-lg bg-primary hover:bg-primary-dark transition-all duration-200 text-sm font-medium relative overflow-hidden group"
+              className="px-4 py-2 rounded-lg bg-primary text-ink hover:bg-primary-dark transition-all duration-200 text-sm font-medium relative overflow-hidden group"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.35 }}
@@ -199,7 +201,7 @@ export const Navbar = () => {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] text-white hover:text-primary transition-colors p-3 rounded-lg hover:bg-white/10 z-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="lg:hidden drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] text-foreground hover:text-primary transition-colors p-3 rounded-lg hover:bg-white/10 z-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Toggle menu"
             aria-expanded={isOpen}
             initial={{ opacity: 0, rotate: -90 }}
@@ -256,7 +258,7 @@ export const Navbar = () => {
                     className={`block text-base font-medium transition-colors duration-200 px-4 py-4 rounded-xl min-h-[52px] flex items-center ${
                       isActive(link.href) 
                         ? 'text-primary bg-primary/10 border border-primary/20' 
-                        : 'text-slate-200 hover:text-white hover:bg-white/5'
+                        : 'text-body hover:text-foreground hover:bg-white/5'
                     }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -284,7 +286,7 @@ export const Navbar = () => {
                     href="https://github.com/Rabin-Pant"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-base text-slate-200 hover:text-white transition-colors duration-200 px-4 py-4 rounded-xl min-h-[52px] hover:bg-white/5"
+                    className="flex items-center gap-3 text-base text-body hover:text-foreground transition-colors duration-200 px-4 py-4 rounded-xl min-h-[52px] hover:bg-white/5"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.15 }}
@@ -300,7 +302,7 @@ export const Navbar = () => {
                     download
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block mt-2 px-4 py-4 rounded-xl bg-primary hover:bg-primary-dark transition-colors duration-200 text-sm font-medium text-center text-white min-h-[52px] flex items-center justify-center"
+                    className="block mt-2 px-4 py-4 rounded-xl bg-primary text-ink hover:bg-primary-dark transition-colors duration-200 text-sm font-medium text-center min-h-[52px] flex items-center justify-center"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}

@@ -11,7 +11,7 @@ export function ProjectsSection() {
           <div>
             <h2 className="font-display text-3xl md:text-5xl font-semibold">The <span className="gradient-text">projects</span></h2>
           </div>
-          <p className="max-w-md text-sm md:text-base text-slate-300 leading-relaxed">
+          <p className="max-w-md text-sm md:text-base text-body leading-relaxed">
             {projects.length} projects, from the problem that started each one to how I built it.
           </p>
         </header>
@@ -25,7 +25,7 @@ export function ProjectsSection() {
               </div>
               <div className="project-story-grid">
                 <div>
-                  <h3 id={`title-${project.slug}`} className="font-display text-3xl md:text-4xl font-semibold text-white">{project.title}</h3>
+                  <h3 id={`title-${project.slug}`} className="font-display text-3xl md:text-4xl font-semibold text-foreground">{project.title}</h3>
                   <p className="project-story-tagline">{project.tagline}</p>
                   <p className="project-story-description">{project.description}</p>
                   <ul className="project-story-stack" aria-label={`${project.title} technologies`}>

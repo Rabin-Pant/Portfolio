@@ -21,7 +21,7 @@ export function CertificationsSection() {
       <div className="container-custom">
         <header className="mb-12 md:mb-16">
           <h2 className="text-center font-display text-3xl md:text-5xl font-semibold">My <span className="gradient-text">certifications</span></h2>
-          <p className="mt-4 max-w-xl mx-auto text-center text-sm md:text-base text-slate-300 leading-relaxed">Seven certifications across cloud, machine learning, programming, and design. A record of the things I have spent time learning.</p>
+          <p className="mt-4 max-w-xl mx-auto text-center text-sm md:text-base text-body leading-relaxed">Seven certifications across cloud, machine learning, programming, and design. A record of the things I have spent time learning.</p>
         </header>
         <div className="certification-groups">
           <div className="certification-group panel">

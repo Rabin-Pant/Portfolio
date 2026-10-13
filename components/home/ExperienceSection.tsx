@@ -47,15 +47,6 @@ export const ExperienceSection = () => {
             Work <span className="gradient-text">experience</span>
           </motion.h2>
 
-          <motion.p
-            className="mt-3 md:mt-4 text-slate-200 max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-           
-          </motion.p>
         </motion.div>
 
         {/* Experience Cards */}
@@ -69,7 +60,7 @@ export const ExperienceSection = () => {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="absolute -left-[25px] sm:-left-[31px] top-6 h-3 w-3 rounded-full border-2 border-primary bg-[#0B0F0D]" />
+              <div className="absolute -left-[25px] sm:-left-[31px] top-6 h-3 w-3 rounded-full border-2 border-primary bg-surface" />
 
               <div className="panel rounded-xl md:rounded-2xl p-5 md:p-8 border border-slate-800 hover:border-primary/30 transition-all duration-300 group">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-5">
@@ -78,19 +69,19 @@ export const ExperienceSection = () => {
                       <Briefcase size={20} className="text-primary md:w-[22px] md:h-[22px]" />
                     </div>
                     <div>
-                      <h3 className="font-display text-base md:text-lg font-semibold text-white">
+                      <h3 className="font-display text-base md:text-lg font-semibold text-foreground">
                         {exp.role}
                       </h3>
                       <p className="text-sm md:text-base text-primary font-medium mt-0.5">
                         {exp.company}
                       </p>
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-slate-400 text-xs md:text-sm">
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-muted text-xs md:text-sm">
                         <span className="flex items-center gap-1.5">
-                          <MapPin size={13} className="text-slate-500" />
+                          <MapPin size={13} className="text-muted" />
                           {exp.location}
                         </span>
                         <span className="flex items-center gap-1.5">
-                          <Calendar size={13} className="text-slate-500" />
+                          <Calendar size={13} className="text-muted" />
                           {exp.period}
                         </span>
                       </div>
@@ -103,7 +94,7 @@ export const ExperienceSection = () => {
                       whileInView={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.2 }}
                       viewport={{ once: true }}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/25 text-amber-300 text-[10px] md:text-xs font-medium self-start flex-shrink-0"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/25 text-primary text-[10px] md:text-xs font-medium self-start flex-shrink-0"
                     >
                       Currently here
                     </motion.span>
@@ -119,7 +110,7 @@ export const ExperienceSection = () => {
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3, delay: 0.1 + i * 0.08 }}
                       viewport={{ once: true }}
-                      className="flex items-start gap-2.5 text-slate-300 text-xs md:text-sm leading-relaxed"
+                      className="flex items-start gap-2.5 text-body text-xs md:text-sm leading-relaxed"
                     >
                       <CheckCircle2 size={15} className="text-primary flex-shrink-0 mt-0.5" />
                       <span>{point}</span>
@@ -132,7 +123,7 @@ export const ExperienceSection = () => {
                   {exp.stack.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2.5 py-1 rounded-full bg-slate-800/50 text-xs text-slate-300 border border-slate-700/50 hover:border-primary transition-colors duration-200"
+                      className="px-2.5 py-1 rounded-full bg-slate-800/50 text-xs text-body border border-slate-700/50 hover:border-primary transition-colors duration-200"
                     >
                       {tech}
                     </span>

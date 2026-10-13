@@ -15,17 +15,19 @@ export function createFoliageTexture() {
     const radius = Math.sqrt(random()) * (185 + Math.sin(angle * 5) * 22 + Math.cos(angle * 3) * 15);
     const x = 256 + Math.cos(angle) * radius;
     const y = 256 + Math.sin(angle) * radius * 0.87;
-    const shade = Math.floor(160 + random() * 65 + (1 - y / 512) * 25);
+    const shade = Math.floor(178 + random() * 55 + (1 - y / 512) * 22);
     context.save(); context.translate(x, y); context.rotate(angle + random() * 2);
     const length = 5 + random() * 9, width = 3 + random() * 3;
     const gradient = context.createLinearGradient(0, -width, 0, width);
-    gradient.addColorStop(0, `rgb(${shade},${Math.min(255, shade + 8)},${Math.floor(shade * 0.78)})`);
-    gradient.addColorStop(1, `rgb(${shade * 0.68},${shade * 0.76},${shade * 0.5})`);
+    // Neutral highlights preserve each canopy's green tint; deeper leaf folds
+    // retain definition when the existing texture is viewed through mipmaps.
+    gradient.addColorStop(0, `rgb(${shade * 0.95},${shade},${shade * 0.9})`);
+    gradient.addColorStop(1, `rgb(${shade * 0.56},${shade * 0.66},${shade * 0.54})`);
     context.fillStyle = gradient;
     context.beginPath(); context.moveTo(-length, 0);
     context.quadraticCurveTo(0, -width * 1.5, length, 0);
     context.quadraticCurveTo(0, width * 1.5, -length, 0); context.fill();
-    context.strokeStyle = 'rgba(244,255,209,0.22)'; context.lineWidth = 0.65;
+    context.strokeStyle = 'rgba(238,250,224,0.3)'; context.lineWidth = 0.65;
     context.beginPath(); context.moveTo(-length, 0); context.lineTo(length, 0); context.stroke();
     context.restore();
   }
@@ -61,8 +63,8 @@ export function createSurfaceTexture(kind: 'earth' | 'stone' | 'bark') {
       const u = x / size * Math.PI * 2;
       const v = y / size * Math.PI * 2;
       const broad = Math.sin(u * 3 + Math.sin(v * 2)) * Math.cos(v * 3 + Math.sin(u));
-      const fissure = Math.pow(Math.abs(Math.sin(u * 18 + Math.sin(v * 2) * 0.6 + Math.sin(v * 7) * 0.16)), 12);
-      const value = kind === 'bark' ? 185 + broad * 22 - fissure * 88 + Math.sin(u * 53 + Math.sin(v * 4)) * 12 + (noise - 0.5) * 22
+      const fissure = Math.pow(Math.abs(Math.sin(u * 18 + Math.sin(v * 2) * 0.6 + Math.sin(v * 7) * 0.16)), 8);
+      const value = kind === 'bark' ? 201 + broad * 24 - fissure * 112 + Math.sin(u * 53 + Math.sin(v * 4)) * 12 + (noise - 0.5) * 22
         : 211 + broad * (kind === 'earth' ? 28 : 17) + (noise - 0.5) * 29;
       const index = (y * size + x) * 4;
       pixels[index] = value;

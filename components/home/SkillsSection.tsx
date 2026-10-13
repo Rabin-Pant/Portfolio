@@ -77,7 +77,7 @@ export const SkillsSection = () => {
           </motion.h2>
 
           <motion.p
-            className="mt-4 text-slate-200 max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
+            className="mt-4 text-body max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -110,10 +110,10 @@ export const SkillsSection = () => {
                     <Icon size={24} className="text-primary" />
                   </motion.div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-white group-hover:text-primary transition-colors duration-300">
+                    <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
                       {category.title}
                     </h3>
-                    <p className="text-xs text-slate-400 mt-0.5">{category.description}</p>
+                    <p className="text-xs text-muted mt-0.5">{category.description}</p>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-1.5 mt-4">
@@ -124,7 +124,7 @@ export const SkillsSection = () => {
                       whileInView={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.1 + index * 0.02 }}
                       viewport={{ once: true }}
-                      className="px-2.5 py-1 rounded-full bg-slate-800/50 text-xs text-slate-300 border border-slate-700/50 hover:border-primary transition-colors duration-200"
+                      className="px-2.5 py-1 rounded-full bg-slate-800/50 text-xs text-body border border-slate-700/50 hover:border-primary transition-colors duration-200"
                     >
                       {skill}
                     </motion.span>
@@ -149,7 +149,7 @@ export const SkillsSection = () => {
               <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
                 <Braces size={20} className="text-primary" />
               </div>
-              <h3 className="text-lg font-semibold text-white">Programming Languages</h3>
+              <h3 className="text-lg font-semibold text-foreground">Programming Languages</h3>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -162,7 +162,7 @@ export const SkillsSection = () => {
                   viewport={{ once: true }}
                   className="flex items-center justify-between p-3 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/30 transition-all duration-200 group"
                 >
-                  <span className="text-sm font-medium text-white">{lang}</span>
+                  <span className="text-sm font-medium text-foreground">{lang}</span>
                 </motion.div>
               ))}
             </div>
@@ -201,7 +201,7 @@ export const SkillsSection = () => {
                   </div>
                 </div>
                 <div className="text-2xl font-mono font-bold text-primary">{stat.value}</div>
-                <div className="text-sm text-slate-400">{stat.label}</div>
+                <div className="text-sm text-muted">{stat.label}</div>
               </motion.div>
             );
           })}

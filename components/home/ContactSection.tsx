@@ -162,7 +162,7 @@ export const ContactSection = () => {
           </motion.h2>
 
           <motion.p
-            className="mt-4 text-slate-200 max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
+            className="mt-4 text-body max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -219,7 +219,7 @@ export const ContactSection = () => {
                   transition={{ delay: 0.15 }}
                   viewport={{ once: true }}
                 >
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-body mb-2">
                     Your Name <span className="text-primary">*</span>
                   </label>
                   <motion.div
@@ -236,7 +236,7 @@ export const ContactSection = () => {
                       onFocus={() => setFocusedField('name')}
                       onBlur={() => setFocusedField(null)}
                       required
-                      className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none transition-colors duration-200"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-foreground placeholder-muted focus:outline-none transition-colors duration-200"
                     />
                   </motion.div>
                   {errors.name && (
@@ -258,7 +258,7 @@ export const ContactSection = () => {
                   transition={{ delay: 0.2 }}
                   viewport={{ once: true }}
                 >
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-body mb-2">
                     Your Email <span className="text-primary">*</span>
                   </label>
                   <motion.div
@@ -275,7 +275,7 @@ export const ContactSection = () => {
                       onFocus={() => setFocusedField('email')}
                       onBlur={() => setFocusedField(null)}
                       required
-                      className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none transition-colors duration-200"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-foreground placeholder-muted focus:outline-none transition-colors duration-200"
                     />
                   </motion.div>
                   {errors.email && (
@@ -297,7 +297,7 @@ export const ContactSection = () => {
                   transition={{ delay: 0.25 }}
                   viewport={{ once: true }}
                 >
-                  <label htmlFor="subject" className="block text-sm font-medium text-slate-300 mb-2">
+                  <label htmlFor="subject" className="block text-sm font-medium text-body mb-2">
                     Subject <span className="text-primary">*</span>
                   </label>
                   <motion.div
@@ -314,7 +314,7 @@ export const ContactSection = () => {
                       onFocus={() => setFocusedField('subject')}
                       onBlur={() => setFocusedField(null)}
                       required
-                      className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none transition-colors duration-200"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-foreground placeholder-muted focus:outline-none transition-colors duration-200"
                     />
                   </motion.div>
                   {errors.subject && (
@@ -336,7 +336,7 @@ export const ContactSection = () => {
                   transition={{ delay: 0.3 }}
                   viewport={{ once: true }}
                 >
-                  <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-body mb-2">
                     Message <span className="text-primary">*</span>
                   </label>
                   <motion.div
@@ -353,7 +353,7 @@ export const ContactSection = () => {
                       onBlur={() => setFocusedField(null)}
                       required
                       rows={4}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none transition-colors duration-200 resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-foreground placeholder-muted focus:outline-none transition-colors duration-200 resize-none"
                     />
                   </motion.div>
                   {errors.message && (
@@ -390,13 +390,13 @@ export const ContactSection = () => {
                   <motion.button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full px-6 py-3.5 rounded-xl bg-primary hover:bg-primary-dark transition-all duration-200 font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-primary/20 hover:shadow-primary/40"
+                    className="w-full px-6 py-3.5 rounded-xl bg-primary text-ink hover:bg-primary-dark transition-all duration-200 font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-primary/20 hover:shadow-primary/40"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     {isSubmitting ? (
                       <>
-                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <svg className="animate-spin h-5 w-5 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>

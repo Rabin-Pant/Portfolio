@@ -55,7 +55,7 @@ export const Interests = () => {
           </motion.h2>
 
           <motion.p
-            className="mt-4 text-slate-200 max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
+            className="mt-4 text-body max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -103,14 +103,14 @@ export const Interests = () => {
                   
                   {/* Label */}
                   <motion.h3 
-                    className="mt-4 text-base md:text-lg font-semibold text-white group-hover:text-primary transition-colors duration-300"
+                    className="mt-4 text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300"
                   >
                     {item.label}
                   </motion.h3>
                   
                   {/* Description - hidden on mobile, visible on hover on desktop */}
                   <motion.p 
-                    className="mt-2 text-xs md:text-sm text-slate-400 leading-relaxed max-w-xs mx-auto"
+                    className="mt-2 text-xs md:text-sm text-muted leading-relaxed max-w-xs mx-auto"
                     initial={{ opacity: 0.7 }}
                     whileHover={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
@@ -126,7 +126,6 @@ export const Interests = () => {
           })}
         </div>
 
-        {/* Fun Fact / Quote - Enhanced */}
       </div>
     </section>
   );

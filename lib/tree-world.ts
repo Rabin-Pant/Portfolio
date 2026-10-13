@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { createLimb as limb } from './tree-geometry';
 import { TREE_REALMS } from './tree-realms';
 import { createTreeMeadow } from './tree-meadow';
+import { createUnderworldLandscape } from './underworld-landscape';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { createContactTexture, createFoliageTexture, createFernGeometry, createOrganicGeometry, createSurfaceTexture } from './tree-surfaces';
 
@@ -13,29 +14,28 @@ export function createTreeWorld(scene: THREE.Scene, lightweight: boolean, anisot
   let seed = 2717;
   const random = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 4294967296; };
   const standard = (color: string) => own(new THREE.MeshStandardMaterial({ color, roughness: 0.95 }));
-  const bark = standard('#907754'), moss = standard('#387845');
+  const bark = standard('#956b43'), moss = standard('#3f8344');
   const stone = standard('#53736c');
   const stoneMap = own(createSurfaceTexture('stone')); stoneMap.repeat.set(3, 3); stone.map = stoneMap;
   const barkMap = own(createSurfaceTexture('bark'));
   bark.map = barkMap;
   if (!lightweight) { bark.bumpMap = barkMap; bark.bumpScale = 0.48; }
-  const leafMaterials = ['#346a28', '#508834', '#7da443', '#b0c35c'].map(standard);
+  const leafColors = ['#285f32', '#40803c', '#709b47', '#a0b957'].map(color => new THREE.Color(color));
+  const canopyMaterial = standard('#ffffff');
   const leafTexture = own(createFoliageTexture());
   const wind = { value: 0 };
-  leafMaterials.forEach(m => {
-    m.map = leafTexture; m.alphaTest = 0.45; m.side = THREE.DoubleSide;
-    m.emissive.set('#899452'); m.emissiveMap = leafTexture; m.emissiveIntensity = 0.18;
-    m.onBeforeCompile = shader => {
-      shader.uniforms.wind = wind;
-      shader.vertexShader = 'uniform float wind;\n' + shader.vertexShader;
-      shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', `
-        #include <begin_vertex>
-        #ifdef USE_INSTANCING
-          transformed.x += sin(wind * 0.65 + instanceMatrix[3].x * 0.13 + instanceMatrix[3].z * 0.2) * 0.035 * (position.y + 1.0);
-        #endif
-      `);
-    };
-  });
+  canopyMaterial.map = leafTexture; canopyMaterial.alphaTest = 0.45; canopyMaterial.side = THREE.DoubleSide;
+  canopyMaterial.emissive.set('#3d6536'); canopyMaterial.emissiveMap = leafTexture; canopyMaterial.emissiveIntensity = 0.07;
+  canopyMaterial.onBeforeCompile = shader => {
+    shader.uniforms.wind = wind;
+    shader.vertexShader = 'uniform float wind;\n' + shader.vertexShader;
+    shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', `
+      #include <begin_vertex>
+      #ifdef USE_INSTANCING
+        transformed.x += sin(wind * 0.65 + instanceMatrix[3].x * 0.13 + instanceMatrix[3].z * 0.2) * 0.035 * (position.y + 1.0);
+      #endif
+    `);
+  };
   const rockShape = own(createOrganicGeometry(1));
   function mesh(g: THREE.BufferGeometry, m: THREE.Material, p: THREE.Vector3, parent: THREE.Object3D = tree) {
     const object = new THREE.Mesh(g, m); object.position.copy(p);
@@ -53,8 +53,8 @@ export function createTreeWorld(scene: THREE.Scene, lightweight: boolean, anisot
   mesh(own(limb(trunkPoints, 11, 0.4, lightweight ? 64 : 96, lightweight ? 16 : 24)), bark, new THREE.Vector3()).name = 'world-tree-trunk';
   const trunkCurve = new THREE.CatmullRomCurve3(trunkPoints);
   const trunkFrames = trunkCurve.computeFrenetFrames(48, false);
-  const livingMoss = standard('#648249');
-  livingMoss.emissive.set('#294c29'); livingMoss.emissiveIntensity = 0.25;
+  const livingMoss = standard('#4f853b');
+  livingMoss.emissive.set('#264522'); livingMoss.emissiveIntensity = 0.12;
   const mossTrails: THREE.BufferGeometry[] = [];
   for (let strand = 0; strand < 9; strand++) {
     const points: THREE.Vector3[] = [];
@@ -70,6 +70,12 @@ export function createTreeWorld(scene: THREE.Scene, lightweight: boolean, anisot
   merged(mossTrails, livingMoss);
   // Braided buttresses rise out of the roots and wrap the main trunk.
   const rootParts: THREE.BufferGeometry[] = [];
+  // A buried neck joins the hanging root crown to the trunk when the island
+  // is cut away. It shares the root mesh and remains below the ground floor.
+  rootParts.push(limb([
+    new THREE.Vector3(0, -2, 0), new THREE.Vector3(0, -9, 0),
+    new THREE.Vector3(0, -18, 0), new THREE.Vector3(0, -25, 0),
+  ], 10, 4.5, 20, 10));
   for (let i = 0; i < 16; i++) {
     const angle = i / 16 * Math.PI * 2;
     rootParts.push(limb([radial(angle + 0.7, 6, 34), radial(angle + 0.3, 10, 11), radial(angle, 21, 2), radial(angle - 0.2, 43, -1)], 2.5, 0.25, 28, 10));
@@ -108,7 +114,7 @@ export function createTreeWorld(scene: THREE.Scene, lightweight: boolean, anisot
     ], 0.16, 0.025, 24, 5));
   }
   merged(rootParts, bark);
-  const veinMaterial = own(new THREE.MeshStandardMaterial({ color: '#358f79', emissive: '#5cdbba', emissiveIntensity: 0.6, roughness: 0.6 }));
+  const veinMaterial = own(new THREE.MeshStandardMaterial({ color: '#a2491d', emissive: '#ff6b20', emissiveIntensity: 0.7, roughness: 0.8 }));
   merged(rootVeins, veinMaterial);
   const island = mesh(rockShape, stone, new THREE.Vector3(0, -19, 0)); island.scale.set(57, 20, 54);
   const cliff = new THREE.InstancedMesh(rockShape, stone, 36);
@@ -122,20 +128,7 @@ export function createTreeWorld(scene: THREE.Scene, lightweight: boolean, anisot
   cliff.computeBoundingSphere();
   const earth = own(createSurfaceTexture('earth')); earth.repeat.set(12, 12); moss.map = earth;
   mesh(own(new THREE.CircleGeometry(54, 48).rotateX(-Math.PI / 2)), moss, new THREE.Vector3(0, -0.1, 0));
-  const underworldSnow = standard('#b7cdd3');
-  underworldSnow.roughness = 1;
-  const snowFloor = mesh(own(new THREE.CircleGeometry(68, 48).rotateX(-Math.PI / 2)), underworldSnow, new THREE.Vector3(0, -77, 0));
-  snowFloor.name = 'underworld-snow-floor';
-  const underworldRocks = new THREE.InstancedMesh(rockShape, stone, 20);
-  tree.add(underworldRocks);
-  for (let i = 0; i < underworldRocks.count; i++) {
-    const angle = i / underworldRocks.count * Math.PI * 2;
-    cliffTransform.position.copy(radial(angle, 62 + random() * 6, -70));
-    cliffTransform.rotation.set(0, angle, 0);
-    cliffTransform.scale.set(4 + random() * 4, 12 + random() * 9, 5 + random() * 4);
-    cliffTransform.updateMatrix(); underworldRocks.setMatrixAt(i, cliffTransform.matrix);
-  }
-  underworldRocks.computeBoundingSphere();
+  const underworld = createUnderworldLandscape(tree, lightweight, TREE_REALMS[0].angle, anisotropy);
   const contact = own(createContactTexture());
   const haloMaterial = own(new THREE.SpriteMaterial({ map: contact, color: '#ffe3a0', transparent: true, opacity: 0.85, depthWrite: false, toneMapped: false }));
   const halo = new THREE.Sprite(haloMaterial); halo.position.set(-7, 94, -65); halo.scale.set(115, 100, 1); tree.add(halo);
@@ -150,7 +143,7 @@ export function createTreeWorld(scene: THREE.Scene, lightweight: boolean, anisot
   function foliageSite(position: THREE.Vector3, size: number) {
     leafSites.push({ position, size });
   }
-  function branch(angle: number, y: number, reach: number, radius: number, canopy: boolean) {
+  function branch(angle: number, y: number, reach: number, radius: number) {
     const start = radial(angle, 2, y - 8), bend = radial(angle + 0.08, reach * 0.5, y - 2);
     const end = radial(angle, reach, y + 3);
     branchParts.push(limb([start, bend, end, radial(angle - 0.1, reach + 7, y + 10)], radius, 0.18, 20, 9));
@@ -162,15 +155,11 @@ export function createTreeWorld(scene: THREE.Scene, lightweight: boolean, anisot
         const twig = radial(a, reach + 7 + random() * 7, y + 15 + fork * 2);
         branchParts.push(limb([end, tip, twig], radius * 0.22, 0.025, 9, 5));
       }
-      if (canopy) {
-        foliageSite(tip, 4 + random() * 2);
-        foliageSite(tip.clone().add(new THREE.Vector3(side * 3, 4, 2)), 3.5 + random() * 2);
-      }
+      foliageSite(tip, 4 + random() * 2);
+      foliageSite(tip.clone().add(new THREE.Vector3(side * 3, 4, 2)), 3.5 + random() * 2);
     }
-    if (canopy) {
-      foliageSite(radial(angle, reach + 6, y + 12), 4 + random() * 2);
-      foliageSite(radial(angle + 0.08, reach * 0.68, y + 9), 4 + random() * 2);
-    }
+    foliageSite(radial(angle, reach + 6, y + 12), 4 + random() * 2);
+    foliageSite(radial(angle + 0.08, reach * 0.68, y + 9), 4 + random() * 2);
   }
   destinations.slice(1).forEach(d => {
     branchParts.push(limb([
@@ -183,7 +172,7 @@ export function createTreeWorld(scene: THREE.Scene, lightweight: boolean, anisot
     const y = 61 + level * 18;
     const angle = i / 10 * Math.PI * 2 + level * 0.39;
     const reach = [43, 49, 45, 34, 20][level] + random() * 4;
-    branch(angle, y, reach, 3.2 - level * 0.45, true);
+    branch(angle, y, reach, 3.2 - level * 0.45);
   }
   // Supporting forks connect the top canopy to the central woven trunk.
   for (let i = 0; i < 5; i++) {
@@ -213,27 +202,37 @@ export function createTreeWorld(scene: THREE.Scene, lightweight: boolean, anisot
     new THREE.PlaneGeometry(2, 2),
     new THREE.PlaneGeometry(2, 2).rotateY(Math.PI / 3),
     new THREE.PlaneGeometry(2, 2).rotateY(-Math.PI / 3),
-    new THREE.PlaneGeometry(2, 2).rotateX(-Math.PI / 3),
   ];
   const crownGeometry = own(mergeGeometries(leafPlanes));
   leafPlanes.forEach(plane => plane.dispose());
-  const crowns = leafMaterials.map(m => new THREE.InstancedMesh(crownGeometry, m, leafSites.length * 5));
-  const counts = [0, 0, 0, 0], transform = new THREE.Object3D(); tree.add(...crowns);
-  leafSites.forEach((site) => {
-    const color = Math.floor(random() * 4);
-    for (let j = 0; j < 5; j++) {
-      transform.position.copy(site.position).add(new THREE.Vector3((random() - 0.5) * site.size, (random() - 0.5) * 6, (random() - 0.5) * site.size));
-      transform.scale.set(site.size * (0.5 + random() * 0.25), site.size * (0.8 + random() * 0.4), site.size * 0.65);
-      transform.rotation.set((random() - 0.5) * 0.8, random() * Math.PI, (random() - 0.5) * 0.6); transform.updateMatrix();
-      crowns[color].setMatrixAt(counts[color]++, transform.matrix);
-    }
+  // Canopy tiers can be culled independently during close views of a realm.
+  // Instance colors reuse one material instead of allocating four full buffers.
+  const canopyTiers = new Map<number, typeof leafSites>();
+  leafSites.forEach(site => {
+    const tier = Math.floor(site.position.y / 28);
+    const sites = canopyTiers.get(tier) ?? []; sites.push(site); canopyTiers.set(tier, sites);
   });
-  crowns.forEach((object, i) => { object.count = counts[i]; object.computeBoundingSphere(); object.castShadow = !lightweight; object.receiveShadow = !lightweight; });
+  const transform = new THREE.Object3D();
+  canopyTiers.forEach((sites, tier) => {
+    const crowns = new THREE.InstancedMesh(crownGeometry, canopyMaterial, sites.length * 3);
+    crowns.name = `world-tree-canopy-${tier}`;
+    let index = 0;
+    sites.forEach(site => {
+      const color = leafColors[Math.floor(random() * leafColors.length)];
+      for (let j = 0; j < 3; j++) {
+        transform.position.copy(site.position).add(new THREE.Vector3((random() - 0.5) * site.size, (random() - 0.5) * 6, (random() - 0.5) * site.size));
+        transform.scale.set(site.size * (0.6 + random() * 0.25), site.size * (0.9 + random() * 0.4), site.size * 0.7);
+        transform.rotation.set((random() - 0.5) * 0.8, random() * Math.PI, (random() - 0.5) * 0.6); transform.updateMatrix();
+        crowns.setMatrixAt(index, transform.matrix); crowns.setColorAt(index++, color);
+      }
+    });
+    crowns.computeBoundingSphere(); crowns.receiveShadow = !lightweight; tree.add(crowns);
+  });
   const leafGeometry = own(new THREE.BufferGeometry());
   leafGeometry.setAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, -0.5, 0.25, 0, 0, 1.4, 0.12, 0, 0, 0, 0, 1.4, 0.12, 0.5, 0.25, 0], 3));
   leafGeometry.computeVertexNormals();
-  const leafMaterial = own(leafMaterials[2].clone()); leafMaterial.map = null; leafMaterial.emissiveMap = null; leafMaterial.alphaTest = 0; leafMaterial.side = THREE.DoubleSide; leafMaterial.onBeforeCompile = leafMaterials[2].onBeforeCompile;
-  const leaves = new THREE.InstancedMesh(leafGeometry, leafMaterial, lightweight ? 3500 : 7000); tree.add(leaves);
+  const leafMaterial = own(canopyMaterial.clone()); leafMaterial.color.copy(leafColors[2]); leafMaterial.map = null; leafMaterial.emissiveMap = null; leafMaterial.alphaTest = 0; leafMaterial.side = THREE.DoubleSide; leafMaterial.onBeforeCompile = canopyMaterial.onBeforeCompile;
+  const leaves = new THREE.InstancedMesh(leafGeometry, leafMaterial, lightweight ? 1000 : 2500); tree.add(leaves);
   for (let i = 0; i < leaves.count; i++) {
     const site = leafSites[i % leafSites.length];
     transform.position.copy(site.position).add(new THREE.Vector3((random() - 0.5) * site.size * 2, (random() - 0.5) * site.size, (random() - 0.5) * site.size * 2));
@@ -242,10 +241,11 @@ export function createTreeWorld(scene: THREE.Scene, lightweight: boolean, anisot
   leaves.computeBoundingSphere();
 
   // Moss, ferns, and boulders anchor the opening view at the roots.
-  const fernMaterial = own(leafMaterials[1].clone()); fernMaterial.map = null; fernMaterial.emissiveMap = null; fernMaterial.alphaTest = 0; fernMaterial.side = THREE.DoubleSide;
-  const ferns = new THREE.InstancedMesh(own(createFernGeometry(lightweight)), fernMaterial, 140);
+  const fernMaterial = own(canopyMaterial.clone()); fernMaterial.color.copy(leafColors[1]); fernMaterial.map = null; fernMaterial.emissiveMap = null; fernMaterial.alphaTest = 0; fernMaterial.side = THREE.DoubleSide;
+  const fernCount = lightweight ? 70 : 100;
+  const ferns = new THREE.InstancedMesh(own(createFernGeometry(lightweight)), fernMaterial, fernCount);
   const rocks = new THREE.InstancedMesh(rockShape, stone, 60); tree.add(ferns, rocks);
-  for (let i = 0; i < 140; i++) {
+  for (let i = 0; i < fernCount; i++) {
     const a = random() * Math.PI * 2, r = 15 + random() * 35;
     transform.position.copy(radial(a, r, 0.1)); transform.rotation.set(0, a, 0); transform.scale.setScalar(1 + random() * 2); transform.updateMatrix(); ferns.setMatrixAt(i, transform.matrix);
     if (i < 60) { transform.scale.set(1 + random() * 2, 0.6 + random(), 1 + random() * 2); transform.updateMatrix(); rocks.setMatrixAt(i, transform.matrix); }
@@ -257,7 +257,7 @@ export function createTreeWorld(scene: THREE.Scene, lightweight: boolean, anisot
   // Soft cloud banks beneath the branches, drawn with a small reusable texture.
   const cloudMaterial = own(new THREE.SpriteMaterial({ map: contact, color: '#edf4eb', transparent: true, opacity: 0.15, depthWrite: false }));
   const clouds: { sprite: THREE.Sprite; x: number }[] = [];
-  for (let i = 0; i < (lightweight ? 14 : 24); i++) {
+  for (let i = 0; i < (lightweight ? 8 : 14); i++) {
     const cloud = new THREE.Sprite(cloudMaterial); cloud.position.copy(radial(i * 2.4, 55 + random() * 55, 105 + (i % 4) * 15)); cloud.scale.set(55 + random() * 30, 10 + random() * 9, 1); tree.add(cloud); clouds.push({ sprite: cloud, x: cloud.position.x });
   }
   const moteGeometry = own(new THREE.BufferGeometry());
@@ -278,8 +278,24 @@ export function createTreeWorld(scene: THREE.Scene, lightweight: boolean, anisot
   }));
   tree.add(new THREE.Points(moteGeometry, motes));
 
+  const localCamera = new THREE.Vector3();
   return {
-    update(time: number, cameraHeight: number) { meadow.update(time, cameraHeight); wind.value = time; motes.uniforms.time.value = time; clouds.forEach((c, i) => { c.sprite.position.x = c.x + Math.sin(time * 0.1 + i) * 2; }); },
-    dispose() { meadow.dispose(); tree.removeFromParent(); tree.traverse(object => { if (object instanceof THREE.InstancedMesh) object.dispose(); }); resources.forEach(resource => resource.dispose()); },
+    update(time: number, cameraHeight: number, camera?: THREE.Camera) {
+      meadow.update(time, cameraHeight, camera); wind.value = time; motes.uniforms.time.value = time;
+      underworld.update(time, cameraHeight);
+      // Open the underground panorama while retaining the hanging roots.
+      // The island and its rim return unchanged for every aboveground view.
+      const aboveGround = cameraHeight >= -5;
+      island.visible = cliff.visible = rocks.visible = ferns.visible = halo.visible = aboveGround;
+      if (camera) {
+        camera.getWorldPosition(localCamera); tree.worldToLocal(localCamera);
+        // Fine leaves and ferns are too small to contribute to the final view;
+        // the tiered crown geometry preserves the complete tree silhouette.
+        leaves.visible = Math.hypot(localCamera.x, localCamera.z) < 170;
+        ferns.visible = aboveGround && Math.hypot(localCamera.x, localCamera.y * tree.scale.y, localCamera.z) < 170;
+      }
+      clouds.forEach((c, i) => { c.sprite.visible = aboveGround; if (c.sprite.visible) c.sprite.position.x = c.x + Math.sin(time * 0.1 + i) * 2; });
+    },
+    dispose() { meadow.dispose(); underworld.dispose(); tree.removeFromParent(); tree.traverse(object => { if (object instanceof THREE.InstancedMesh) object.dispose(); }); resources.forEach(resource => resource.dispose()); },
   };
 }

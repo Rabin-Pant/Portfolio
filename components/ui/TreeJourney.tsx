@@ -33,7 +33,7 @@ export function TreeJourney() {
       frame = 0;
       if (disposed) return;
       let value = CROWN_PROGRESS;
-      if (isHome && anchors.length === JOURNEY_WAYPOINTS.length) {
+      if (isHome && anchors.length >= 2) {
         const position = window.scrollY + window.innerHeight * 0.3;
         value = 0;
         for (let i = 0; i < anchors.length - 1; i++) {
@@ -51,12 +51,13 @@ export function TreeJourney() {
 
     function measure() {
       if (disposed) return;
-      elements = JOURNEY_WAYPOINTS.map(({ id }) => document.getElementById(id))
-        .filter((element): element is HTMLElement => element !== null);
-      anchors = elements.map((element, index) => ({
-        top: index === 0 ? window.innerHeight * 0.3 : element.getBoundingClientRect().top + window.scrollY,
-        progress: JOURNEY_WAYPOINTS[index].progress,
-      }));
+      const measured = JOURNEY_WAYPOINTS.flatMap(({ id, progress }) => {
+        const element = document.getElementById(id);
+        return element ? [{ element, top: id === 'hero' ? window.innerHeight * 0.3
+          : element.getBoundingClientRect().top + window.scrollY, progress }] : [];
+      });
+      elements = measured.map(({ element }) => element);
+      anchors = measured.map(({ top, progress }) => ({ top, progress }));
       update();
     }
 

@@ -42,7 +42,7 @@ export const Footer = () => {
         >
           <motion.p
             variants={itemVariants}
-            className="text-xs text-slate-500 flex items-center gap-1.5 whitespace-nowrap"
+            className="text-xs text-muted flex items-center gap-1.5 whitespace-nowrap"
           >
             Made by <span className="text-primary font-medium">Rabin Pant</span>
             © {currentYear}
@@ -55,13 +55,13 @@ export const Footer = () => {
               rel="noopener noreferrer"
               aria-label="LinkedIn Profile"
               title="LinkedIn Profile"
-              className="inline-flex items-center justify-center min-h-11 min-w-11 text-slate-300 hover:text-white transition-colors duration-200 rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+              className="inline-flex items-center justify-center min-h-11 min-w-11 text-body hover:text-foreground transition-colors duration-200 rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
               whileHover={{ scale: 1.2, rotate: -5 }}
               whileTap={{ scale: 0.9 }}
             >
               <span aria-hidden="true"><LinkedinIcon size={20} /></span>
             </motion.a>
-            <span className="flex items-center gap-1.5 text-xs text-slate-400">
+            <span className="flex items-center gap-1.5 text-xs text-muted">
               <MapPin size={16} aria-hidden="true" />
               Kathmandu, Nepal
             </span>
@@ -72,7 +72,7 @@ export const Footer = () => {
             onClick={scrollToTop}
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.97 }}
-            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-primary transition-colors duration-200 group px-3 py-2 rounded-lg bg-slate-800/30 border border-slate-700/50 hover:border-primary/30 hover:bg-primary/5"
+            className="flex items-center gap-1.5 text-xs text-muted hover:text-primary transition-colors duration-200 group px-3 py-2 rounded-lg bg-slate-800/30 border border-slate-700/50 hover:border-primary/30 hover:bg-primary/5"
           >
             <ArrowUp size={14} className="group-hover:-translate-y-0.5 transition-transform" />
             Back to Top

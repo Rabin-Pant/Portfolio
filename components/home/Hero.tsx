@@ -36,7 +36,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-4 md:mt-6 text-base md:text-lg text-slate-200 max-w-lg leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
+              className="mt-4 md:mt-6 text-base md:text-lg text-body max-w-lg leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
             >
               I&apos;m a developer based in Kathmandu. Most of my time goes into the
               thinking before the coding: how the data should be structured, how
@@ -53,7 +53,7 @@ export const Hero = () => {
             >
               <Link
                 href="#projects"
-                className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-lg bg-primary hover:bg-primary-dark transition-all duration-200 font-medium text-sm md:text-base shadow-lg shadow-primary/20 hover:shadow-primary/40"
+                className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-lg bg-primary text-ink hover:bg-primary-dark transition-all duration-200 font-medium text-sm md:text-base shadow-lg shadow-primary/20 hover:shadow-primary/40"
               >
                 See my work
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

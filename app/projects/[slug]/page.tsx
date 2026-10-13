@@ -4,9 +4,9 @@ import { getProjectBySlug } from '@/lib/projects';
 import { ProjectDetail } from '@/components/projects/ProjectDetail';
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {

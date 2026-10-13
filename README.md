@@ -8,28 +8,49 @@ Wide views show a colossal tree rooted in a sunlit meadow, surrounded by much
 smaller trees, swaying grass, and wildflowers. Portfolio sections are ordinary
 HTML and work independently of the scene.
 
+UI typography uses soft ivory, silver-gray supporting text, and muted champagne
+accents across all realms. Shared text and surface colors live in `app/globals.css`.
+Grass and foliage use natural greens, with warmer cedar bark and stronger leaf
+and bark texture contrast. These colors retain sRGB output and the existing tone
+mapping; texture dimensions and geometry counts are unchanged.
+
 ## Tree journey
 
 - `components/ui/TreeJourney.tsx` lazy-loads the renderer and measures section
   positions when layout changes.
-- `lib/tree-journey.ts` contains eight section anchors and individual project
-  waypoints. Each project visits a distinct inhabited branch realm.
-- `lib/tree-realms.ts` defines ten original realms, their visual lore, positions,
-  architecture, and color palettes. `lib/branch-realms.ts` builds their settlements,
-  moving residents, local snowfall, boats, windmill, and celestial landmarks.
-  Distant settlements use simplified silhouettes; nearby realms show full detail.
+- `lib/tree-journey.ts` contains section anchors and individual project waypoints.
+  The journey ends at the castle in Contact.
+- `lib/tree-realms.ts` defines five lower realms and the shared Heaven Citadel.
+  `lib/branch-realms.ts` builds their architecture, moving residents, ground-floor
+  snowfall, windmill, and celestial landmarks. Distant architecture uses simplified
+  silhouettes; nearby realms show full detail.
 - `lib/tree-camera.ts` defines the roots-to-crown camera stops.
+- `lib/heaven-palace.ts` builds a connected ivory palace inspired by golden-domed
+  cloud architecture. Projects introduces the skyline; MediaTranscribe visits the
+  entrance bridge, TalentBridge the east archive, CineBook the observatory, Chat App
+  the west garden, and Contact the grand sanctuary. Each stop has its own camera
+  position and target. Static architecture and cloud banks are merged by material.
+- `lib/underworld-fortress.ts` builds the dark basalt fortress, pointed spires,
+  fiery windows, and glowing fissures beneath the roots. `lib/underworld-landscape.ts`
+  surrounds it with lava channels, jagged crags, red haze, and rising orange embers.
+  These details are merged or instanced, appear only underground, and use no
+  additional lights or shadow passes.
 - `lib/tree-scene.ts` controls the continuous spiral camera route, daylight sky,
   realm-specific sky colors, lighting, frame cadence, adaptive resolution, and
-  renderer lifecycle. Antialiasing, anisotropic textures, and higher initial pixel
-  density improve clarity; resolution scales down to native density when needed.
+  renderer lifecycle. The sky renders after opaque scenery at the far plane, so
+  covered pixels skip its cloud shader. Lower daylight fog keeps nearby scenery
+  clearer while preserving distance atmosphere.
+- `lib/tree-render-quality.ts` protects resolution during startup, lowers it
+  under sustained rendering pressure, and restores it when headroom returns.
+  Optional asynchronous GPU timing separates rendering work from browser scheduling
+  delays. Pixel density remains capped and rendering retains its 60 fps target.
 - `lib/tree-world.ts` builds the woven trunk, spreading roots, branching canopy,
   supporting boughs, clouds, and glowing motes. `lib/tree-meadow.ts` adds
   instanced meadow vegetation and gradually reveals the underground roots during
   descent. Branch geometry is merged and foliage is instanced to reduce draw calls.
 - `lib/tree-surfaces.ts` generates small reusable surface textures, organic
   rock shapes, ferns, fine leaf cutouts, and soft contact shading. Canopy
-  clusters use intersecting leaf cards with alpha testing and gentle wind.
+  clusters use instanced, separately culled tiers with alpha testing and gentle wind.
   `lib/tree-geometry.ts` shares tapered branch geometry between the world tree and
   smaller meadow trees. Desktop sunlight uses a cached 2048px shadow map;
   lighter devices use contact shading. No reflection passes, models, or downloaded
@@ -37,12 +58,16 @@ HTML and work independently of the scene.
 - `public/scene/tree-fallback.svg` provides a matching static world tree before
   WebGL loads, with reduced motion, or if WebGL is unavailable or loses context.
 
-The route descends into the snowy Rootbound Underworld (About), where the tree's
-exposed roots hang below the island, then climbs through Frosthaven (Experience),
+The route descends into the volcanic Rootbound Underworld (About), where the tree's
+exposed roots hang over molten rivers and a basalt fortress beneath a crimson sky.
+The underground view hides the ground island and its surface decorations to open
+the volcanic panorama, while the tree and its roots remain connected above it.
+The existing scene lights blend into warm lava illumination during the descent,
+then return to daylight as the route climbs through Frosthaven (Experience),
 Bloomgrove (Interests), Copperleaf (Skills), Skyward Academy (Certifications),
-Tideglass (MediaTranscribe), Bridgeward (TalentBridge), Starfall (CineBook),
-Emberlight (Chat App), and the crown sanctuary Solarium (Contact). Lore guides
-visuals only; no extra story labels or guide text are added to the portfolio.
+and the Heaven Citadel (Projects through Contact). Snow appears only in Frosthaven.
+The camera holds at the grand sanctuary through Contact and the footer. Scrolling
+back reverses the palace tour.
 
 The renderer loads separately from the portfolio content. Foliage and ground
 details use instancing. Rendering targets 60 fps in both development and
@@ -50,13 +75,17 @@ production, including small screens. Small screens and devices reporting at
 most four CPU threads use lighter settings. Resolution is capped and reduced
 further when frame delivery or render submission stays slow. Frame deadlines
 maintain the same cadence on higher-refresh displays; actual frame rates depend
-on the device. A small tolerance accommodates animation timestamp jitter.
+on the device. Grass is split into spatial batches and thinned with distance;
+redundant foliage and subpixel decorations are omitted. A small tolerance
+accommodates animation timestamp jitter. Quality changes ignore startup work and
+use sustained CPU/GPU measurements when available; resolution recovers gradually
+within the original device cap. No extra rendering passes or larger textures are
+needed for the clearer nature palette.
 Rendering runs automatically while the tab is visible. Reduced-motion visitors
 get the static illustration without loading Three.js. GPU resources and event
 listeners are disposed when the renderer unmounts.
 
-The project listing and detail routes use the crown camera position. No old
-photo background or transition particle system is retained.
+The project listing and detail routes use the crown camera position.
 
 All four projects are shown in full on the homepage by
 `components/home/ProjectsSection.tsx`: descriptions, problems, approaches,

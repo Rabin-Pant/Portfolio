@@ -44,7 +44,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
           <div className="relative h-32 bg-gradient-to-br from-slate-800/60 to-slate-900/60 overflow-hidden cursor-pointer">
             {/* Glow behind emoji — static, brightens slightly on hover. */}
             <div className="absolute inset-0 flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity duration-500">
-              <div className="w-40 h-40 rounded-full bg-[radial-gradient(circle,rgba(111,184,141,0.1)_0%,transparent_65%)]" />
+              <div className="w-40 h-40 rounded-full bg-[radial-gradient(circle,rgba(221,200,163,0.1)_0%,transparent_65%)]" />
             </div>
 
             {/* Large Emoji/Icon */}
@@ -74,7 +74,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.3 + i * 0.05 + index * 0.1 }}
-                  className="text-[10px] px-2 py-1 rounded-full bg-black/50 text-slate-300 border border-slate-700/50 hover:bg-black/70 transition-colors"
+                  className="text-[10px] px-2 py-1 rounded-full bg-black/50 text-body border border-slate-700/50 hover:bg-black/70 transition-colors"
                 >
                   {tech}
                 </motion.span>
@@ -84,7 +84,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  className="text-[10px] px-2 py-1 rounded-full bg-black/50 text-slate-500 border border-slate-700/50"
+                  className="text-[10px] px-2 py-1 rounded-full bg-black/50 text-muted border border-slate-700/50"
                 >
                   +{project.techStack.length - 3}
                 </motion.span>
@@ -98,7 +98,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 + index * 0.1 }}
             >
-              <span className="text-xs font-mono text-slate-300 bg-black/30 px-2 py-0.5 rounded-full border border-white/5">
+              <span className="text-xs font-mono text-body bg-black/30 px-2 py-0.5 rounded-full border border-white/5">
                 {project.year}
               </span>
             </motion.div>
@@ -107,7 +107,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
             <motion.div 
               className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-sm"
             >
-              <span className="text-white font-medium text-sm flex items-center gap-2">
+              <span className="text-foreground font-medium text-sm flex items-center gap-2">
                 View Case Study
                 {/* Only animates while hovered — the overlay is invisible
                     otherwise, so a permanent loop here was wasted work. */}
@@ -126,7 +126,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
               <div className="flex items-start justify-between">
                 <div>
                   <motion.h3 
-                    className="text-lg font-semibold text-white group-hover:text-primary transition-colors flex items-center gap-2"
+                    className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors flex items-center gap-2"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.1 + index * 0.1 }}
@@ -135,7 +135,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                     <Sparkles size={14} className="text-primary" />
                   </motion.h3>
                   <motion.p 
-                    className="text-sm text-slate-400 mt-0.5"
+                    className="text-sm text-muted mt-0.5"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.15 + index * 0.1 }}
@@ -145,7 +145,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                 </div>
               </div>
               <motion.p 
-                className="text-sm text-slate-400 line-clamp-2 mt-2"
+                className="text-sm text-muted line-clamp-2 mt-2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 + index * 0.1 }}
@@ -168,7 +168,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="text-slate-500 hover:text-white transition-colors duration-200"
+                  className="text-muted hover:text-foreground transition-colors duration-200"
                   aria-label="View GitHub repository"
                   whileHover={{ scale: 1.2, rotate: -5 }}
                   whileTap={{ scale: 0.9 }}
@@ -182,7 +182,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="text-slate-500 hover:text-white transition-colors duration-200"
+                  className="text-muted hover:text-foreground transition-colors duration-200"
                   aria-label="View live demo"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
