@@ -27,7 +27,7 @@ export function CertificationsSection() {
           <div className="certification-group panel">
             <div className="certification-group-heading">
               <Award size={22} className="text-primary shrink-0" aria-hidden="true" />
-              <div><h3 className="font-display text-xl md:text-2xl">AWS Certifications</h3><p>Cloud and machine learning · 05 credentials</p></div>
+              <div><h3 className="font-display text-xl md:text-2xl">AWS Certifications</h3></div>
             </div>
             <ul className="certification-list">
               {cloudCertifications.map((cert) => (
@@ -45,7 +45,7 @@ export function CertificationsSection() {
           <div className="certification-group panel">
             <div className="certification-group-heading">
               <Code2 size={22} className="text-primary shrink-0" aria-hidden="true" />
-              <div><h3 className="font-display text-xl md:text-2xl">Programming &amp; Design Certifications</h3><p>Software fundamentals and user experience · 02 credentials</p></div>
+              <div><h3 className="font-display text-xl md:text-2xl">Programming &amp; Design Certifications</h3></div>
             </div>
             <ul className="certification-list">
               {devCertifications.map((cert) => {
