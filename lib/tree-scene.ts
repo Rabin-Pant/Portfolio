@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { CROWN_PROGRESS, type JourneyScene } from './tree-journey';
+import { CROWN_PROGRESS, PALACE_ENTRANCE_PROGRESS, PALACE_INTERIOR_PROGRESS, type JourneyScene } from './tree-journey';
 import { createTreeWorld } from './tree-world';
 import { createBranchRealms } from './branch-realms';
 import { HEAVEN_REALM, TREE_REALMS } from './tree-realms';
@@ -45,6 +45,10 @@ export function createTreeScene(host: HTMLElement, onUnavailable: () => void): J
   const volcanicLight = {
     sky: new THREE.Color('#7d3026'), ground: new THREE.Color('#ff622a'),
     sun: new THREE.Color('#ffa264'), fill: new THREE.Color('#ff6b31'),
+  };
+  const palaceLight = {
+    sky: new THREE.Color('#ffe4b5'), ground: new THREE.Color('#6a3b29'),
+    sun: new THREE.Color('#ffdda0'), fill: new THREE.Color('#ffd19a'),
   };
   const daylightFillPosition = fill.position.clone();
   const lavaFillPosition = new THREE.Vector3(-40, -65, 100);
@@ -118,7 +122,7 @@ export function createTreeScene(host: HTMLElement, onUnavailable: () => void): J
     if (!width || !height) return;
     viewportWidth = width;
     renderer.setSize(width, height, false); camera.aspect = width / height;
-    camera.fov = width < 768 ? 65 : 48; camera.updateProjectionMatrix();
+    camera.updateProjectionMatrix();
   }
   function render(time: number) {
     frame = 0;
@@ -137,15 +141,20 @@ export function createTreeScene(host: HTMLElement, onUnavailable: () => void): J
     const portrait = 1 - THREE.MathUtils.smoothstep(currentProgress, 0, 1);
     const mobileWidth = viewportWidth < 768;
     const heaven = THREE.MathUtils.smoothstep(currentProgress, HEAVEN_REALM.progress - 1, HEAVEN_REALM.progress);
+    const passage = THREE.MathUtils.smoothstep(currentProgress, PALACE_ENTRANCE_PROGRESS - 1, PALACE_ENTRANCE_PROGRESS);
+    const interior = THREE.MathUtils.smoothstep(currentProgress, PALACE_ENTRANCE_PROGRESS, PALACE_INTERIOR_PROGRESS + 0.5);
     position.copy(orbit); look.copy(aim);
-    if (mobileWidth) position.sub(aim).multiplyScalar(1.12 + portrait * 0.18 + heaven * 0.23).add(aim);
+    if (mobileWidth) position.sub(aim).multiplyScalar(1 + (0.12 + portrait * 0.18 + heaven * 0.23) * (1 - passage)).add(aim);
     // Leave the main scenery to the right of desktop copy; center it on phones.
-    const framing = mobileWidth ? 0 : 4;
+    const framing = mobileWidth ? 0 : 4 * (1 - passage);
     const angle = Math.atan2(position.x, position.z);
     look.x -= Math.cos(angle) * framing; look.z += Math.sin(angle) * framing;
     smoothPointer.lerp(pointer, 1 - Math.exp(-delta * 2));
-    position.x += smoothPointer.x * 0.35; position.y += smoothPointer.y * 0.15;
+    position.x += smoothPointer.x * 0.35 * (1 - passage * 0.85);
+    position.y += smoothPointer.y * 0.15 * (1 - passage * 0.85);
     camera.position.copy(position); camera.lookAt(look);
+    const fov = THREE.MathUtils.lerp(mobileWidth ? 65 : 48, mobileWidth ? 68 : 58, interior);
+    if (Math.abs(camera.fov - fov) > 0.01) { camera.fov = fov; camera.updateProjectionMatrix(); }
     // Reuse existing lights for lava bounce; no extra lights or shadow passes.
     const underworld = 1 - THREE.MathUtils.smoothstep(camera.position.y, -8, 7);
     skyMaterial.uniforms.underworld.value = underworld;
@@ -157,7 +166,11 @@ export function createTreeScene(host: HTMLElement, onUnavailable: () => void): J
     fill.color.copy(daylight.fill).lerp(volcanicLight.fill, underworld);
     fill.position.copy(daylightFillPosition).lerp(lavaFillPosition, underworld);
     fill.intensity = THREE.MathUtils.lerp(1.2, 1.9, underworld);
-    (scene.fog as THREE.FogExp2).density = THREE.MathUtils.lerp(0.0013, 0.0045, underworld);
+    hemisphere.color.lerp(palaceLight.sky, interior); hemisphere.groundColor.lerp(palaceLight.ground, interior);
+    hemisphere.intensity = THREE.MathUtils.lerp(hemisphere.intensity, 1.65, interior);
+    sun.color.lerp(palaceLight.sun, interior); sun.intensity = THREE.MathUtils.lerp(sun.intensity, 2.2, interior);
+    fill.color.lerp(palaceLight.fill, interior); fill.intensity = THREE.MathUtils.lerp(fill.intensity, 2.0, interior);
+    (scene.fog as THREE.FogExp2).density = THREE.MathUtils.lerp(THREE.MathUtils.lerp(0.0013, 0.0045, underworld), 0.0006, interior);
     world.update(elapsed, camera.position.y, camera);
     if (!lightweight && !daylightShadowsReady && camera.position.y >= 10) {
       renderer.shadowMap.needsUpdate = true; daylightShadowsReady = true;

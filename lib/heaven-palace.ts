@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import { mergeGeometries, mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
+import { PALACE_LAYOUT } from './palace-layout';
+import { createRoyalCourt } from './royal-court';
 
 // One connected palace, built in local coordinates shared with the camera tour.
 // Static architecture is merged by material; detail never adds per-window draws.
@@ -9,6 +11,12 @@ export function createHeavenPalace(group: THREE.Group, detail: THREE.Group, dist
   const stone = own(new THREE.MeshStandardMaterial({ color: '#f3edda', roughness: 0.82 }));
   const limestone = own(new THREE.MeshStandardMaterial({ color: '#d1bea0', roughness: 0.9 }));
   const gold = own(new THREE.MeshStandardMaterial({ color: '#edc354', metalness: 0.38, roughness: 0.28, emissive: '#9b671e', emissiveIntensity: 0.16 }));
+  const interiorStone = own(new THREE.MeshStandardMaterial({ color: '#d8c6a4', roughness: 0.7, side: THREE.DoubleSide }));
+  const marble = own(new THREE.MeshStandardMaterial({ color: '#eee5cf', roughness: 0.32, metalness: 0.08 }));
+  const velvet = own(new THREE.MeshStandardMaterial({ color: '#702b36', roughness: 0.95 }));
+  const inlay = own(new THREE.MeshStandardMaterial({ color: '#25474b', roughness: 0.46, metalness: 0.15 }));
+  const glow = own(new THREE.MeshBasicMaterial({ color: '#ffe2a2', toneMapped: false }));
+  const vault = own(new THREE.MeshStandardMaterial({ color: '#405559', roughness: 0.7, side: THREE.BackSide }));
   const shadow = own(new THREE.MeshBasicMaterial({ color: '#35454c' }));
   const water = own(new THREE.MeshStandardMaterial({ color: '#68b8bc', roughness: 0.22, metalness: 0.18 }));
   const leaves = own(new THREE.MeshStandardMaterial({ color: '#527a52', roughness: 0.95 }));
@@ -19,9 +27,16 @@ export function createHeavenPalace(group: THREE.Group, detail: THREE.Group, dist
   const cylinder = own(new THREE.CylinderGeometry(1, 1, 1, sides));
   const cone = own(new THREE.ConeGeometry(1, 1, sides));
   const ball = own(new THREE.SphereGeometry(1, lightweight ? 10 : 14, 8));
-  const dome = own(new THREE.LatheGeometry([
+  const ring = own(new THREE.TorusGeometry(1, 0.045, 6, sides).rotateX(Math.PI / 2));
+  const innerDome = own(new THREE.SphereGeometry(1, sides, 12, 0, Math.PI * 2, 0, Math.PI / 2));
+  const domeProfile = [
     [0, 0], [0.78, 0], [0.91, 0.07], [1, 0.24], [0.98, 0.43],
     [0.86, 0.65], [0.65, 0.83], [0.38, 0.99], [0.13, 1.15], [0, 1.3],
+  ].map(([x, y]) => new THREE.Vector2(x, y));
+  const dome = own(new THREE.LatheGeometry(domeProfile, sides));
+  const openDome = own(new THREE.LatheGeometry(domeProfile.slice(1), sides));
+  const band = own(new THREE.LatheGeometry([
+    [0.9, -0.5], [1, -0.5], [1, 0.5], [0.9, 0.5], [0.9, -0.5],
   ].map(([x, y]) => new THREE.Vector2(x, y)), sides));
 
   function archShape(width: number, shoulder: number, peak: number) {
@@ -36,6 +51,19 @@ export function createHeavenPalace(group: THREE.Group, detail: THREE.Group, dist
   arch.holes.push(new THREE.Path(archShape(1, 1.04, 1.6).getPoints(6)));
   const extrudedArch = new THREE.ExtrudeGeometry(arch, { depth: 0.18, bevelEnabled: false, curveSegments: 6 }).translate(0, -0.8, -0.09);
   const archFrame = own(mergeVertices(extrudedArch)); extrudedArch.dispose();
+  const { floor, doorwayWidth, doorwayShoulder, doorwayPeak, entranceZ, throneZ } = PALACE_LAYOUT;
+  // A notched wall has a genuine arch-shaped opening all the way to the floor.
+  // Unlike a dark decal on a solid box, it is traversable from either side.
+  const portalShape = new THREE.Shape();
+  portalShape.moveTo(-8.5, 0); portalShape.lineTo(-doorwayWidth / 2, 0);
+  portalShape.lineTo(-doorwayWidth / 2, doorwayShoulder);
+  portalShape.quadraticCurveTo(-doorwayWidth / 2, doorwayPeak, 0, doorwayPeak);
+  portalShape.quadraticCurveTo(doorwayWidth / 2, doorwayPeak, doorwayWidth / 2, doorwayShoulder);
+  portalShape.lineTo(doorwayWidth / 2, 0); portalShape.lineTo(8.5, 0);
+  portalShape.lineTo(8.5, 12); portalShape.lineTo(-8.5, 12); portalShape.closePath();
+  const portalGeometry = new THREE.ExtrudeGeometry(portalShape, { depth: 1.2, bevelEnabled: false, curveSegments: 12 });
+  const portal = own(mergeVertices(portalGeometry)); portalGeometry.dispose();
+  const sanctuaryWall = own(new THREE.CylinderGeometry(18, 18, 28, sides * 2, 1, true, 0.29, Math.PI * 2 - 0.58));
   const nearParts = new Map<THREE.Material, THREE.BufferGeometry[]>();
   const farParts = new Map<THREE.Material, THREE.BufferGeometry[]>();
   const clouds = new Map<THREE.Material, THREE.BufferGeometry[]>();
@@ -63,9 +91,9 @@ export function createHeavenPalace(group: THREE.Group, detail: THREE.Group, dist
     structure(cone, gold, x, base + scale * 2.4, z, scale * 0.2, scale * 1.8, scale * 0.2);
     stamp(ball, gold, x, base + scale * 3.35, z, scale * 0.12, scale * 0.12, scale * 0.12);
   }
-  function cupola(x: number, base: number, z: number, radius: number) {
-    structure(cylinder, gold, x, base + 0.25, z, radius * 0.94, 0.5, radius * 0.94);
-    structure(dome, gold, x, base + 0.35, z, radius, radius, radius);
+  function cupola(x: number, base: number, z: number, radius: number, hollow = false) {
+    structure(hollow ? band : cylinder, gold, x, base + 0.25, z, radius * 0.94, 0.5, radius * 0.94);
+    structure(hollow ? openDome : dome, gold, x, base + 0.35, z, radius, radius, radius);
     finial(x, base + radius * 1.3 + 0.35, z, Math.max(0.7, radius * 0.2));
   }
   function tower(x: number, z: number, radius: number, height: number) {
@@ -114,32 +142,101 @@ export function createHeavenPalace(group: THREE.Group, detail: THREE.Group, dist
     balustrade(side * 36.8, 7.6, 18, 27, Math.PI / 2);
   }
   structure(box, limestone, 0, 1, 53, 13, 2, 44);
-  for (let i = 0; i < 22; i++) stamp(box, stone, 0, 1.1 + i * 0.29, 73 - i * 1.85, 12.6, 0.35 + i * 0.58, 1.9);
+  for (let i = 0; i < 22; i++) {
+    const height = 1.1 + (floor - 2.1) * i / 21;
+    stamp(box, stone, 0, 1 + height / 2, 73 - i * 1.85, 12.6, height, 1.9);
+  }
+  structure(box, stone, 0, floor - 0.3, 33, 12.6, 0.6, 3);
   for (const side of [-1, 1]) {
     for (let i = 0; i < 11; i++) balustrade(side * 6.4, 1.5 + i * 0.58, 72 - i * 3.7, 3.9, Math.PI / 2);
     tower(side * 26, 23, 7.8, 27);
   }
 
   // Main sanctuary: round arcaded halls, a monumental gold dome and finial.
-  structure(cylinder, limestone, 0, 4.5, -4, 20, 9, 20);
-  structure(cylinder, stone, 0, 20, -4, 18, 31, 18);
-  structure(cylinder, limestone, 0, 23.5, -4, 19.5, 1.2, 19.5);
-  structure(cylinder, stone, 0, 35.8, -4, 19.3, 1.2, 19.3);
-  structure(cylinder, gold, 0, 36.6, -4, 18.5, 0.55, 18.5);
+  structure(cylinder, limestone, 0, 3.7, -4, 20, 7.4, 20);
+  structure(sanctuaryWall, interiorStone, 0, floor + 14, -4, 1, 1, 1);
+  structure(band, limestone, 0, 23.5, -4, 19.5, 1.2, 19.5);
+  structure(band, stone, 0, 35.8, -4, 19.3, 1.2, 19.3);
+  structure(band, gold, 0, 36.6, -4, 18.5, 0.55, 18.5);
   for (let i = 0; i < 20; i++) {
     const a = i / 20 * Math.PI * 2;
     const x = Math.sin(a) * 18.08, z = -4 + Math.cos(a) * 18.08;
-    window(x, 9, z, 2.1, 8, a); window(x, 25, z, 1.9, 7.5, a);
+    if (i !== 0) { window(x, 9, z, 2.1, 8, a); window(x, 25, z, 1.9, 7.5, a); }
     stamp(cylinder, limestone, Math.sin(a) * 18.5, 26, -4 + Math.cos(a) * 18.5, 0.2, 18, 0.2);
   }
-  cupola(0, 37, -4, 18.3);
+  cupola(0, 37, -4, 18.3, true);
   // Raised, domed gatehouse at the top of the approach.
-  structure(box, stone, 0, 12.4, 26, 17, 10.5, 12);
-  structure(cylinder, stone, 0, 20, 26, 6.3, 5, 6.3);
-  cupola(0, 22.6, 26, 7.1);
-  window(0, 7.1, 32.1, 6.7, 8.7);
+  structure(portal, stone, 0, floor, entranceZ - 1.2, 1, 1, 1);
+  structure(portal, stone, 0, floor, 20, 1, 1, 1);
+  for (const side of [-1, 1]) structure(box, stone, side * 8, floor + 6, 26, 1, 12, 12);
+  structure(box, stone, 0, floor + 12.3, 26, 17, 0.6, 12);
+  structure(cylinder, stone, 0, 22.2, 26, 6.3, 4.4, 6.3);
+  cupola(0, 24.5, 26, 7.1);
   for (const x of [-6.8, 6.8]) stamp(cylinder, gold, x, 12.8, 32.4, 0.28, 11, 0.28);
   for (const x of [-8.7, 8.7]) minaret(x, 27, 25);
+
+  // The entrance, vaulted gallery, and throne room share one uninterrupted floor.
+  stamp(cylinder, marble, 0, floor - 0.15, -4, 18, 0.3, 18);
+  stamp(box, marble, 0, floor - 0.15, 22, 16, 0.3, 21);
+  for (const side of [-1, 1]) {
+    structure(box, interiorStone, side * 5.4, floor + 6, 16, 1, 12, 9);
+    for (const z of [28, 22, 16]) {
+      stamp(cylinder, limestone, side * 4.65, floor + 0.22, z, 0.65, 0.44, 0.65);
+      stamp(cylinder, gold, side * 4.65, floor + 4.6, z, 0.24, 8.4, 0.24);
+      stamp(cylinder, gold, side * 4.65, floor + 9, z, 0.62, 0.5, 0.62);
+      stamp(ball, glow, side * 4.65, floor + 6.1, z, 0.23, 0.5, 0.23);
+    }
+  }
+  structure(box, stone, 0, floor + 12.3, 16, 11.8, 0.6, 9);
+  stamp(portal, gold, 0, floor, 15.6, 0.94, 1, 0.22);
+  // Marble tiles, a gold-edged processional carpet, and gilded ceiling coffers.
+  for (const x of [-12, -8, 8, 12]) for (const z of [-13, -7, -1, 5]) {
+    if (x * x + (z + 4) ** 2 < 16 ** 2) stamp(box, inlay, x, floor + 0.025, z, 1.8, 0.035, 1.8, Math.PI / 4);
+  }
+  stamp(box, velvet, 0, floor + 0.045, 7.5, 5.2, 0.06, 45);
+  for (const side of [-1, 1]) stamp(box, gold, side * 2.65, floor + 0.08, 7.5, 0.09, 0.04, 45);
+  for (const z of [29, 25, 21, 17]) {
+    stamp(box, inlay, 0, floor + 11.95, z, 7.8, 0.14, 2.7);
+    for (const x of [-3.9, 3.9]) stamp(box, gold, x, floor + 11.8, z, 0.12, 0.15, 3.1);
+    for (const offset of [-1.55, 1.55]) stamp(box, gold, 0, floor + 11.8, z + offset, 7.9, 0.15, 0.12);
+  }
+  // Tall columns support a teal vault; repeated arches reveal depth from the gate.
+  stamp(innerDome, vault, 0, 33, -4, 17.6, 12, 17.6);
+  for (let i = 1; i < 12; i++) {
+    const angle = i / 12 * Math.PI * 2;
+    const x = Math.sin(angle) * 15.6, z = -4 + Math.cos(angle) * 15.6;
+    stamp(cylinder, limestone, x, floor + 0.35, z, 1, 0.7, 1);
+    stamp(cylinder, stone, x, floor + 10.5, z, 0.52, 20, 0.52);
+    stamp(cylinder, gold, x, floor + 20.7, z, 0.95, 0.7, 0.95);
+    stamp(cylinder, gold, x, floor + 2, z, 0.59, 0.22, 0.59);
+    stamp(ball, glow, x * 0.96, floor + 8, -4 + (z + 4) * 0.96, 0.3, 0.65, 0.3);
+  }
+  for (const z of [9, -3]) stamp(archFrame, gold, 0, floor + 11, z, 18, 13.75, 2);
+  for (const y of [25.5, 28]) stamp(ring, gold, 0, y, -4, 5.5, 1, 5.5);
+  stamp(cylinder, gold, 0, 31, -4, 0.09, 9, 0.09);
+  for (let i = 0; i < 12; i++) {
+    const a = i / 12 * Math.PI * 2, x = Math.sin(a) * 5.5, z = -4 + Math.cos(a) * 5.5;
+    stamp(cylinder, gold, x, 26.8, z, 0.055, 2.5, 0.055);
+    stamp(ball, glow, x, 25.3, z, 0.22, 0.4, 0.22);
+  }
+  // The throne is visible along the entire axis, framed by a radiant golden apse.
+  for (let step = 0; step < 3; step++) stamp(box, marble, 0, floor + 0.2 + step * 0.35, throneZ, 10 - step * 1.3, 0.4, 7 - step * 0.9);
+  stamp(box, inlay, 0, floor + 6, -21, 13, 12, 0.3);
+  stamp(archFrame, gold, 0, floor + 5.7, -20.7, 7.4, 7.1, 2.5);
+  for (const side of [-1, 1]) {
+    stamp(box, velvet, side * 6.8, floor + 8, -19.4, 2.7, 13, 0.18);
+    stamp(box, gold, side * 6.8, floor + 14.6, -19.3, 3.1, 0.22, 0.3);
+    stamp(box, gold, side * 2.1, floor + 2.5, throneZ, 0.45, 2.6, 3.2);
+    stamp(ball, gold, side * 2.1, floor + 4.1, throneZ + 1.1, 0.42, 0.42, 0.42);
+    stamp(cylinder, gold, side * 2.15, floor + 5.6, throneZ - 1, 0.16, 8, 0.16);
+    stamp(cone, gold, side * 2.15, floor + 10, throneZ - 1, 0.45, 1, 0.45);
+  }
+  stamp(box, gold, 0, floor + 2.4, throneZ, 4.5, 0.5, 3);
+  stamp(box, velvet, 0, floor + 2.8, throneZ + 0.15, 3.5, 0.4, 2.6);
+  stamp(box, gold, 0, floor + 6.1, throneZ - 1.25, 4.5, 6.8, 0.5);
+  stamp(box, velvet, 0, floor + 6, throneZ - 0.96, 3.5, 5.8, 0.18);
+  stamp(dome, gold, 0, floor + 9.5, throneZ - 1.25, 2.3, 1.7, 0.5);
+  stamp(ball, glow, 0, floor + 10.9, throneZ - 0.65, 0.38, 0.38, 0.22);
 
   // East archive: a long three-domed library with two tiers of open arcades.
   structure(box, stone, 32, 9.5, -2, 22, 18, 38);
@@ -208,5 +305,9 @@ export function createHeavenPalace(group: THREE.Group, detail: THREE.Group, dist
       parent.add(mesh);
     }
   }
-  return { dispose() { resources.forEach(resource => resource.dispose()); } };
+  const court = createRoyalCourt(detail, lightweight);
+  return {
+    update(time: number, camera: THREE.Camera) { court.update(time, camera); },
+    dispose() { court.dispose(); resources.forEach(resource => resource.dispose()); },
+  };
 }

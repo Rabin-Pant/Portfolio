@@ -143,7 +143,8 @@ export function createBranchRealms(scene: THREE.Scene, lightweight: boolean) {
     }
     // Citizens follow their paths in the vertex shader. Their instance matrices
     // are uploaded once rather than rewritten for every animation frame.
-    const residentCount = underworld ? (lightweight ? 6 : 10) : lightweight ? 10 : 18;
+    // Palace inhabitants are the full-size royal court, with an open central aisle.
+    const residentCount = castle ? 0 : underworld ? (lightweight ? 6 : 10) : lightweight ? 10 : 18;
     const motion = new Float32Array(residentCount * 4);
     for (let i = 0; i < residentCount; i++) motion.set([
       i / residentCount * Math.PI * 2 + realmIndex * 0.73,
@@ -202,6 +203,7 @@ export function createBranchRealms(scene: THREE.Scene, lightweight: boolean) {
         if (state.weather) (state.weather.material as THREE.ShaderMaterial).uniforms.time.value = time;
         if (state.rotor) { if (state.kind === 'workshop') state.rotor.rotation.z = time * 0.4; else state.rotor.rotation.y = time * 0.2; }
       }
+      palaces.forEach(palace => palace.update(time, camera));
     },
     dispose() { states.forEach(s => { s.residents.dispose(); s.heads.dispose(); s.group.removeFromParent(); }); palaces.forEach(palace => palace.dispose()); fortresses.forEach(fortress => fortress.dispose()); resources.forEach(r => r.dispose()); },
   };

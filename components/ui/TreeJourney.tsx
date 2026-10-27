@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { usePathname } from 'next/navigation';
-import { JOURNEY_WAYPOINTS, CROWN_PROGRESS, type JourneyScene } from '@/lib/tree-journey';
+import { JOURNEY_WAYPOINTS, CROWN_PROGRESS, FINAL_PROJECT_ID, type JourneyScene } from '@/lib/tree-journey';
 
 function subscribeToMotion(callback: () => void) {
   const query = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -51,12 +51,19 @@ export function TreeJourney() {
 
     function measure() {
       if (disposed) return;
-      const measured = JOURNEY_WAYPOINTS.flatMap(({ id, progress }) => {
-        const element = document.getElementById(id);
-        return element ? [{ element, top: id === 'hero' ? window.innerHeight * 0.3
-          : element.getBoundingClientRect().top + window.scrollY, progress }] : [];
+      const finalProject = document.getElementById(FINAL_PROJECT_ID);
+      const contact = document.getElementById('contact');
+      const projectTop = finalProject ? finalProject.getBoundingClientRect().top + window.scrollY : 0;
+      const contactTop = contact ? contact.getBoundingClientRect().top + window.scrollY : 0;
+      const measured = JOURNEY_WAYPOINTS.flatMap(({ id, progress, projectTailFraction }) => {
+        const virtual = projectTailFraction !== undefined;
+        const element = virtual ? finalProject : document.getElementById(id);
+        if (!element?.getClientRects().length || (virtual && !contact)) return [];
+        const top = virtual ? projectTop + (contactTop - projectTop) * projectTailFraction
+          : id === 'hero' ? window.innerHeight * 0.3 : element.getBoundingClientRect().top + window.scrollY;
+        return [{ element, top, progress }];
       });
-      elements = measured.map(({ element }) => element);
+      elements = [...new Set(measured.map(({ element }) => element))];
       anchors = measured.map(({ top, progress }) => ({ top, progress }));
       update();
     }

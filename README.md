@@ -19,7 +19,9 @@ mapping; texture dimensions and geometry counts are unchanged.
 - `components/ui/TreeJourney.tsx` lazy-loads the renderer and measures section
   positions when layout changes.
 - `lib/tree-journey.ts` contains section anchors and individual project waypoints.
-  The journey ends at the castle in Contact.
+  Five virtual palace anchors use the final project's existing scroll distance:
+  the approach and entry happen as its content leaves, with Contact immediately next.
+  There is no interstitial prompt, spacer section, or extra Contact padding.
 - `lib/tree-realms.ts` defines five lower realms and the shared Heaven Citadel.
   `lib/branch-realms.ts` builds their architecture, moving residents, ground-floor
   snowfall, windmill, and celestial landmarks. Distant architecture uses simplified
@@ -28,8 +30,19 @@ mapping; texture dimensions and geometry counts are unchanged.
 - `lib/heaven-palace.ts` builds a connected ivory palace inspired by golden-domed
   cloud architecture. Projects introduces the skyline; MediaTranscribe visits the
   entrance bridge, TalentBridge the east archive, CineBook the observatory, Chat App
-  the west garden, and Contact the grand sanctuary. Each stop has its own camera
-  position and target. Static architecture and cloud banks are merged by material.
+  the west garden. The final passage aligns with the bridge, crosses the open main
+  entrance, and follows a vaulted gallery into the throne room. Contact stays inside,
+  facing a raised golden throne, crimson carpet, columns, banners, and chandelier.
+  Static architecture and cloud banks are merged by material.
+- `lib/palace-layout.ts` shares floor, doorway, and throne dimensions between the
+  architecture and camera. The sanctuary is hollow and its main entrance is open.
+- `lib/royal-court.ts` fills the throne room with a crowned, seated king, paired
+  guards, advisors with scrolls, and attendants. Characters are merged by material;
+  their head turns, breathing, and robe movement use individual GPU animation phases.
+  Gilded candelabra, softly flickering flames, sparse drifting dust, and one local
+  warm light bring the room to life without additional shadow passes. Mobile retains
+  the king and six court members; desktop adds two outer guards. The final camera
+  framing shows the king and inner guards behind the Contact section.
 - `lib/underworld-fortress.ts` builds the dark basalt fortress, pointed spires,
   fiery windows, and glowing fissures beneath the roots. `lib/underworld-landscape.ts`
   surrounds it with lava channels, jagged crags, red haze, and rising orange embers.
@@ -66,8 +79,10 @@ The existing scene lights blend into warm lava illumination during the descent,
 then return to daylight as the route climbs through Frosthaven (Experience),
 Bloomgrove (Interests), Copperleaf (Skills), Skyward Academy (Certifications),
 and the Heaven Citadel (Projects through Contact). Snow appears only in Frosthaven.
-The camera holds at the grand sanctuary through Contact and the footer. Scrolling
-back reverses the palace tour.
+The camera holds inside the throne room through Contact and the footer. Scrolling
+back reverses the palace tour. Camera pullback, pointer movement, and desktop framing
+ease away before the doorway to keep the route within the gallery on phones and
+desktops. The field of view and existing lights blend into a wider, warm interior.
 
 The renderer loads separately from the portfolio content. Foliage and ground
 details use instancing. Rendering targets 60 fps in both development and
@@ -108,3 +123,7 @@ Open [http://localhost:3000](http://localhost:3000). The homepage is
 
 Before deployment, run `npm run lint` and `npm run build`. The contact form
 requires `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` in the Vercel environment.
+
+Run `npm run test:journey` to check both palace detail levels against the actual
+camera spline. It samples the entrance-to-Contact route for architectural clearance,
+an unobstructed view, and an endpoint inside the throne room.
