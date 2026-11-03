@@ -17,9 +17,9 @@ const experiences = [
     current: true,
     stack: ['C#', 'ASP.NET Core Web API', 'ASP.NET Core MVC', 'Entity Framework Core', 'Oracle Database'],
     highlights: [
-      'Built and maintained internal web applications using ASP.NET Core MVC and Web API.',
-      'Designed Entity Framework Core data models against an Oracle Database for the core business workflows.',
-      'Worked the full stack, from API endpoints to the UI, as part of the software development team.',
+      'Working as one of two developers on a production Procurement Management System covering requisitions, approvals, vendor procurement, purchase orders, delivery, and invoicing/payment.',
+      'Developing inventory and stock tracking, vendor management, and reporting dashboards using ASP.NET Core MVC, Web API, Entity Framework Core, and Oracle.',
+      'Contributing to requirements gathering, SRS documentation, database and ERD design, and full-stack implementation.',
     ],
   },
 ];

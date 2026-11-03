@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { cloudServices, databaseEngines, programmingLanguages } from '@/lib/skills';
 import {
   PanelsTopLeft,
   Database,
@@ -29,13 +30,13 @@ const skillCategories = [
     icon: Database,
     title: 'Database',
     description: 'Efficient data storage and management',
-    skills: ['PostgreSQL', 'MySQL', 'Oracle', 'Prisma', 'JDBC', 'SQL'],
+    skills: [...databaseEngines, 'Prisma', 'JDBC', 'SQL'],
   },
   {
     icon: CloudCog,
     title: 'Cloud & DevOps',
     description: 'Cloud-native deployment and infrastructure',
-    skills: ['AWS', 'Vercel', 'Render', 'Neon', 'Git', 'CI/CD', 'Linux', 'Bash'],
+    skills: [...cloudServices, 'Git', 'CI/CD', 'Linux', 'Bash'],
   },
   {
     icon: PenTool,
@@ -50,8 +51,6 @@ const skillCategories = [
     skills: ['Git', 'GitHub', 'Git Flow', 'Pull Requests', 'Code Review'],
   },
 ];
-
-const languages = ['Java', 'SQL', 'JavaScript', 'Python', 'Bash', 'TypeScript', 'C#'];
 
 export const SkillsSection = () => {
   return (
@@ -152,7 +151,7 @@ export const SkillsSection = () => {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {languages.map((lang, index) => (
+              {programmingLanguages.map((lang, index) => (
                 <motion.div
                   key={lang}
                   initial={{ opacity: 0, x: -10 }}
@@ -178,10 +177,10 @@ export const SkillsSection = () => {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8"
         >
           {[
-            { icon: Braces, label: 'Languages', value: String(languages.length) },
-            { icon: Blocks, label: 'Frameworks', value: '8+' },
-            { icon: Database, label: 'Databases', value: '3+' },
-            { icon: CloudCog, label: 'Cloud Platforms', value: '5+' },
+            { icon: Braces, label: 'Languages', value: String(programmingLanguages.length) },
+            { icon: Blocks, label: 'Skill Areas', value: String(skillCategories.length) },
+            { icon: Database, label: 'Databases', value: String(databaseEngines.length) },
+            { icon: CloudCog, label: 'Cloud Services', value: String(cloudServices.length) },
           ].map((stat, index) => {
             const Icon = stat.icon;
             return (

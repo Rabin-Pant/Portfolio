@@ -55,28 +55,22 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
         </div>
       </motion.div>
 
-      {/* Problem → Solution → Results */}
+      {/* Implementation and features */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="grid md:grid-cols-3 gap-8 mb-16"
+        className="grid md:grid-cols-2 gap-8 mb-16"
       >
         <div className="bg-white rounded-xl p-6 border border-surface-border">
           <h3 className="text-sm font-mono text-primary uppercase tracking-wider mb-3">
-            The Problem
-          </h3>
-          <p className="text-body leading-relaxed">{project.problem}</p>
-        </div>
-        <div className="bg-white rounded-xl p-6 border border-surface-border">
-          <h3 className="text-sm font-mono text-primary uppercase tracking-wider mb-3">
-            The Solution
+            How I built it
           </h3>
           <p className="text-body leading-relaxed">{project.solution}</p>
         </div>
         <div className="bg-white rounded-xl p-6 border border-surface-border">
           <h3 className="text-sm font-mono text-primary uppercase tracking-wider mb-3">
-            The Results
+            What it does
           </h3>
           <ul className="space-y-2">
             {project.results.map((result) => (

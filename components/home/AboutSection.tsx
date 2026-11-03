@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { programmingLanguages } from '@/lib/skills';
 import { 
   ChevronRight, 
   Rocket, 
@@ -20,7 +21,7 @@ import {
   GraduationCap,
   FolderKanban,
   BadgeCheck,
-  Layers3
+  Braces
 } from 'lucide-react';
 
 const journeySteps = [
@@ -45,7 +46,7 @@ const journeySteps = [
   {
     year: '2025',
     title: 'Building for real',
-    description: 'Shipped three production apps and picked up five AWS certifications along the way. This is where I started treating full-stack work seriously.',
+    description: 'Built full-stack personal projects and developed practical skills in application design, databases, and cloud computing. This is where I started treating full-stack work seriously.',
     icon: BadgeCheck,
   },
 ];
@@ -73,20 +74,19 @@ const futureGoals = [
   },
 ];
 
-const stats = [
-  { value: '3+', label: 'Projects', icon: FolderKanban },
-  { value: '5', label: 'AWS Certs', icon: BadgeCheck },
-  { value: '7+', label: 'Tech Stacks', icon: Layers3 },
-  { value: '4+', label: 'Years Learning', icon: GraduationCap },
-];
-
 const tabs = [
   { id: 'journey', label: 'My Journey', icon: Calendar },
   { id: 'future', label: 'Future Goals', icon: Rocket },
 ] as const;
 
-export const AboutSection = () => {
+export const AboutSection = ({ projectCount }: { projectCount: number }) => {
   const [activeTab, setActiveTab] = useState<'journey' | 'future'>('journey');
+  const stats = [
+    { value: String(projectCount), label: 'Personal Projects', icon: FolderKanban },
+    { value: '5', label: 'AWS Certs', icon: BadgeCheck },
+    { value: String(programmingLanguages.length), label: 'Languages', icon: Braces },
+    { value: journeySteps[0].year, label: 'Learning Since', icon: GraduationCap },
+  ];
 
   return (
     <section className="py-20 md:py-28 bg-white relative overflow-hidden">
@@ -205,7 +205,7 @@ export const AboutSection = () => {
                       <div className="p-1 md:p-1.5 rounded-lg bg-white group-hover/item:bg-primary/10 transition-colors">
                         <Briefcase size={12} className="text-muted group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
-                      <span className="text-xs md:text-sm">3+ Projects</span>
+                      <span className="text-xs md:text-sm">{projectCount} Personal Projects</span>
                     </div>
                     <div className="flex items-center gap-2 md:gap-3 text-muted group/item hover:text-body transition-colors">
                       <div className="p-1 md:p-1.5 rounded-lg bg-white group-hover/item:bg-primary/10 transition-colors">

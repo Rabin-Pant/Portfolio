@@ -12,7 +12,7 @@ export function ProjectsSection() {
             <h2 className="font-display text-3xl md:text-5xl font-semibold">The <span className="accent-text">projects</span></h2>
           </div>
           <p className="max-w-md text-sm md:text-base text-body leading-relaxed">
-            {projects.length} projects, from the problem that started each one to how I built it.
+            {projects.length} personal projects: how I built them and what they do.
           </p>
         </header>
 
@@ -40,10 +40,6 @@ export function ProjectsSection() {
                   </div>
                 </div>
                 <div className="project-story-notes panel">
-                  <div>
-                    <h4 className="section-kicker">The problem</h4>
-                    <p>{project.problem}</p>
-                  </div>
                   <div>
                     <h4 className="section-kicker">How I built it</h4>
                     <p>{project.solution}</p>

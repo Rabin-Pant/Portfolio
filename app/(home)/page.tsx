@@ -6,6 +6,7 @@ import { ProjectsSection } from '@/components/home/ProjectsSection';
 import { CertificationsSection } from '@/components/home/CertificationsSection';
 import { ContactSection } from '@/components/home/ContactSection';
 import { Footer } from '@/components/ui/Footer';
+import { projects } from '@/lib/projects';
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
         <Hero />
       </section>
       <section id="about">
-        <AboutSection />
+        <AboutSection projectCount={projects.length} />
       </section>
       <section id="experience">
         <ExperienceSection />

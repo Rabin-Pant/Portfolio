@@ -12,9 +12,10 @@ The design uses white and pale blue sections, readable dark text, the #0A5C8E ac
 - `components/ui/`: navigation, footer, and social icons.
 - `lib/projects.ts`: shared project data.
 - `lib/profile.ts`: shared profile URLs and resume path.
+- `lib/skills.ts`: shared language, database, and cloud-service lists used by the skill displays and statistics.
 - `public/`: the resume, two portraits, and four project screenshots used by the site.
 
-The homepage presents Hero, About, Experience, Skills, Certifications, Projects, Contact, and Footer. About contains My Journey and Future Goals. All four full project stories remain on the homepage; `/projects` and `/projects/[slug]` provide the existing listing and detail routes.
+The homepage presents Hero, About, Experience, Skills, Certifications, Projects, Contact, and Footer. About contains My Journey and Future Goals. All four personal projects remain on the homepage, with “How I built it” and “What it does” sections; `/projects` and `/projects/[slug]` provide the existing listing and detail routes.
 
 ## Local development
 
