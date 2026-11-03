@@ -1,4 +1,3 @@
-// components/ui/GithubIcon.tsx
 interface GithubIconProps {
   size?: number;
   className?: string;

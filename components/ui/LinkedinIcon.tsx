@@ -1,4 +1,3 @@
-// components/ui/LinkedinIcon.tsx
 interface LinkedinIconProps {
   size?: number;
   className?: string;

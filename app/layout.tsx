@@ -1,9 +1,7 @@
-// app/layout.tsx
 import type { Metadata } from 'next';
 import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/ui/Navbar';
-import { TreeJourney } from '@/components/ui/TreeJourney';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -25,6 +23,7 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ['400', '600', '700'],
   variable: '--font-jetbrains-mono',
   display: 'swap',
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -41,7 +40,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
-        <TreeJourney />
         <Navbar />
         <main className="pt-16 md:pt-20">{children}</main>
       </body>

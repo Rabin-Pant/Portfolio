@@ -12,7 +12,7 @@ const cloudCertifications = [
 
 const devCertifications = [
   { name: 'Java OOP', issuer: 'LinkedIn Learning', icon: FaLinkedin, color: '#7fadd5', link: 'https://www.linkedin.com/learning-login/share?account=57118729&forceAccount=false&redirect=https%3A%2F%2Fwww.linkedin.com%2Flearning%2Fcollections%2F7503016642931662848%3Ftrk%3Dshare_collection_url%26shareId%3DvuYB0JFqS222wpyDdMHpig%253D%253D' },
-  { name: 'UI/UX with Figma', issuer: 'Figma', icon: SiFigma, color: '#d49680', link: undefined },
+  { name: 'UI/UX with Figma', issuer: 'Figma', icon: SiFigma, color: '#d49680', link: 'https://certificate.islingtoncollege.edu.np/certificate/verify/ICKCP4A240296OIGT1' },
 ];
 
 export function CertificationsSection() {
@@ -20,7 +20,7 @@ export function CertificationsSection() {
     <div className="py-20 md:py-28">
       <div className="container-custom">
         <header className="mb-12 md:mb-16">
-          <h2 className="text-center font-display text-3xl md:text-5xl font-semibold">My <span className="gradient-text">certifications</span></h2>
+          <h2 className="text-center font-display text-3xl md:text-5xl font-semibold">My <span className="accent-text">certifications</span></h2>
           <p className="mt-4 max-w-xl mx-auto text-center text-sm md:text-base text-body leading-relaxed">Seven certifications across cloud, machine learning, programming, and design. A record of the things I have spent time learning.</p>
         </header>
         <div className="certification-groups">
@@ -33,7 +33,7 @@ export function CertificationsSection() {
               {cloudCertifications.map((cert) => (
                 <li key={cert.name}>
                   <a href={cert.link} target="_blank" rel="noopener noreferrer" className="certification-row">
-                    <FaAws size={25} className="text-[#d9b16d] shrink-0" aria-hidden="true" />
+                    <FaAws size={25} className="text-primary shrink-0" aria-hidden="true" />
                     <span className="certification-copy"><span>{cert.name}</span><span>{cert.issuer}</span></span>
                     <ArrowUpRight size={17} className="shrink-0" aria-hidden="true" />
                     <span className="sr-only"> (opens credential in a new tab)</span>

@@ -1,10 +1,8 @@
-// components/home/Hero.tsx
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { ArrowRight, FileText } from 'lucide-react';
+import { ArrowRight, FileText, MapPin } from 'lucide-react';
+import { LinkedinIcon } from '@/components/ui/LinkedinIcon';
+import { profileLinks } from '@/lib/profile';
 
 export const Hero = () => {
   return (
@@ -12,74 +10,69 @@ export const Hero = () => {
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left: Text Content */}
-          {/* No order override: on mobile this should read message-first,
-              photo-second — a portrait photo at near-full mobile width was
-              previously ordered ahead of it (order-1) and, at aspect-[4/5],
-              stood ~540px tall on a ~660px-tall viewport, pushing the actual
-              headline almost entirely below the fold. Natural DOM order
-              already puts text in the left column on desktop's 2-col grid,
-              so no override is needed there either. */}
+          {/* Keep the text before the portrait on mobile. */}
           <div>
             {/* Main Heading */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+            <h1
               className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-tight text-balance"
             >
               I&apos;m good at turning<br />
-              <span className="gradient-text">messy data into working systems.</span>
-            </motion.h1>
+              <span className="accent-text">messy data into working systems.</span>
+            </h1>
 
             {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-4 md:mt-6 text-base md:text-lg text-body max-w-lg leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
+            <p
+              className="mt-4 md:mt-6 text-base md:text-lg text-body max-w-lg leading-relaxed"
             >
               I&apos;m a developer based in Kathmandu. Most of my time goes into the
               thinking before the coding: how the data should be structured, how
               the pieces should fit together, what&apos;s likely to break later. The
               actual building tends to be the easy part once that&apos;s sorted.
-            </motion.p>
+            </p>
 
             {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+            <div
               className="mt-6 md:mt-10 flex flex-col sm:flex-row gap-3 md:gap-4"
             >
               <Link
                 href="#projects"
-                className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-lg bg-primary text-ink hover:bg-primary-dark transition-all duration-200 font-medium text-sm md:text-base shadow-lg shadow-primary/20 hover:shadow-primary/40"
+                className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-lg bg-primary text-white hover:bg-primary-dark transition-all duration-200 font-medium text-sm md:text-base shadow-lg shadow-primary/20 hover:shadow-primary/40"
               >
                 See my work
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </Link>
 
               <a
-                href="/resume.pdf"
+                href={profileLinks.resume}
                 download
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-lg border border-slate-700 hover:border-primary hover:bg-primary/10 transition-all duration-200 font-medium text-sm md:text-base"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-lg border border-surface-border hover:border-primary hover:bg-primary/10 transition-all duration-200 font-medium text-sm md:text-base"
               >
                 <FileText size={16} />
                 Download Resume
               </a>
-            </motion.div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center gap-5 md:mt-6">
+              <a
+                href={profileLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn Profile"
+                title="LinkedIn Profile"
+                className="inline-flex min-h-11 min-w-11 items-center justify-center rounded text-body transition-colors duration-200 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+              >
+                <span aria-hidden="true"><LinkedinIcon size={20} /></span>
+              </a>
+              <span className="flex items-center gap-1.5 text-sm text-muted">
+                <MapPin size={16} aria-hidden="true" />
+                Kathmandu, Nepal
+              </span>
+            </div>
           </div>
 
-          {/* Right: transparent portrait cutout */}
-          {/* Opacity only — an animated scale on a real photo forces the GPU
-              to resample the whole texture every frame. Confirmed expensive
-              via CDP trace elsewhere on this site (59% of a full-viewport
-              photo transition's cost); this image is smaller but the same
-              mechanism applies. */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          {/* Right: hero portrait */}
+          {/* Keep the portrait and text visible in the initial HTML. */}
+          <div
             className="flex justify-center"
           >
             <div
@@ -87,15 +80,15 @@ export const Hero = () => {
               style={{ maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)' }}
             >
               <Image
-                src="/images/rabin-cutout.png"
+                src="/images/hero section (rabin).jpeg"
                 alt="Rabin Pant"
                 fill
                 sizes="(max-width: 640px) 220px, 384px"
-                className="object-cover object-top drop-shadow-[0_18px_36px_rgba(0,0,0,0.45)]"
+                className="object-cover object-top"
                 priority
               />
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

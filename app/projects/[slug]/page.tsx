@@ -1,6 +1,5 @@
-// app/projects/[slug]/page.tsx
 import { notFound } from 'next/navigation';
-import { getProjectBySlug } from '@/lib/projects';
+import { getProjectBySlug, projects } from '@/lib/projects';
 import { ProjectDetail } from '@/components/projects/ProjectDetail';
 
 interface ProjectPageProps {
@@ -9,8 +8,7 @@ interface ProjectPageProps {
   }>;
 }
 
-export async function generateStaticParams() {
-  const { projects } = await import('@/lib/projects');
+export function generateStaticParams() {
   return projects.map((project) => ({
     slug: project.slug,
   }));
@@ -25,8 +23,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   return (
-    <main className="py-20">
+    <div className="py-20">
       <ProjectDetail project={project} />
-    </main>
+    </div>
   );
 }

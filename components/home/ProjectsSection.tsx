@@ -9,7 +9,7 @@ export function ProjectsSection() {
       <div className="container-custom">
         <header className="project-stories-header">
           <div>
-            <h2 className="font-display text-3xl md:text-5xl font-semibold">The <span className="gradient-text">projects</span></h2>
+            <h2 className="font-display text-3xl md:text-5xl font-semibold">The <span className="accent-text">projects</span></h2>
           </div>
           <p className="max-w-md text-sm md:text-base text-body leading-relaxed">
             {projects.length} projects, from the problem that started each one to how I built it.

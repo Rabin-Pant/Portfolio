@@ -1,4 +1,3 @@
-// components/home/SkillsSection.tsx
 'use client';
 
 import { motion } from 'framer-motion';
@@ -13,50 +12,50 @@ import {
   Blocks
 } from 'lucide-react';
 
+const skillCategories = [
+  {
+    icon: PanelsTopLeft,
+    title: 'Frontend',
+    description: 'Building responsive, interactive user interfaces',
+    skills: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS'],
+  },
+  {
+    icon: ServerCog,
+    title: 'Backend',
+    description: 'Scalable APIs and robust server-side logic',
+    skills: ['Node.js', 'Java', 'Python', 'C#', '.NET', 'ASP.NET Core', 'JSP/Servlets', 'REST APIs', 'WebSocket/Socket.io'],
+  },
+  {
+    icon: Database,
+    title: 'Database',
+    description: 'Efficient data storage and management',
+    skills: ['PostgreSQL', 'MySQL', 'Oracle', 'Prisma', 'JDBC', 'SQL'],
+  },
+  {
+    icon: CloudCog,
+    title: 'Cloud & DevOps',
+    description: 'Cloud-native deployment and infrastructure',
+    skills: ['AWS', 'Vercel', 'Render', 'Neon', 'Git', 'CI/CD', 'Linux', 'Bash'],
+  },
+  {
+    icon: PenTool,
+    title: 'Design & Tools',
+    description: 'User-centered design and development workflows',
+    skills: ['Figma', 'UI/UX Design', 'System Design', 'Architecture Diagrams'],
+  },
+  {
+    icon: GitPullRequest,
+    title: 'Version Control',
+    description: 'Collaborative development with best practices',
+    skills: ['Git', 'GitHub', 'Git Flow', 'Pull Requests', 'Code Review'],
+  },
+];
+
+const languages = ['Java', 'SQL', 'JavaScript', 'Python', 'Bash', 'TypeScript', 'C#'];
+
 export const SkillsSection = () => {
-  const skillCategories = [
-    {
-      icon: PanelsTopLeft,
-      title: 'Frontend',
-      description: 'Building responsive, interactive user interfaces',
-      skills: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS'],
-    },
-    {
-      icon: ServerCog,
-      title: 'Backend',
-      description: 'Scalable APIs and robust server-side logic',
-      skills: ['Node.js', 'Java', 'Python', 'JSP/Servlets', 'REST APIs', 'WebSocket/Socket.io'],
-    },
-    {
-      icon: Database,
-      title: 'Database',
-      description: 'Efficient data storage and management',
-      skills: ['PostgreSQL', 'MySQL', 'Oracle', 'Prisma', 'JDBC', 'SQL'],
-    },
-    {
-      icon: CloudCog,
-      title: 'Cloud & DevOps',
-      description: 'Cloud-native deployment and infrastructure',
-      skills: ['AWS', 'Vercel', 'Render', 'Neon', 'Git', 'CI/CD', 'Linux', 'Bash'],
-    },
-    {
-      icon: PenTool,
-      title: 'Design & Tools',
-      description: 'User-centered design and development workflows',
-      skills: ['Figma', 'UI/UX Design', 'System Design', 'Architecture Diagrams'],
-    },
-    {
-      icon: GitPullRequest,
-      title: 'Version Control',
-      description: 'Collaborative development with best practices',
-      skills: ['Git', 'GitHub', 'Git Flow', 'Pull Requests', 'Code Review'],
-    },
-  ];
-
-  const languages = ['Java', 'SQL', 'JavaScript', 'Python', 'Bash', 'TypeScript'];
-
   return (
-    <section className="py-20 md:py-28 bg-slate-900/10 relative overflow-hidden">
+    <section className="py-20 md:py-28 bg-white relative overflow-hidden">
       <div className="container-custom relative z-10">
         {/* Section Header */}
         <motion.div
@@ -73,11 +72,11 @@ export const SkillsSection = () => {
             transition={{ delay: 0.1 }}
             viewport={{ once: true }}
           >
-            My <span className="gradient-text">skills</span>
+            My <span className="accent-text">skills</span>
           </motion.h2>
 
           <motion.p
-            className="mt-4 text-body max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
+            className="mt-4 text-body max-w-2xl mx-auto text-sm md:text-base"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -99,7 +98,7 @@ export const SkillsSection = () => {
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 viewport={{ once: true, margin: "-30px" }}
                 whileHover={{ y: -6, transition: { type: "spring", stiffness: 300 } }}
-                className="group p-6 rounded-2xl border border-slate-800 bg-slate-900/30 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+                className="group p-6 rounded-2xl border border-surface-border bg-white hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
                   <motion.div
@@ -124,7 +123,7 @@ export const SkillsSection = () => {
                       whileInView={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.1 + index * 0.02 }}
                       viewport={{ once: true }}
-                      className="px-2.5 py-1 rounded-full bg-slate-800/50 text-xs text-body border border-slate-700/50 hover:border-primary transition-colors duration-200"
+                      className="px-2.5 py-1 rounded-full bg-white text-xs text-body border border-surface-border hover:border-primary transition-colors duration-200"
                     >
                       {skill}
                     </motion.span>
@@ -143,7 +142,7 @@ export const SkillsSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="bg-slate-900/30 rounded-2xl p-6 border border-slate-800 hover:border-primary/30 transition-all duration-300"
+            className="bg-white rounded-2xl p-6 border border-surface-border hover:border-primary/30 transition-all duration-300"
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
@@ -160,7 +159,7 @@ export const SkillsSection = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                   viewport={{ once: true }}
-                  className="flex items-center justify-between p-3 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/30 transition-all duration-200 group"
+                  className="flex items-center justify-between p-3 rounded-xl bg-white border border-surface-border hover:border-primary/30 transition-all duration-200 group"
                 >
                   <span className="text-sm font-medium text-foreground">{lang}</span>
                 </motion.div>
@@ -179,7 +178,7 @@ export const SkillsSection = () => {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8"
         >
           {[
-            { icon: Braces, label: 'Languages', value: '6+' },
+            { icon: Braces, label: 'Languages', value: String(languages.length) },
             { icon: Blocks, label: 'Frameworks', value: '8+' },
             { icon: Database, label: 'Databases', value: '3+' },
             { icon: CloudCog, label: 'Cloud Platforms', value: '5+' },
@@ -193,7 +192,7 @@ export const SkillsSection = () => {
                 transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
-                className="bg-slate-900/30 rounded-2xl p-5 text-center border border-slate-800 hover:border-primary/30 transition-all duration-300"
+                className="bg-white rounded-2xl p-5 text-center border border-surface-border hover:border-primary/30 transition-all duration-300"
               >
                 <div className="flex justify-center mb-2">
                   <div className="p-2.5 rounded-xl bg-primary/10">

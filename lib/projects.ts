@@ -1,4 +1,3 @@
-// lib/projects.ts
 export interface Project {
   slug: string;
   title: string;

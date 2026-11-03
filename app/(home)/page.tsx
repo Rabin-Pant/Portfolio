@@ -1,6 +1,4 @@
-// app/(home)/page.tsx
 import { Hero } from '@/components/home/Hero';
-import { Interests } from '@/components/home/Interests';
 import { AboutSection } from '@/components/home/AboutSection';
 import { ExperienceSection } from '@/components/home/ExperienceSection';
 import { SkillsSection } from '@/components/home/SkillsSection';
@@ -11,7 +9,7 @@ import { Footer } from '@/components/ui/Footer';
 
 export default function Home() {
   return (
-    <div className="journey-home">
+    <div className="portfolio-home">
       <section id="hero">
         <Hero />
       </section>
@@ -20,9 +18,6 @@ export default function Home() {
       </section>
       <section id="experience">
         <ExperienceSection />
-      </section>
-      <section id="interests">
-        <Interests />
       </section>
       <section id="skills">
         <SkillsSection />

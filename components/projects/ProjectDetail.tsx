@@ -1,4 +1,3 @@
-// components/projects/ProjectDetail.tsx
 'use client';
 
 import Image from 'next/image';
@@ -19,7 +18,7 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
       <div className="flex items-center gap-4 mb-8">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 text-body drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] hover:text-foreground transition-colors duration-200"
+          className="inline-flex items-center gap-2 text-body  hover:text-foreground transition-colors duration-200"
         >
           <ArrowLeft size={16} />
           All Projects
@@ -27,7 +26,7 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
         <span className="text-subdued">|</span>
         <Link
           href="/"
-          className="text-sm text-body drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] hover:text-foreground transition-colors duration-200"
+          className="text-sm text-body  hover:text-foreground transition-colors duration-200"
         >
           Home
         </Link>
@@ -43,12 +42,12 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
         <h1 className="font-display text-4xl md:text-5xl font-semibold">
           {project.title}
         </h1>
-        <p className="text-xl text-body drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]">{project.tagline}</p>
+        <p className="text-xl text-body">{project.tagline}</p>
         <div className="flex flex-wrap gap-2">
           {project.techStack.map((tech) => (
             <span
               key={tech}
-              className="px-3 py-1 rounded-full bg-slate-800 text-sm text-body border border-slate-700"
+              className="px-3 py-1 rounded-full bg-white text-sm text-body border border-surface-border"
             >
               {tech}
             </span>
@@ -63,19 +62,19 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
         transition={{ duration: 0.5, delay: 0.1 }}
         className="grid md:grid-cols-3 gap-8 mb-16"
       >
-        <div className="bg-slate-900/30 rounded-xl p-6 border border-slate-800">
+        <div className="bg-white rounded-xl p-6 border border-surface-border">
           <h3 className="text-sm font-mono text-primary uppercase tracking-wider mb-3">
             The Problem
           </h3>
           <p className="text-body leading-relaxed">{project.problem}</p>
         </div>
-        <div className="bg-slate-900/30 rounded-xl p-6 border border-slate-800">
+        <div className="bg-white rounded-xl p-6 border border-surface-border">
           <h3 className="text-sm font-mono text-primary uppercase tracking-wider mb-3">
             The Solution
           </h3>
           <p className="text-body leading-relaxed">{project.solution}</p>
         </div>
-        <div className="bg-slate-900/30 rounded-xl p-6 border border-slate-800">
+        <div className="bg-white rounded-xl p-6 border border-surface-border">
           <h3 className="text-sm font-mono text-primary uppercase tracking-wider mb-3">
             The Results
           </h3>
@@ -95,7 +94,7 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="relative aspect-video bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl overflow-hidden border border-slate-800 mb-12"
+        className="relative aspect-video bg-gradient-to-br from-white/20 to-white rounded-xl overflow-hidden border border-surface-border mb-12"
       >
         <Image
           src={project.image}
@@ -105,7 +104,7 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent" />
       </motion.div>
 
       {/* Project Links */}
@@ -113,14 +112,14 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="flex flex-wrap gap-4 pt-8 border-t border-slate-800"
+        className="flex flex-wrap gap-4 pt-8 border-t border-surface-border"
       >
         {project.links.github && (
           <a
             href={project.links.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 transition-all duration-200"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white hover:bg-slate-100 border border-surface-border transition-all duration-200"
           >
             <GithubIcon size={18} />
             View Code
@@ -131,7 +130,7 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
             href={project.links.live}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-ink hover:bg-primary-dark transition-all duration-200"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white hover:bg-primary-dark transition-all duration-200"
           >
             <ExternalLink size={18} />
             Live Demo

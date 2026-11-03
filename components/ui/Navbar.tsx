@@ -1,13 +1,12 @@
-// components/ui/Navbar.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import { Menu, X, Sparkles } from 'lucide-react';
 import { GithubIcon } from '@/components/ui/GithubIcon';
+import { profileLinks } from '@/lib/profile';
 
 const navLinks = [
   { href: '/#about', label: 'About', delay: 0.1 },
@@ -24,12 +23,7 @@ export const Navbar = () => {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
-  // Active-section tracking. This used to call getBoundingClientRect() on
-  // every section on every scroll frame (a forced layout each time). Now an
-  // IntersectionObserver watches a 1px line 100px below the top of the
-  // viewport, and the rect check only runs when a section actually crosses
-  // that line — same "last section whose top is <= 100px" rule, a handful of
-  // layout reads per full scroll instead of one per frame.
+  // Update the active section only when it crosses the navigation boundary.
   useEffect(() => {
     if (!isHomePage) return;
     const sections = navLinks.map(({ href }) => href.replace('/#', ''));
@@ -99,7 +93,7 @@ export const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="fixed top-0 w-full z-50 bg-transparent"
+      className="fixed top-0 w-full z-50 bg-white border-b border-surface-border"
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
@@ -115,15 +109,7 @@ export const Navbar = () => {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               className="flex items-center cursor-pointer"
             >
-              <Image
-                src="/images/Rabin Pant Yggdrasil Fantasy Logo.png"
-                alt="Rabin Pant Yggdrasil logo"
-                width={180}
-                height={72}
-                sizes="(min-width: 768px) 180px, 150px"
-                className="h-auto w-[150px] shrink-0 object-contain md:w-[180px]"
-                priority
-              />
+              <span className="block w-[150px] text-xl font-bold tracking-tight text-foreground md:w-[180px]">Rabin Pant<span className="text-primary">.</span></span>
             </motion.div>
           </Link>
 
@@ -134,7 +120,7 @@ export const Navbar = () => {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`text-sm font-semibold [text-shadow:0_1px_3px_rgba(0,0,0,0.95),0_2px_10px_rgba(0,0,0,0.65)] transition-colors duration-200 relative group cursor-pointer ${
+                className={`text-sm font-semibold transition-colors duration-200 relative group cursor-pointer ${
                   isActive(link.href) ? 'text-primary' : 'text-foreground hover:text-primary'
                 }`}
                 initial={{ opacity: 0, y: -10 }}
@@ -158,10 +144,10 @@ export const Navbar = () => {
 
             {/* GitHub Link */}
             <motion.a
-              href="https://github.com/Rabin-Pant"
+              href={profileLinks.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground hover:text-primary drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] transition-colors duration-200"
+              className="text-foreground hover:text-primary transition-colors duration-200"
               aria-label="GitHub Profile"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -174,11 +160,11 @@ export const Navbar = () => {
 
             {/* Resume Button */}
             <motion.a
-              href="/resume.pdf"
+              href={profileLinks.resume}
               download
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 rounded-lg bg-primary text-ink hover:bg-primary-dark transition-all duration-200 text-sm font-medium relative overflow-hidden group"
+              className="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition-all duration-200 text-sm font-medium relative overflow-hidden group"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.35 }}
@@ -201,7 +187,7 @@ export const Navbar = () => {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden drop-shadow-[0_2px_3px_rgba(0,0,0,0.85)] text-foreground hover:text-primary transition-colors p-3 rounded-lg hover:bg-white/10 z-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="lg:hidden  text-foreground hover:text-primary transition-colors p-3 rounded-lg hover:bg-slate-100 z-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Toggle menu"
             aria-expanded={isOpen}
             initial={{ opacity: 0, rotate: -90 }}
@@ -224,7 +210,7 @@ export const Navbar = () => {
           </motion.button>
         </div>
 
-        {/* Mobile Navigation - FIXED TOUCH ISSUES */}
+        {/* Mobile Navigation */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -236,36 +222,23 @@ export const Navbar = () => {
               className="lg:hidden overflow-hidden"
             >
               <motion.div 
-                className="py-6 space-y-3 border-t border-slate-700/50 bg-[#0A0A0A]/95 rounded-b-2xl"
+                className="py-6 space-y-3 border-t border-surface-border bg-white rounded-b-2xl"
                 onClick={() => setIsOpen(false)} // Close menu when tapping outside links
               >
                 {navLinks.map((link, index) => (
                   <motion.a
                     key={link.href}
                     href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setIsOpen(false);
-                      if (isHomePage) {
-                        const element = document.querySelector(link.href.replace('/', ''));
-                        if (element) {
-                          element.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      } else {
-                        window.location.href = link.href;
-                      }
-                    }}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     className={`block text-base font-medium transition-colors duration-200 px-4 py-4 rounded-xl min-h-[52px] flex items-center ${
                       isActive(link.href) 
                         ? 'text-primary bg-primary/10 border border-primary/20' 
-                        : 'text-body hover:text-foreground hover:bg-white/5'
+                        : 'text-body hover:text-foreground hover:bg-slate-100'
                     }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                     whileHover={{ x: 4 }}
-                    // Prevent event bubbling
-                    onClickCapture={(e) => e.stopPropagation()}
                   >
                     <div className="flex items-center justify-between w-full">
                       <span className="text-base">{link.label}</span>
@@ -281,12 +254,12 @@ export const Navbar = () => {
                   </motion.a>
                 ))}
 
-                <div className="border-t border-slate-700/50 pt-3">
+                <div className="border-t border-surface-border pt-3">
                   <motion.a
-                    href="https://github.com/Rabin-Pant"
+                    href={profileLinks.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-base text-body hover:text-foreground transition-colors duration-200 px-4 py-4 rounded-xl min-h-[52px] hover:bg-white/5"
+                    className="flex items-center gap-3 text-base text-body hover:text-foreground transition-colors duration-200 px-4 py-4 rounded-xl min-h-[52px] hover:bg-slate-100"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.15 }}
@@ -298,11 +271,11 @@ export const Navbar = () => {
                   </motion.a>
 
                   <motion.a
-                    href="/resume.pdf"
+                    href={profileLinks.resume}
                     download
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block mt-2 px-4 py-4 rounded-xl bg-primary text-ink hover:bg-primary-dark transition-colors duration-200 text-sm font-medium text-center min-h-[52px] flex items-center justify-center"
+                    className="block mt-2 px-4 py-4 rounded-xl bg-primary text-white hover:bg-primary-dark transition-colors duration-200 text-sm font-medium text-center min-h-[52px] flex items-center justify-center"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}

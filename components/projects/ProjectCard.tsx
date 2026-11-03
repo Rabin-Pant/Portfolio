@@ -1,4 +1,3 @@
-// components/projects/ProjectCard.tsx
 'use client';
 
 import Link from 'next/link';
@@ -38,13 +37,13 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
       {/* Glow Effect on Hover */}
       <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-primary-dark rounded-xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 shadow-primary/10" />
 
-      <div className="relative panel rounded-xl overflow-hidden border border-slate-800 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-2xl">
+      <div className="relative panel rounded-xl overflow-hidden border border-surface-border hover:border-primary transition-all duration-300 shadow-lg hover:shadow-2xl">
         {/* Header with Icon */}
         <Link href={`/projects/${project.slug}`}>
-          <div className="relative h-32 bg-gradient-to-br from-slate-800/60 to-slate-900/60 overflow-hidden cursor-pointer">
+          <div className="relative h-32 bg-gradient-to-br from-white/60 to-white/60 overflow-hidden cursor-pointer">
             {/* Glow behind emoji — static, brightens slightly on hover. */}
             <div className="absolute inset-0 flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity duration-500">
-              <div className="w-40 h-40 rounded-full bg-[radial-gradient(circle,rgba(221,200,163,0.1)_0%,transparent_65%)]" />
+              <div className="w-40 h-40 rounded-full bg-[radial-gradient(circle,rgba(10,92,142,0.1)_0%,transparent_65%)]" />
             </div>
 
             {/* Large Emoji/Icon */}
@@ -59,7 +58,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
             </motion.div>
             
             {/* Overlay Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-white/20 to-transparent" />
             
             {/* Tech Stack Tags */}
             <motion.div 
@@ -74,7 +73,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.3 + i * 0.05 + index * 0.1 }}
-                  className="text-[10px] px-2 py-1 rounded-full bg-black/50 text-body border border-slate-700/50 hover:bg-black/70 transition-colors"
+                  className="text-[10px] px-2 py-1 rounded-full bg-white text-body border border-surface-border hover:bg-slate-100 transition-colors"
                 >
                   {tech}
                 </motion.span>
@@ -84,7 +83,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
-                  className="text-[10px] px-2 py-1 rounded-full bg-black/50 text-muted border border-slate-700/50"
+                  className="text-[10px] px-2 py-1 rounded-full bg-white text-muted border border-surface-border"
                 >
                   +{project.techStack.length - 3}
                 </motion.span>
@@ -98,19 +97,17 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 + index * 0.1 }}
             >
-              <span className="text-xs font-mono text-body bg-black/30 px-2 py-0.5 rounded-full border border-white/5">
+              <span className="text-xs font-mono text-body bg-white px-2 py-0.5 rounded-full border border-surface-border">
                 {project.year}
               </span>
             </motion.div>
 
             {/* "View Case Study" - Appears on hover */}
             <motion.div 
-              className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-sm"
+              className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/95 backdrop-blur-sm"
             >
               <span className="text-foreground font-medium text-sm flex items-center gap-2">
                 View Case Study
-                {/* Only animates while hovered — the overlay is invisible
-                    otherwise, so a permanent loop here was wasted work. */}
                 <span className="inline-block [--nudge:5px] group-hover:anim-nudge">
                   →
                 </span>
@@ -156,7 +153,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
           </Link>
 
           <motion.div 
-            className="flex items-center justify-between pt-3 border-t border-slate-800/50"
+            className="flex items-center justify-between pt-3 border-t border-surface-border"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25 + index * 0.1 }}

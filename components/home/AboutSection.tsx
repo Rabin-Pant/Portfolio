@@ -1,4 +1,3 @@
-// components/home/AboutSection.tsx
 'use client';
 
 import { useState } from 'react';
@@ -19,96 +18,85 @@ import {
   MapPin,
   Briefcase,
   GraduationCap,
-  Sparkles,
-  Brain,
   FolderKanban,
   BadgeCheck,
   Layers3
 } from 'lucide-react';
 
+const journeySteps = [
+  {
+    year: '2022',
+    title: 'Getting started',
+    description: 'I got curious about how websites actually work and built my first HTML and CSS page. That was enough to hook me.',
+    icon: Compass,
+  },
+  {
+    year: '2023',
+    title: 'Going deeper',
+    description: 'Picked up JavaScript and started building small static apps, then got interested in how bigger systems are put together.',
+    icon: LibraryBig,
+  },
+  {
+    year: '2024',
+    title: 'Finding a path',
+    description: 'Started BSc (Hons) Computing. Spent a lot of time on software architecture, algorithms, and cloud computing.',
+    icon: GraduationCap,
+  },
+  {
+    year: '2025',
+    title: 'Building for real',
+    description: 'Shipped three production apps and picked up five AWS certifications along the way. This is where I started treating full-stack work seriously.',
+    icon: BadgeCheck,
+  },
+];
+
+const futureGoals = [
+  {
+    icon: Rocket,
+    title: 'Cloud architecture',
+    description: 'I want to become an AWS Solutions Architect and get better at designing systems that scale without falling over.',
+  },
+  {
+    icon: Target,
+    title: 'Leading a team',
+    description: "Eventually I'd like to lead a small team and help other developers get better at building maintainable software.",
+  },
+  {
+    icon: Users,
+    title: 'Giving back locally',
+    description: 'I want to help grow the developer community in Nepal. Workshops, open source, whatever helps people get unstuck.',
+  },
+  {
+    icon: Lightbulb,
+    title: 'Building useful things',
+    description: "I'd rather build something that solves a real problem in Nepal, in education or healthcare, than another generic app.",
+  },
+];
+
+const stats = [
+  { value: '3+', label: 'Projects', icon: FolderKanban },
+  { value: '5', label: 'AWS Certs', icon: BadgeCheck },
+  { value: '7+', label: 'Tech Stacks', icon: Layers3 },
+  { value: '4+', label: 'Years Learning', icon: GraduationCap },
+];
+
+const tabs = [
+  { id: 'journey', label: 'My Journey', icon: Calendar },
+  { id: 'future', label: 'Future Goals', icon: Rocket },
+] as const;
+
 export const AboutSection = () => {
-  const [activeTab, setActiveTab] = useState<'journey' | 'future' | 'philosophy'>('journey');
-
-  const journeySteps = [
-    {
-      year: '2022',
-      title: 'Getting started',
-      description: 'I got curious about how websites actually work and built my first HTML and CSS page. That was enough to hook me.',
-      icon: Compass,
-    },
-    {
-      year: '2023',
-      title: 'Going deeper',
-      description: 'Picked up JavaScript and started building small static apps, then got interested in how bigger systems are put together.',
-      icon: LibraryBig,
-    },
-    {
-      year: '2024',
-      title: 'Finding a path',
-      description: 'Started BSc (Hons) Computing. Spent a lot of time on software architecture, algorithms, and cloud computing.',
-      icon: GraduationCap,
-    },
-    {
-      year: '2025',
-      title: 'Building for real',
-      description: 'Shipped three production apps and picked up five AWS certifications along the way. This is where I started treating full-stack work seriously.',
-      icon: BadgeCheck,
-    },
-  ];
-
-  const futureGoals = [
-    {
-      icon: Rocket,
-      title: 'Cloud architecture',
-      description: 'I want to become an AWS Solutions Architect and get better at designing systems that scale without falling over.',
-    },
-    {
-      icon: Target,
-      title: 'Leading a team',
-      description: "Eventually I'd like to lead a small team and help other developers get better at building maintainable software.",
-    },
-    {
-      icon: Users,
-      title: 'Giving back locally',
-      description: 'I want to help grow the developer community in Nepal. Workshops, open source, whatever helps people get unstuck.',
-    },
-    {
-      icon: Lightbulb,
-      title: 'Building useful things',
-      description: "I'd rather build something that solves a real problem in Nepal, in education or healthcare, than another generic app.",
-    },
-  ];
-
-  const philosophyItems = [
-    { icon: Brain, text: 'I try to keep code clean and documented well enough that I understand it six months later' },
-    { icon: Target, text: 'I think about scale early, but I don\'t over-engineer for problems I don\'t have yet' },
-    { icon: Lightbulb, text: 'I\'d rather spend an extra hour understanding the problem than rebuild the wrong solution twice' },
-    { icon: Sparkles, text: 'I\'m still learning most of the time, and I like it that way' },
-    { icon: Users, text: 'I like working with other developers and sharing what I\'ve figured out' },
-  ];
-
-  const stats = [
-    { value: '3+', label: 'Projects', icon: FolderKanban },
-    { value: '5', label: 'AWS Certs', icon: BadgeCheck },
-    { value: '7+', label: 'Tech Stacks', icon: Layers3 },
-    { value: '4+', label: 'Years Learning', icon: GraduationCap },
-  ];
-
-  const tabs = [
-    { id: 'journey', label: 'My Journey', icon: Calendar },
-    { id: 'future', label: 'Future Goals', icon: Rocket },
-    { id: 'philosophy', label: 'My Philosophy', icon: Lightbulb },
-  ] as const;
+  const [activeTab, setActiveTab] = useState<'journey' | 'future'>('journey');
 
   return (
-    <section className="py-20 md:py-28 bg-slate-900/10 relative overflow-hidden">
+    <section className="py-20 md:py-28 bg-white relative overflow-hidden">
       {/* Background Decoration */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Soft glows as radial gradients rather than blur-3xl: same look,
             but a gradient is painted once, while a 64px blur filter is a
             per-frame GPU pass whenever this area is re-composited. */}
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-[radial-gradient(circle,rgba(221,200,163,0.05)_0%,transparent_70%)]" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-[radial-gradient(circle,rgba(221,200,163,0.05)_0%,transparent_70%)]" />
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-[radial-gradient(circle,rgba(10,92,142,0.05)_0%,transparent_70%)]" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-[radial-gradient(circle,rgba(10,92,142,0.05)_0%,transparent_70%)]" />
       </div>
 
       <div className="container-custom relative z-10">
@@ -127,11 +115,11 @@ export const AboutSection = () => {
             transition={{ delay: 0.1 }}
             viewport={{ once: true }}
           >
-            Who I <span className="gradient-text">am</span>
+            Who I <span className="accent-text">am</span>
           </motion.h2>
 
           <motion.p
-            className="mt-3 md:mt-4 text-body max-w-2xl mx-auto text-sm md:text-base drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]"
+            className="mt-3 md:mt-4 text-body max-w-2xl mx-auto text-sm md:text-base"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -159,7 +147,7 @@ export const AboutSection = () => {
                 transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
-                className="bg-slate-900/60 rounded-xl md:rounded-2xl p-3 md:p-4 text-center border border-slate-800 hover:border-primary/30 transition-all duration-300 group"
+                className="bg-white rounded-xl md:rounded-2xl p-3 md:p-4 text-center border border-surface-border hover:border-primary/30 transition-all duration-300 group"
               >
                 <div className="flex justify-center mb-1 md:mb-2">
                   <div className="p-1.5 md:p-2.5 rounded-lg md:rounded-xl bg-primary/10 group-hover:scale-110 transition-transform duration-300">
@@ -184,14 +172,8 @@ export const AboutSection = () => {
             className="lg:col-span-2"
           >
             <div className="lg:sticky lg:top-24">
-              <div className="bg-surface rounded-xl md:rounded-2xl overflow-hidden border border-slate-800 hover:border-primary/30 transition-all duration-300 shadow-xl group">
+              <div className="bg-surface rounded-xl md:rounded-2xl overflow-hidden border border-surface-border hover:border-primary/30 transition-all duration-300 shadow-xl group">
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
-                  {/* No hover-scale here: an animated transform: scale() on a
-                      real photo forces the GPU to resample the whole texture
-                      on every frame of the transition — confirmed expensive
-                      via CDP trace on the backdrop's crossfade (59% of that
-                      transition's cost). The card's border-color hover below
-                      still gives hover feedback without that cost. */}
                   <Image
                     src="/images/rabin2.jpeg"
                     alt="Rabin Pant"
@@ -199,7 +181,7 @@ export const AboutSection = () => {
                     sizes="(max-width: 1024px) 100vw, 480px"
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
                 </div>
                 
                 <div className="p-4 md:p-6">
@@ -208,25 +190,25 @@ export const AboutSection = () => {
                   
                   <div className="mt-3 md:mt-4 space-y-2 md:space-y-2.5 text-sm">
                     <div className="flex items-center gap-2 md:gap-3 text-muted group/item hover:text-body transition-colors">
-                      <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
+                      <div className="p-1 md:p-1.5 rounded-lg bg-white group-hover/item:bg-primary/10 transition-colors">
                         <MapPin size={12} className="text-muted group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
                       <span className="text-xs md:text-sm">Kathmandu, Nepal</span>
                     </div>
                     <div className="flex items-center gap-2 md:gap-3 text-muted group/item hover:text-body transition-colors">
-                      <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
+                      <div className="p-1 md:p-1.5 rounded-lg bg-white group-hover/item:bg-primary/10 transition-colors">
                         <GraduationCap size={12} className="text-muted group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
                       <span className="text-xs md:text-sm">BSc (Hons) Computing</span>
                     </div>
                     <div className="flex items-center gap-2 md:gap-3 text-muted group/item hover:text-body transition-colors">
-                      <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
+                      <div className="p-1 md:p-1.5 rounded-lg bg-white group-hover/item:bg-primary/10 transition-colors">
                         <Briefcase size={12} className="text-muted group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
                       <span className="text-xs md:text-sm">3+ Projects</span>
                     </div>
                     <div className="flex items-center gap-2 md:gap-3 text-muted group/item hover:text-body transition-colors">
-                      <div className="p-1 md:p-1.5 rounded-lg bg-slate-800/50 group-hover/item:bg-primary/10 transition-colors">
+                      <div className="p-1 md:p-1.5 rounded-lg bg-white group-hover/item:bg-primary/10 transition-colors">
                         <Award size={12} className="text-muted group-hover/item:text-primary transition-colors md:w-[14px] md:h-[14px]" />
                       </div>
                       <span className="text-xs md:text-sm">5 AWS Certifications</span>
@@ -256,8 +238,8 @@ export const AboutSection = () => {
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-all duration-300 whitespace-nowrap text-xs sm:text-sm font-medium flex-shrink-0 ${
                       isActive
-                        ? 'bg-primary text-ink shadow-lg shadow-primary/25'
-                        : 'bg-slate-800/30 text-muted hover:text-foreground hover:bg-slate-700/50'
+                        ? 'bg-primary text-white shadow-lg shadow-primary/25'
+                        : 'bg-white text-muted hover:text-foreground hover:bg-slate-100'
                     }`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -277,7 +259,7 @@ export const AboutSection = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.3 }}
-                className="bg-slate-900/60 rounded-xl md:rounded-2xl p-4 md:p-8 border border-slate-800 min-h-[300px] md:min-h-[380px]"
+                className="bg-white rounded-xl md:rounded-2xl p-4 md:p-8 border border-surface-border min-h-[300px] md:min-h-[380px]"
               >
                 {activeTab === 'journey' && (
                   <div className="space-y-4 md:space-y-6">
@@ -304,7 +286,7 @@ export const AboutSection = () => {
                         return (
                           <div
                             key={step.year}
-                            className="relative p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700"
+                            className="relative p-3 sm:p-4 rounded-xl bg-white border border-surface-border"
                           >
                             <div className="absolute -left-[21px] sm:-left-[29px] p-1 sm:p-1.5 rounded-full bg-primary/20 border border-primary/30">
                               <Icon size={10} className="text-primary sm:w-3 sm:h-3" />
@@ -339,7 +321,7 @@ export const AboutSection = () => {
                         return (
                           <div
                             key={goal.title}
-                            className="p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 group cursor-default"
+                            className="p-3 sm:p-4 rounded-xl bg-white border border-surface-border hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 group cursor-default"
                           >
                             <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
                               <div className="p-1.5 sm:p-2 rounded-lg bg-primary/10 group-hover:scale-110 transition-transform duration-300">
@@ -362,44 +344,6 @@ export const AboutSection = () => {
                   </div>
                 )}
 
-                {activeTab === 'philosophy' && (
-                  <div className="space-y-4 md:space-y-6">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 md:p-2.5 rounded-xl bg-primary/10 border border-primary/20 flex-shrink-0">
-                        <Lightbulb size={18} className="text-primary md:w-[20px] md:h-[20px]" />
-                      </div>
-                      <h3 className="text-lg md:text-xl font-mono font-bold text-foreground">My Philosophy</h3>
-                    </div>
-                    <p className="text-muted leading-relaxed text-sm md:text-base">
-                      A few things I try to stick to, whether or not anyone&apos;s checking.
-                    </p>
-
-                    <div className="space-y-2 sm:space-y-3 mt-4">
-                      {philosophyItems.map((item) => {
-                        const Icon = item.icon;
-                        return (
-                          <div
-                            key={item.text}
-                            className="flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-primary/30 hover:translate-x-1 transition-all duration-300 group cursor-default"
-                          >
-                            <div className="p-1 sm:p-1.5 rounded-lg bg-primary/10 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                              <Icon size={12} className="text-primary" />
-                            </div>
-                            <span className="text-xs sm:text-sm text-body leading-relaxed">{item.text}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    <div className="mt-4 p-3 sm:p-4 rounded-xl bg-slate-800/30 border border-slate-700 text-center group hover:border-primary/30 transition-all duration-300">
-                      <Sparkles size={16} className="text-primary mx-auto mb-1 sm:mb-2" />
-                      <p className="text-xs sm:text-sm text-muted">
-                        &quot;Good software starts with a good plan.&quot;
-                      </p>
-                      <p className="text-[10px] sm:text-xs text-muted mt-1">— My development mantra</p>
-                    </div>
-                  </div>
-                )}
               </motion.div>
             </AnimatePresence>
 
@@ -412,14 +356,14 @@ export const AboutSection = () => {
             >
               <Link
                 href="/#projects"
-                className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-xl bg-primary text-ink hover:bg-primary-dark transition-all duration-200 text-xs md:text-sm font-medium shadow-lg shadow-primary/20 hover:shadow-primary/40"
+                className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-xl bg-primary text-white hover:bg-primary-dark transition-all duration-200 text-xs md:text-sm font-medium shadow-lg shadow-primary/20 hover:shadow-primary/40"
               >
                 View My Work
                 <ArrowRight size={14} />
               </Link>
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-xl border border-slate-700 hover:border-primary hover:bg-primary/10 transition-all duration-200 text-xs md:text-sm font-medium"
+                className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-xl border border-surface-border hover:border-primary hover:bg-primary/10 transition-all duration-200 text-xs md:text-sm font-medium"
               >
                 Let&apos;s Connect
                 <ChevronRight size={14} />

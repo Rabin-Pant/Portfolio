@@ -16,15 +16,15 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#0A0A0A',
+          background: '#0a5c8e',
           borderRadius: 6,
+          color: '#ffffff',
+          fontSize: 16,
+          fontWeight: 700,
+          letterSpacing: '-0.5px',
         }}
       >
-        <svg width="32" height="32" viewBox="0 0 32 32">
-          <path d="M2 26 L10 13 L18 26 Z" fill="#3F7D57" />
-          <path d="M11 26 L20 8 L30 26 Z" fill="#6FB88D" />
-          <path d="M20 8 L25 17 L15 17 Z" fill="#D5EFE0" />
-        </svg>
+        RP
       </div>
     ),
     { ...size }

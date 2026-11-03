@@ -1,4 +1,3 @@
-// components/home/ExperienceSection.tsx
 'use client';
 
 import { motion } from 'framer-motion';
@@ -9,23 +8,23 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 
-export const ExperienceSection = () => {
-  const experiences = [
-    {
-      company: 'Karmachari Sanchaya Kosh',
-      location: 'Pulchowk, Lalitpur',
-      role: 'Full Stack Developer Intern',
-      period: 'August 2026 - Present',
-      current: true,
-      stack: ['C#', 'ASP.NET Core Web API', 'ASP.NET Core MVC', 'Entity Framework Core', 'Oracle Database'],
-      highlights: [
-        'Built and maintained internal web applications using ASP.NET Core MVC and Web API.',
-        'Designed Entity Framework Core data models against an Oracle Database for the core business workflows.',
-        'Worked the full stack, from API endpoints to the UI, as part of the software development team.',
-      ],
-    },
-  ];
+const experiences = [
+  {
+    company: 'Karmachari Sanchaya Kosh',
+    location: 'Pulchowk, Lalitpur',
+    role: 'Full Stack Developer Intern',
+    period: 'August 2026 - Present',
+    current: true,
+    stack: ['C#', 'ASP.NET Core Web API', 'ASP.NET Core MVC', 'Entity Framework Core', 'Oracle Database'],
+    highlights: [
+      'Built and maintained internal web applications using ASP.NET Core MVC and Web API.',
+      'Designed Entity Framework Core data models against an Oracle Database for the core business workflows.',
+      'Worked the full stack, from API endpoints to the UI, as part of the software development team.',
+    ],
+  },
+];
 
+export const ExperienceSection = () => {
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
       <div className="container-custom relative z-10">
@@ -44,7 +43,7 @@ export const ExperienceSection = () => {
             transition={{ delay: 0.1 }}
             viewport={{ once: true }}
           >
-            Work <span className="gradient-text">experience</span>
+            Work <span className="accent-text">experience</span>
           </motion.h2>
 
         </motion.div>
@@ -62,7 +61,7 @@ export const ExperienceSection = () => {
             >
               <div className="absolute -left-[25px] sm:-left-[31px] top-6 h-3 w-3 rounded-full border-2 border-primary bg-surface" />
 
-              <div className="panel rounded-xl md:rounded-2xl p-5 md:p-8 border border-slate-800 hover:border-primary/30 transition-all duration-300 group">
+              <div className="panel rounded-xl md:rounded-2xl p-5 md:p-8 border border-surface-border hover:border-primary/30 transition-all duration-300 group">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-5">
                   <div className="flex items-start gap-3 md:gap-4">
                     <div className="p-2.5 md:p-3 rounded-xl bg-primary/10 border border-primary/20 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
@@ -119,11 +118,11 @@ export const ExperienceSection = () => {
                 </ul>
 
                 {/* Tech Stack */}
-                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-800">
+                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-surface-border">
                   {exp.stack.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2.5 py-1 rounded-full bg-slate-800/50 text-xs text-body border border-slate-700/50 hover:border-primary transition-colors duration-200"
+                      className="px-2.5 py-1 rounded-full bg-white text-xs text-body border border-surface-border hover:border-primary transition-colors duration-200"
                     >
                       {tech}
                     </span>
