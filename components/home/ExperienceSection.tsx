@@ -17,9 +17,10 @@ const experiences = [
     current: true,
     stack: ['C#', 'ASP.NET Core Web API', 'ASP.NET Core MVC', 'Entity Framework Core', 'Oracle Database'],
     highlights: [
-      'Working as one of two developers on a production Procurement Management System covering requisitions, approvals, vendor procurement, purchase orders, delivery, and invoicing/payment.',
-      'Developing inventory and stock tracking, vendor management, and reporting dashboards using ASP.NET Core MVC, Web API, Entity Framework Core, and Oracle.',
-      'Contributing to requirements gathering, SRS documentation, database and ERD design, and full-stack implementation.',
+      'Developing an internal Procurement Management System for EPF in a team of two, building ASP.NET Core MVC interfaces, REST APIs, and Oracle-backed data services.',
+      'Implementing procurement and inventory workflows spanning departmental requisitions, approvals, vendor quotations, purchase orders, goods receipt, stock reservations, and item issuance.',
+      'Building invoice verification and payment recommendation workflows with role-based permissions, dual approval, and audit trails to keep decisions traceable.',
+      'Developing operational dashboards, procurement and inventory reports, and Excel/PDF exports, with contributions to automated testing and regular stakeholder reviews.',
     ],
   },
 ];
