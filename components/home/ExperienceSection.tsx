@@ -19,7 +19,7 @@ const experiences = [
     highlights: [
       'Developed EPF\'s internal Procurement Management System using ASP.NET Core MVC, Web API, Entity Framework Core, and Oracle as one of two developers.',
       'Implemented procurement and inventory workflows covering approvals, stock tracking, invoice verification, and payment recommendations, with role-based access and audit trails.',
-      'Collaborated with stakeholders on requirements analysis, SRS documentation, system architecture, and UML/ERD design.',
+      'Collaborated with the software development team on requirements analysis, SRS documentation, system architecture, and UML/ERD design.',
     ],
   },
 ];
