@@ -1,4 +1,4 @@
-# Rabin Pant's portfolio
+# Rabin Pant portfolio
 
 A Next.js portfolio built with React, TypeScript, Tailwind CSS, and Framer Motion.
 
