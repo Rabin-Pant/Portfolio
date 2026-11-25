@@ -13,8 +13,7 @@ const experiences = [
     company: 'Karmachari Sanchaya Kosh',
     location: 'Pulchowk, Lalitpur',
     role: 'Full Stack Developer Intern',
-    period: 'August 2026 - Present',
-    current: true,
+    period: '03 August 2026 - 26 November 2026',
     stack: ['C#', 'ASP.NET Core Web API', 'ASP.NET Core MVC', 'Entity Framework Core', 'Oracle Database'],
     highlights: [
       'Developed EPF\'s internal Procurement Management System using ASP.NET Core MVC, Web API, Entity Framework Core, and Oracle as one of two developers.',
@@ -87,17 +86,6 @@ export const ExperienceSection = () => {
                     </div>
                   </div>
 
-                  {exp.current && (
-                    <motion.span
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.2 }}
-                      viewport={{ once: true }}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/25 text-primary text-[10px] md:text-xs font-medium self-start flex-shrink-0"
-                    >
-                      Currently here
-                    </motion.span>
-                  )}
                 </div>
 
                 {/* Highlights */}
