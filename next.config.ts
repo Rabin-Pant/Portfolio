@@ -9,9 +9,6 @@ const localAddresses = Object.values(networkInterfaces()).flatMap((addresses) =>
 );
 
 const nextConfig: NextConfig = {
-  experimental: {
-    agentUpgrade: 'security',
-  },
   allowedDevOrigins: localAddresses,
   images: {
     formats: ['image/avif', 'image/webp'],
